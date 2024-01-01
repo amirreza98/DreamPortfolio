@@ -366,3 +366,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore: minor cleanup on 2025-04-29
 - docs: clarify implementation on 2025-04-29
 - feat(Game2D): add enemy spawning on 2024-01-01
+- docs(App): update SnapScroller API on 2024-01-01
