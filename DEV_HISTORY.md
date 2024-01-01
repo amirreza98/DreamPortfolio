@@ -365,3 +365,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor: small internal improvement on 2025-04-28
 - chore: minor cleanup on 2025-04-29
 - docs: clarify implementation on 2025-04-29
+- feat(Game2D): add enemy spawning on 2024-01-01
