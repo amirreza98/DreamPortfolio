@@ -369,3 +369,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(App): update SnapScroller API on 2024-01-01
 - chore(App): update project metadata on 2024-01-01
 - feat(Game2D): add sound effects on 2024-01-03
+- docs(Contact): clarify Formspree setup on 2024-01-03
