@@ -368,3 +368,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add enemy spawning on 2024-01-01
 - docs(App): update SnapScroller API on 2024-01-01
 - chore(App): update project metadata on 2024-01-01
+- feat(Game2D): add sound effects on 2024-01-03
