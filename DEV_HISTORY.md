@@ -371,3 +371,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add sound effects on 2024-01-03
 - docs(Contact): clarify Formspree setup on 2024-01-03
 - docs(Contact): clarify Formspree setup on 2024-01-03
+- style(Hero): tweak hero typography on 2024-01-04
