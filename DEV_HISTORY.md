@@ -373,3 +373,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Contact): clarify Formspree setup on 2024-01-03
 - style(Hero): tweak hero typography on 2024-01-04
 - docs(Game2D): add entity type definitions on 2024-01-04
+- chore(lib): update constants on 2024-01-04
