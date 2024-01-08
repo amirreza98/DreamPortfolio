@@ -375,3 +375,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): add entity type definitions on 2024-01-04
 - chore(lib): update constants on 2024-01-04
 - fix(Game2D): adjust physics timestep on 2024-01-08
+- feat(Hero): improve snapping animation on 2024-01-08
