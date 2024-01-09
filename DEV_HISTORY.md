@@ -377,3 +377,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): adjust physics timestep on 2024-01-08
 - feat(Hero): improve snapping animation on 2024-01-08
 - refactor(Sections): modularize Game2D section on 2024-01-09
+- docs(BioTicker): clarify animation logic on 2024-01-09
