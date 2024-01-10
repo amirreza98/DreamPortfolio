@@ -379,3 +379,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Sections): modularize Game2D section on 2024-01-09
 - docs(BioTicker): clarify animation logic on 2024-01-09
 - feat(BioTicker): add animation easing on 2024-01-09
+- docs(BioTicker): add usage instructions on 2024-01-10
