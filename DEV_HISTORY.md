@@ -380,3 +380,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(BioTicker): clarify animation logic on 2024-01-09
 - feat(BioTicker): add animation easing on 2024-01-09
 - docs(BioTicker): add usage instructions on 2024-01-10
+- refactor(Hero): separate animation hooks on 2024-01-10
