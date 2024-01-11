@@ -383,3 +383,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Hero): separate animation hooks on 2024-01-10
 - docs(Game2D): add example entities on 2024-01-11
 - refactor(Sections): modularize Game2D section on 2024-01-11
+- style(Hero): improve section spacing on 2024-01-11
