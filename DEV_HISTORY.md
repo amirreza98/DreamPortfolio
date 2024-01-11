@@ -381,3 +381,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(BioTicker): add animation easing on 2024-01-09
 - docs(BioTicker): add usage instructions on 2024-01-10
 - refactor(Hero): separate animation hooks on 2024-01-10
+- docs(Game2D): add example entities on 2024-01-11
