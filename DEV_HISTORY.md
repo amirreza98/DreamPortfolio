@@ -385,3 +385,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Sections): modularize Game2D section on 2024-01-11
 - style(Hero): improve section spacing on 2024-01-11
 - style(Hero): improve section spacing on 2024-01-12
+- fix(App): correct SnapScroller snapping on 2024-01-12
