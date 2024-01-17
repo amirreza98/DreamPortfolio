@@ -388,3 +388,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(App): correct SnapScroller snapping on 2024-01-12
 - style(Game2D): button hover transition on 2024-01-16
 - refactor(Game2D): separate collision logic on 2024-01-16
+- refactor(Game2D): modularize physics engine on 2024-01-17
