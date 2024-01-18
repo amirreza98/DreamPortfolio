@@ -392,3 +392,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Projects): update readme screenshots on 2024-01-17
 - feat(Projects): add lazy loading images on 2024-01-18
 - docs(Game2D): add canvas setup guide on 2024-01-18
+- style(Hero): improve section spacing on 2024-01-18
