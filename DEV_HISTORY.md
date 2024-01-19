@@ -393,3 +393,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Projects): add lazy loading images on 2024-01-18
 - docs(Game2D): add canvas setup guide on 2024-01-18
 - style(Hero): improve section spacing on 2024-01-18
+- chore(lib): remove debug logs on 2024-01-19
