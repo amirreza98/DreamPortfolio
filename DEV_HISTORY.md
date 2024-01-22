@@ -394,3 +394,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): add canvas setup guide on 2024-01-18
 - style(Hero): improve section spacing on 2024-01-18
 - chore(lib): remove debug logs on 2024-01-19
+- chore(App): update project metadata on 2024-01-22
