@@ -398,3 +398,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add enemy spawning on 2024-01-22
 - feat(Contact): validate email input on 2024-01-23
 - style(Hero): update colors and font sizes on 2024-01-23
+- style(Projects): adjust grid spacing on 2024-01-23
