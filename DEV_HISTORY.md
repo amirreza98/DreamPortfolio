@@ -396,3 +396,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(lib): remove debug logs on 2024-01-19
 - chore(App): update project metadata on 2024-01-22
 - feat(Game2D): add enemy spawning on 2024-01-22
+- feat(Contact): validate email input on 2024-01-23
