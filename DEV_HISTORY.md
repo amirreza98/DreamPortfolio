@@ -401,3 +401,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Projects): adjust grid spacing on 2024-01-23
 - style(Hero): improve section spacing on 2024-01-24
 - fix(Game2D): correct collision detection on 2024-01-24
+- feat(Hero): add responsive layout on 2024-01-24
