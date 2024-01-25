@@ -404,3 +404,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add responsive layout on 2024-01-24
 - chore(Projects): organize images folder on 2024-01-25
 - refactor(Game2D): simplify input system on 2024-01-25
+- fix(BioTicker): fix text overflow on 2024-01-25
