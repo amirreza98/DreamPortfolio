@@ -405,3 +405,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Projects): organize images folder on 2024-01-25
 - refactor(Game2D): simplify input system on 2024-01-25
 - fix(BioTicker): fix text overflow on 2024-01-25
+- chore(Game2D): update constants on 2024-01-26
