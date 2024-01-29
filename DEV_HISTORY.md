@@ -407,3 +407,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(BioTicker): fix text overflow on 2024-01-25
 - chore(Game2D): update constants on 2024-01-26
 - feat(Hero): add smooth scroll snapping on 2024-01-29
+- docs(Game2D): add canvas setup guide on 2024-01-29
