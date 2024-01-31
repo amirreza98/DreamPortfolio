@@ -409,3 +409,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add smooth scroll snapping on 2024-01-29
 - docs(Game2D): add canvas setup guide on 2024-01-29
 - chore(Contact): cleanup event listeners on 2024-01-30
+- refactor(App): simplify routing logic on 2024-01-31
