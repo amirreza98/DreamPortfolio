@@ -413,3 +413,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): adjust canvas rendering on 2024-01-31
 - style(Contact): adjust form spacing on 2024-02-06
 - refactor(Hero): separate animation hooks on 2024-02-06
+- feat(Game2D): add shooting mechanic on 2024-02-07
