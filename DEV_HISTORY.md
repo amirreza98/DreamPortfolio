@@ -414,3 +414,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Contact): adjust form spacing on 2024-02-06
 - refactor(Hero): separate animation hooks on 2024-02-06
 - feat(Game2D): add shooting mechanic on 2024-02-07
+- chore(Contact): cleanup event listeners on 2024-02-07
