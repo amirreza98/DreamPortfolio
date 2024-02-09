@@ -415,3 +415,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Hero): separate animation hooks on 2024-02-06
 - feat(Game2D): add shooting mechanic on 2024-02-07
 - chore(Contact): cleanup event listeners on 2024-02-07
+- chore(lib): clean up helper functions on 2024-02-09
