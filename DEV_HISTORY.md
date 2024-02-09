@@ -416,3 +416,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add shooting mechanic on 2024-02-07
 - chore(Contact): cleanup event listeners on 2024-02-07
 - chore(lib): clean up helper functions on 2024-02-09
+- refactor(Game2D): separate entity logic on 2024-02-09
