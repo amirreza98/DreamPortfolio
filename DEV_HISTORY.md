@@ -418,3 +418,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(lib): clean up helper functions on 2024-02-09
 - refactor(Game2D): separate entity logic on 2024-02-09
 - feat(Game2D): add projectiles on 2024-02-12
+- docs(Game2D): add entity type definitions on 2024-02-13
