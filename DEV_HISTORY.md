@@ -419,3 +419,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): separate entity logic on 2024-02-09
 - feat(Game2D): add projectiles on 2024-02-12
 - docs(Game2D): add entity type definitions on 2024-02-13
+- refactor(Hero): separate animation hooks on 2024-02-14
