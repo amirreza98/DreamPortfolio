@@ -422,3 +422,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Hero): separate animation hooks on 2024-02-14
 - feat(Game2D): add enemy AI on 2024-02-14
 - feat(Game2D): add basic player movement on 2024-02-14
+- fix(BioTicker): fix scroll bug on 2024-02-20
