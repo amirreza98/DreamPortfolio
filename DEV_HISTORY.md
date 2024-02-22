@@ -425,3 +425,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(BioTicker): fix scroll bug on 2024-02-20
 - fix(BioTicker): adjust animation timing on 2024-02-20
 - feat(Projects): add lazy loading images on 2024-02-22
+- style(Button): tweak hover state on 2024-02-22
