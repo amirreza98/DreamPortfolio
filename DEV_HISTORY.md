@@ -430,3 +430,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Hero): update animation notes on 2024-02-23
 - feat(Contact): add confirmation message on 2024-02-23
 - feat(App): initialize SnapScroller on 2024-02-26
+- fix(Projects): correct image aspect ratio on 2024-02-27
