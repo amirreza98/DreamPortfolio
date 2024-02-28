@@ -432,3 +432,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(App): initialize SnapScroller on 2024-02-26
 - fix(Projects): correct image aspect ratio on 2024-02-27
 - refactor(Projects): optimize gallery render on 2024-02-27
+- fix(Projects): correct image aspect ratio on 2024-02-28
