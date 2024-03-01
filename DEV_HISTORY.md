@@ -435,3 +435,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Projects): correct image aspect ratio on 2024-02-28
 - feat(Game2D): add sound effects on 2024-02-28
 - feat(Contact): validate email input on 2024-03-01
+- docs(Projects): add screenshot section on 2024-03-01
