@@ -438,3 +438,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Projects): add screenshot section on 2024-03-01
 - fix(BioTicker): correct text wrapping on 2024-03-01
 - fix(BioTicker): correct text wrapping on 2024-03-05
+- docs(BioTicker): add usage instructions on 2024-03-07
