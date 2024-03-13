@@ -441,3 +441,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(BioTicker): add usage instructions on 2024-03-07
 - fix(Contact): prevent form submission error on 2024-03-07
 - refactor(Game2D): simplify vector math on 2024-03-13
+- docs(Projects): update screenshot captions on 2024-03-13
