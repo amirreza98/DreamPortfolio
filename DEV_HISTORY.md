@@ -442,3 +442,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Contact): prevent form submission error on 2024-03-07
 - refactor(Game2D): simplify vector math on 2024-03-13
 - docs(Projects): update screenshot captions on 2024-03-13
+- refactor(Hero): separate animation hooks on 2024-03-14
