@@ -448,3 +448,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add scoring system on 2024-03-18
 - docs(BioTicker): clarify animation logic on 2024-03-18
 - style(Hero): tweak hero typography on 2024-03-18
+- feat(Contact): validate email input on 2024-03-19
