@@ -449,3 +449,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(BioTicker): clarify animation logic on 2024-03-18
 - style(Hero): tweak hero typography on 2024-03-18
 - feat(Contact): validate email input on 2024-03-19
+- style(Game2D): button hover effect on 2024-03-20
