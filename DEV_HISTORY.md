@@ -452,3 +452,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Game2D): button hover effect on 2024-03-20
 - fix(Game2D): prevent negative coordinates on 2024-03-20
 - feat(Projects): implement gallery layout on 2024-03-21
+- refactor(Hero): separate animation hooks on 2024-03-21
