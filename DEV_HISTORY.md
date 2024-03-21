@@ -453,3 +453,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): prevent negative coordinates on 2024-03-20
 - feat(Projects): implement gallery layout on 2024-03-21
 - refactor(Hero): separate animation hooks on 2024-03-21
+- feat(Game2D): add scoring system on 2024-03-21
