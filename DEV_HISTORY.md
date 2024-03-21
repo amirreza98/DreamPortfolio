@@ -451,3 +451,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Contact): validate email input on 2024-03-19
 - style(Game2D): button hover effect on 2024-03-20
 - fix(Game2D): prevent negative coordinates on 2024-03-20
+- feat(Projects): implement gallery layout on 2024-03-21
