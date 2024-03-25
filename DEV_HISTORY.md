@@ -456,3 +456,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add scoring system on 2024-03-21
 - docs(Projects): update layout guidelines on 2024-03-22
 - fix(Game2D): correct collision detection on 2024-03-22
+- refactor(Game2D): extract BioTicker dependency on 2024-03-25
