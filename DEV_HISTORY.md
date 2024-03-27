@@ -458,3 +458,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): correct collision detection on 2024-03-22
 - refactor(Game2D): extract BioTicker dependency on 2024-03-25
 - chore(Hero): remove redundant CSS on 2024-03-26
+- style(Button): tweak hover state on 2024-03-27
