@@ -459,3 +459,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): extract BioTicker dependency on 2024-03-25
 - chore(Hero): remove redundant CSS on 2024-03-26
 - style(Button): tweak hover state on 2024-03-27
+- fix(App): adjust SnapScroller sensitivity on 2024-03-27
