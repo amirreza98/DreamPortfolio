@@ -460,3 +460,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Hero): remove redundant CSS on 2024-03-26
 - style(Button): tweak hover state on 2024-03-27
 - fix(App): adjust SnapScroller sensitivity on 2024-03-27
+- style(Game2D): tweak sprite alignment on 2024-03-29
