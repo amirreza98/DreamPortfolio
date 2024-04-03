@@ -465,3 +465,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Sections): modularize Game2D section on 2024-04-01
 - fix(Contact): email validation regex on 2024-04-01
 - style(Button): improve click feedback on 2024-04-02
+- docs(Contact): clarify Formspree setup on 2024-04-03
