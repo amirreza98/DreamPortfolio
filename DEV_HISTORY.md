@@ -467,3 +467,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Button): improve click feedback on 2024-04-02
 - docs(Contact): clarify Formspree setup on 2024-04-03
 - docs(BioTicker): add usage instructions on 2024-04-04
+- fix(Game2D): correct collision detection on 2024-04-04
