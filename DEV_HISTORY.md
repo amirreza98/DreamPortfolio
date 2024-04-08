@@ -470,3 +470,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): correct collision detection on 2024-04-04
 - docs(Game2D): add level setup instructions on 2024-04-08
 - style(Hero): update colors and font sizes on 2024-04-08
+- fix(BioTicker): fix scroll bug on 2024-04-08
