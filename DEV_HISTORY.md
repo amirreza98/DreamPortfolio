@@ -471,3 +471,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): add level setup instructions on 2024-04-08
 - style(Hero): update colors and font sizes on 2024-04-08
 - fix(BioTicker): fix scroll bug on 2024-04-08
+- chore(Game2D): refactor loop timing on 2024-04-09
