@@ -473,3 +473,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(BioTicker): fix scroll bug on 2024-04-08
 - chore(Game2D): refactor loop timing on 2024-04-09
 - fix(Contact): email validation regex on 2024-04-09
+- fix(Game2D): correct collision detection on 2024-04-10
