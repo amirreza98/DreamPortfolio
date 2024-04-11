@@ -475,3 +475,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Contact): email validation regex on 2024-04-09
 - fix(Game2D): correct collision detection on 2024-04-10
 - fix(Game2D): adjust physics timestep on 2024-04-11
+- style(Hero): tweak background gradient on 2024-04-11
