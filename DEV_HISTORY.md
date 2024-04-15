@@ -477,3 +477,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): adjust physics timestep on 2024-04-11
 - style(Hero): tweak background gradient on 2024-04-11
 - feat(Game2D): add basic player movement on 2024-04-11
+- docs(Hero): add hero section guide on 2024-04-15
