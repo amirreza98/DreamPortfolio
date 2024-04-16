@@ -479,3 +479,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add basic player movement on 2024-04-11
 - docs(Hero): add hero section guide on 2024-04-15
 - feat(Projects): add lazy loading images on 2024-04-15
+- fix(Game2D): prevent overlapping entities on 2024-04-16
