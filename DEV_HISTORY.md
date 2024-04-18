@@ -480,3 +480,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Hero): add hero section guide on 2024-04-15
 - feat(Projects): add lazy loading images on 2024-04-15
 - fix(Game2D): prevent overlapping entities on 2024-04-16
+- refactor(Hero): separate animation hooks on 2024-04-18
