@@ -482,3 +482,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): prevent overlapping entities on 2024-04-16
 - refactor(Hero): separate animation hooks on 2024-04-18
 - chore(Contact): cleanup event listeners on 2024-04-19
+- feat(Game2D): add scoring system on 2024-04-19
