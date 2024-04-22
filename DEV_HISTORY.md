@@ -483,3 +483,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Hero): separate animation hooks on 2024-04-18
 - chore(Contact): cleanup event listeners on 2024-04-19
 - feat(Game2D): add scoring system on 2024-04-19
+- style(Hero): tweak hero typography on 2024-04-22
