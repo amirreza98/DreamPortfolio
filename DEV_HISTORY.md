@@ -488,3 +488,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Projects): optimize gallery render on 2024-04-22
 - chore(Hero): remove redundant CSS on 2024-04-23
 - fix(App): adjust SnapScroller sensitivity on 2024-04-25
+- style(Hero): tweak background gradient on 2024-04-26
