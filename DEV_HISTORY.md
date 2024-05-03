@@ -493,3 +493,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add projectiles on 2024-05-01
 - feat(BioTicker): add animation easing on 2024-05-02
 - style(Hero): tweak background gradient on 2024-05-03
+- chore(App): clean old snapshots on 2024-05-03
