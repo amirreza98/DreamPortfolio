@@ -492,3 +492,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(App): prevent SnapScroller overflow on 2024-04-26
 - feat(Game2D): add projectiles on 2024-05-01
 - feat(BioTicker): add animation easing on 2024-05-02
+- style(Hero): tweak background gradient on 2024-05-03
