@@ -495,3 +495,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): tweak background gradient on 2024-05-03
 - chore(App): clean old snapshots on 2024-05-03
 - fix(Game2D): correct collision detection on 2024-05-03
+- fix(Game2D): correct collision detection on 2024-05-06
