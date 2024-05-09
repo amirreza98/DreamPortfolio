@@ -498,3 +498,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): correct collision detection on 2024-05-06
 - chore(lib): remove debug logs on 2024-05-06
 - docs(Contact): clarify Formspree setup on 2024-05-08
+- docs(App): update SnapScroller API on 2024-05-09
