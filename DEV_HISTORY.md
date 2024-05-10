@@ -500,3 +500,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Contact): clarify Formspree setup on 2024-05-08
 - docs(App): update SnapScroller API on 2024-05-09
 - chore(App): clean unused imports on 2024-05-09
+- chore(lib): clean up helper functions on 2024-05-10
