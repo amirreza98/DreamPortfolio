@@ -501,3 +501,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(App): update SnapScroller API on 2024-05-09
 - chore(App): clean unused imports on 2024-05-09
 - chore(lib): clean up helper functions on 2024-05-10
+- chore(Game2D): clean unused sprites on 2024-05-10
