@@ -504,3 +504,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Game2D): clean unused sprites on 2024-05-10
 - chore(lib): remove debug logs on 2024-05-10
 - feat(BioTicker): add animation easing on 2024-05-13
+- style(Hero): update colors and font sizes on 2024-05-13
