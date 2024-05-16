@@ -508,3 +508,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add keyboard control on 2024-05-13
 - feat(Game2D): add shooting mechanic on 2024-05-16
 - refactor(Game2D): modularize physics engine on 2024-05-16
+- chore(Hero): remove redundant CSS on 2024-05-16
