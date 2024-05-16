@@ -506,3 +506,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(BioTicker): add animation easing on 2024-05-13
 - style(Hero): update colors and font sizes on 2024-05-13
 - feat(Game2D): add keyboard control on 2024-05-13
+- feat(Game2D): add shooting mechanic on 2024-05-16
