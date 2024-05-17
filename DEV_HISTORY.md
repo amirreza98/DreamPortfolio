@@ -510,3 +510,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): modularize physics engine on 2024-05-16
 - chore(Hero): remove redundant CSS on 2024-05-16
 - chore(Contact): update event listeners on 2024-05-17
+- feat(Game2D): add enemy spawning on 2024-05-17
