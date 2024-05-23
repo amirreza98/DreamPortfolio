@@ -515,3 +515,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): correct collision detection on 2024-05-20
 - docs(BioTicker): clarify animation logic on 2024-05-20
 - chore(lib): remove unused utilities on 2024-05-20
+- docs(Projects): update screenshot captions on 2024-05-23
