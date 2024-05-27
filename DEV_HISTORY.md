@@ -516,3 +516,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(BioTicker): clarify animation logic on 2024-05-20
 - chore(lib): remove unused utilities on 2024-05-20
 - docs(Projects): update screenshot captions on 2024-05-23
+- docs(Contact): clarify Formspree setup on 2024-05-27
