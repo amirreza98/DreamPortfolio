@@ -521,3 +521,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): adjust physics timestep on 2024-05-27
 - refactor(Game2D): separate entity logic on 2024-05-28
 - fix(Game2D): correct collision detection on 2024-05-28
+- feat(Game2D): add keyboard control on 2024-05-28
