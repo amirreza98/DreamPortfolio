@@ -519,3 +519,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Contact): clarify Formspree setup on 2024-05-27
 - style(Hero): tweak hero typography on 2024-05-27
 - fix(Game2D): adjust physics timestep on 2024-05-27
+- refactor(Game2D): separate entity logic on 2024-05-28
