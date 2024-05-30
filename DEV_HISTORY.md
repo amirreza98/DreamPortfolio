@@ -524,3 +524,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add keyboard control on 2024-05-28
 - style(Hero): improve section spacing on 2024-05-29
 - feat(Game2D): add enemy spawning on 2024-05-29
+- refactor(Game2D): simplify input system on 2024-05-30
