@@ -531,3 +531,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add multiple levels on 2024-06-06
 - chore(App): clean unused imports on 2024-06-07
 - refactor(Game2D): simplify input system on 2024-06-07
+- docs(Projects): update screenshot captions on 2024-06-07
