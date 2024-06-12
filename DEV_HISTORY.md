@@ -535,3 +535,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add power-ups on 2024-06-11
 - chore(lib): remove debug logs on 2024-06-11
 - style(Button): improve click feedback on 2024-06-11
+- docs(Game2D): add example entities on 2024-06-12
