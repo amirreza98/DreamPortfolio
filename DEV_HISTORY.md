@@ -536,3 +536,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(lib): remove debug logs on 2024-06-11
 - style(Button): improve click feedback on 2024-06-11
 - docs(Game2D): add example entities on 2024-06-12
+- refactor(Game2D): simplify vector math on 2024-06-13
