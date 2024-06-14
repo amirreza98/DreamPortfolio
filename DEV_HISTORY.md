@@ -538,3 +538,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): add example entities on 2024-06-12
 - refactor(Game2D): simplify vector math on 2024-06-13
 - docs(Hero): update animation notes on 2024-06-13
+- fix(Contact): prevent form submission error on 2024-06-14
