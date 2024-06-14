@@ -539,3 +539,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): simplify vector math on 2024-06-13
 - docs(Hero): update animation notes on 2024-06-13
 - fix(Contact): prevent form submission error on 2024-06-14
+- feat(Game2D): add scoring system on 2024-06-14
