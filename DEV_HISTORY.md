@@ -540,3 +540,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Hero): update animation notes on 2024-06-13
 - fix(Contact): prevent form submission error on 2024-06-14
 - feat(Game2D): add scoring system on 2024-06-14
+- style(Contact): adjust form spacing on 2024-06-17
