@@ -549,3 +549,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add power-ups on 2024-06-24
 - feat(Hero): add responsive layout on 2024-06-25
 - style(Game2D): button hover effect on 2024-06-26
+- docs(App): update project notes on 2024-06-27
