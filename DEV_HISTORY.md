@@ -552,3 +552,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(App): update project notes on 2024-06-27
 - chore(App): update project metadata on 2024-06-27
 - chore(Hero): remove redundant CSS on 2024-06-27
+- feat(Hero): add responsive layout on 2024-06-28
