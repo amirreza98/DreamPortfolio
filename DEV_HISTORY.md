@@ -555,3 +555,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add responsive layout on 2024-06-28
 - chore(App): update project metadata on 2024-06-28
 - feat(Projects): implement gallery layout on 2024-07-01
+- style(Button): adjust focus outline on 2024-07-01
