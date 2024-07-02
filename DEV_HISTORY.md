@@ -557,3 +557,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Projects): implement gallery layout on 2024-07-01
 - style(Button): adjust focus outline on 2024-07-01
 - docs(BioTicker): clarify animation logic on 2024-07-01
+- style(Hero): improve section spacing on 2024-07-02
