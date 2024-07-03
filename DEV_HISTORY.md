@@ -562,3 +562,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(App): initialize SnapScroller on 2024-07-02
 - refactor(Sections): restructure Project section on 2024-07-03
 - fix(Game2D): adjust physics timestep on 2024-07-03
+- feat(Hero): improve snapping animation on 2024-07-03
