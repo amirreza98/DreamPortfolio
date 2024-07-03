@@ -560,3 +560,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): improve section spacing on 2024-07-02
 - chore(lib): update constants on 2024-07-02
 - feat(App): initialize SnapScroller on 2024-07-02
+- refactor(Sections): restructure Project section on 2024-07-03
