@@ -564,3 +564,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): adjust physics timestep on 2024-07-03
 - feat(Hero): improve snapping animation on 2024-07-03
 - docs(Projects): update screenshot captions on 2024-07-05
+- style(Projects): adjust grid spacing on 2024-07-05
