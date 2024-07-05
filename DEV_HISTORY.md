@@ -565,3 +565,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): improve snapping animation on 2024-07-03
 - docs(Projects): update screenshot captions on 2024-07-05
 - style(Projects): adjust grid spacing on 2024-07-05
+- fix(App): adjust SnapScroller sensitivity on 2024-07-05
