@@ -568,3 +568,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(App): adjust SnapScroller sensitivity on 2024-07-05
 - chore(App): clean unused imports on 2024-07-08
 - fix(BioTicker): correct text wrapping on 2024-07-08
+- fix(Game2D): adjust physics timestep on 2024-07-08
