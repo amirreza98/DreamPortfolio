@@ -570,3 +570,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(BioTicker): correct text wrapping on 2024-07-08
 - fix(Game2D): adjust physics timestep on 2024-07-08
 - style(Button): adjust focus outline on 2024-07-09
+- chore(Hero): remove redundant CSS on 2024-07-09
