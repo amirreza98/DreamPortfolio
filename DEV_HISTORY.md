@@ -571,3 +571,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): adjust physics timestep on 2024-07-08
 - style(Button): adjust focus outline on 2024-07-09
 - chore(Hero): remove redundant CSS on 2024-07-09
+- docs(Contact): add email service notes on 2024-07-10
