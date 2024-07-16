@@ -574,3 +574,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Contact): add email service notes on 2024-07-10
 - refactor(Game2D): separate collision logic on 2024-07-10
 - fix(App): correct SnapScroller snapping on 2024-07-11
+- chore(Game2D): clean unused sprites on 2024-07-16
