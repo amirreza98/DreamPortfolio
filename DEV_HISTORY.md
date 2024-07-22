@@ -576,3 +576,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(App): correct SnapScroller snapping on 2024-07-11
 - chore(Game2D): clean unused sprites on 2024-07-16
 - chore(App): clean old snapshots on 2024-07-17
+- style(Projects): adjust grid spacing on 2024-07-22
