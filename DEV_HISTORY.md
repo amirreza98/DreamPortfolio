@@ -579,3 +579,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Projects): adjust grid spacing on 2024-07-22
 - refactor(Sections): modularize Game2D section on 2024-07-23
 - fix(Contact): email validation regex on 2024-07-29
+- style(App): tweak layout padding on 2024-07-29
