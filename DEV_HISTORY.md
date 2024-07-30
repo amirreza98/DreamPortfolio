@@ -583,3 +583,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Contact): adjust form spacing on 2024-07-29
 - feat(Game2D): add shooting mechanic on 2024-07-30
 - feat(Game2D): add enemy AI on 2024-07-30
+- chore(Game2D): update constants on 2024-07-30
