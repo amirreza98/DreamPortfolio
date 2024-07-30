@@ -581,3 +581,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Contact): email validation regex on 2024-07-29
 - style(App): tweak layout padding on 2024-07-29
 - style(Contact): adjust form spacing on 2024-07-29
+- feat(Game2D): add shooting mechanic on 2024-07-30
