@@ -586,3 +586,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Game2D): update constants on 2024-07-30
 - style(Projects): adjust padding on 2024-07-31
 - feat(Game2D): add power-ups on 2024-07-31
+- refactor(App): simplify routing logic on 2024-07-31
