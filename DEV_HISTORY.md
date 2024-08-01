@@ -587,3 +587,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Projects): adjust padding on 2024-07-31
 - feat(Game2D): add power-ups on 2024-07-31
 - refactor(App): simplify routing logic on 2024-07-31
+- feat(Game2D): add scoring system on 2024-08-01
