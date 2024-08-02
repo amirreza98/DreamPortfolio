@@ -590,3 +590,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add scoring system on 2024-08-01
 - refactor(Game2D): separate collision logic on 2024-08-01
 - refactor(Game2D): simplify input system on 2024-08-01
+- fix(App): correct SnapScroller offset on 2024-08-02
