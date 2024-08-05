@@ -593,3 +593,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(App): correct SnapScroller offset on 2024-08-02
 - style(Game2D): button hover transition on 2024-08-02
 - feat(BioTicker): add animation easing on 2024-08-05
+- feat(Hero): add smooth scroll snapping on 2024-08-05
