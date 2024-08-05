@@ -592,3 +592,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): simplify input system on 2024-08-01
 - fix(App): correct SnapScroller offset on 2024-08-02
 - style(Game2D): button hover transition on 2024-08-02
+- feat(BioTicker): add animation easing on 2024-08-05
