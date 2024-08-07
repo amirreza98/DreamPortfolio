@@ -596,3 +596,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add smooth scroll snapping on 2024-08-05
 - fix(App): prevent SnapScroller overflow on 2024-08-06
 - fix(Game2D): prevent negative coordinates on 2024-08-06
+- fix(Hero): correct snap offset on 2024-08-07
