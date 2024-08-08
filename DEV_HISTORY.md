@@ -598,3 +598,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): prevent negative coordinates on 2024-08-06
 - fix(Hero): correct snap offset on 2024-08-07
 - feat(Hero): add smooth scroll snapping on 2024-08-07
+- feat(Hero): add smooth scroll snapping on 2024-08-08
