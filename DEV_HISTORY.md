@@ -599,3 +599,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Hero): correct snap offset on 2024-08-07
 - feat(Hero): add smooth scroll snapping on 2024-08-07
 - feat(Hero): add smooth scroll snapping on 2024-08-08
+- fix(Contact): prevent duplicate submissions on 2024-08-08
