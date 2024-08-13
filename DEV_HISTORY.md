@@ -605,3 +605,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Projects): correct image aspect ratio on 2024-08-12
 - chore(lib): clean up helper functions on 2024-08-13
 - feat(Hero): improve snapping animation on 2024-08-13
+- docs(Game2D): add canvas setup guide on 2024-08-13
