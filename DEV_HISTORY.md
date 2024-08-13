@@ -603,3 +603,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add animation delay on 2024-08-09
 - fix(Game2D): prevent negative coordinates on 2024-08-12
 - fix(Projects): correct image aspect ratio on 2024-08-12
+- chore(lib): clean up helper functions on 2024-08-13
