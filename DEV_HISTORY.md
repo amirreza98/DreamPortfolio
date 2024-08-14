@@ -606,3 +606,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(lib): clean up helper functions on 2024-08-13
 - feat(Hero): improve snapping animation on 2024-08-13
 - docs(Game2D): add canvas setup guide on 2024-08-13
+- style(Projects): adjust grid spacing on 2024-08-14
