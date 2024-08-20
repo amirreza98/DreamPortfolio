@@ -610,3 +610,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Contact): update event listeners on 2024-08-14
 - feat(Game2D): add multiple levels on 2024-08-16
 - refactor(Hero): separate animation hooks on 2024-08-19
+- feat(Game2D): add level progression on 2024-08-20
