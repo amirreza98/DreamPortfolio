@@ -612,3 +612,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Hero): separate animation hooks on 2024-08-19
 - feat(Game2D): add level progression on 2024-08-20
 - fix(Contact): prevent form submission error on 2024-08-22
+- refactor(Game2D): separate entity logic on 2024-08-22
