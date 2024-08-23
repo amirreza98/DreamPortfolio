@@ -615,3 +615,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): separate entity logic on 2024-08-22
 - fix(Contact): prevent form submission error on 2024-08-22
 - fix(BioTicker): fix text overflow on 2024-08-23
+- fix(App): correct SnapScroller snapping on 2024-08-23
