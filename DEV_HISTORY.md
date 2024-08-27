@@ -619,3 +619,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Projects): adjust padding on 2024-08-23
 - style(Projects): adjust padding on 2024-08-26
 - style(Hero): update colors and font sizes on 2024-08-26
+- docs(Projects): update layout guidelines on 2024-08-27
