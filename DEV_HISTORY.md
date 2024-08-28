@@ -621,3 +621,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): update colors and font sizes on 2024-08-26
 - docs(Projects): update layout guidelines on 2024-08-27
 - feat(App): initialize SnapScroller on 2024-08-28
+- fix(BioTicker): fix scroll bug on 2024-08-28
