@@ -623,3 +623,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(App): initialize SnapScroller on 2024-08-28
 - fix(BioTicker): fix scroll bug on 2024-08-28
 - refactor(Sections): restructure Project section on 2024-08-28
+- fix(App): correct SnapScroller offset on 2024-08-29
