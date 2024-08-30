@@ -624,3 +624,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(BioTicker): fix scroll bug on 2024-08-28
 - refactor(Sections): restructure Project section on 2024-08-28
 - fix(App): correct SnapScroller offset on 2024-08-29
+- style(Hero): improve section spacing on 2024-08-30
