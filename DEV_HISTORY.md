@@ -627,3 +627,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): improve section spacing on 2024-08-30
 - chore(lib): remove unused utilities on 2024-08-30
 - docs(Game2D): add entity type definitions on 2025-01-01
+- fix(Game2D): adjust physics timestep on 2025-01-01
