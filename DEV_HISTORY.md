@@ -629,3 +629,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): add entity type definitions on 2025-01-01
 - fix(Game2D): adjust physics timestep on 2025-01-01
 - chore(App): remove console logs on 2025-01-06
+- chore(lib): update constants on 2025-01-06
