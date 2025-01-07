@@ -631,3 +631,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(App): remove console logs on 2025-01-06
 - chore(lib): update constants on 2025-01-06
 - refactor(Game2D): separate collision logic on 2025-01-07
+- docs(Contact): add email service notes on 2025-01-07
