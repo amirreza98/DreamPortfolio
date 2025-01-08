@@ -633,3 +633,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): separate collision logic on 2025-01-07
 - docs(Contact): add email service notes on 2025-01-07
 - fix(App): prevent SnapScroller overflow on 2025-01-07
+- feat(Game2D): add pause/resume feature on 2025-01-08
