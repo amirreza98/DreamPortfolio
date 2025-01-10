@@ -637,3 +637,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(BioTicker): add animation easing on 2025-01-09
 - chore(Contact): update Formspree config on 2025-01-10
 - chore(Contact): update Formspree config on 2025-01-10
+- style(Game2D): button hover transition on 2025-01-10
