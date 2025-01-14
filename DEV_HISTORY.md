@@ -640,3 +640,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Game2D): button hover transition on 2025-01-10
 - chore(Projects): organize images folder on 2025-01-13
 - refactor(Sections): restructure Project section on 2025-01-14
+- docs(Hero): update animation notes on 2025-01-14
