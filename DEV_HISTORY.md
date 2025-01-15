@@ -644,3 +644,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Hero): separate animation hooks on 2025-01-14
 - refactor(Game2D): separate collision logic on 2025-01-15
 - docs(Game2D): add level setup instructions on 2025-01-15
+- docs(Game2D): add example entities on 2025-01-15
