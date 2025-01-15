@@ -642,3 +642,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Sections): restructure Project section on 2025-01-14
 - docs(Hero): update animation notes on 2025-01-14
 - refactor(Hero): separate animation hooks on 2025-01-14
+- refactor(Game2D): separate collision logic on 2025-01-15
