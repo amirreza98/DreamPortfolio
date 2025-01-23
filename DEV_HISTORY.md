@@ -647,3 +647,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): add example entities on 2025-01-15
 - refactor(Game2D): optimize game loop on 2025-01-20
 - feat(Hero): add responsive layout on 2025-01-23
+- refactor(Game2D): simplify input system on 2025-01-23
