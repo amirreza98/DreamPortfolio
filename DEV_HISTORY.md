@@ -650,3 +650,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): simplify input system on 2025-01-23
 - style(Game2D): button hover transition on 2025-01-23
 - style(Game2D): tweak sprite alignment on 2025-01-24
+- fix(App): correct SnapScroller offset on 2025-01-24
