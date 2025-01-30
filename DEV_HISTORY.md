@@ -654,3 +654,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Contact): prevent duplicate submissions on 2025-01-27
 - feat(Hero): add subtle hover effect on 2025-01-27
 - docs(Hero): update animation notes on 2025-01-30
+- chore(App): clean unused imports on 2025-01-30
