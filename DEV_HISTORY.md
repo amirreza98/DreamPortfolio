@@ -653,3 +653,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(App): correct SnapScroller offset on 2025-01-24
 - fix(Contact): prevent duplicate submissions on 2025-01-27
 - feat(Hero): add subtle hover effect on 2025-01-27
+- docs(Hero): update animation notes on 2025-01-30
