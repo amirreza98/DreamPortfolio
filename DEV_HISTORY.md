@@ -657,3 +657,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(App): clean unused imports on 2025-01-30
 - feat(Game2D): add enemy spawning on 2025-01-31
 - feat(Hero): add animation delay on 2025-01-31
+- docs(Projects): update readme screenshots on 2025-01-31
