@@ -655,3 +655,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add subtle hover effect on 2025-01-27
 - docs(Hero): update animation notes on 2025-01-30
 - chore(App): clean unused imports on 2025-01-30
+- feat(Game2D): add enemy spawning on 2025-01-31
