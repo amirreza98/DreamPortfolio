@@ -658,3 +658,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add enemy spawning on 2025-01-31
 - feat(Hero): add animation delay on 2025-01-31
 - docs(Projects): update readme screenshots on 2025-01-31
+- feat(App): initialize SnapScroller on 2025-02-03
