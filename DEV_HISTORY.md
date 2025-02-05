@@ -661,3 +661,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(App): initialize SnapScroller on 2025-02-03
 - docs(Game2D): update canvas notes on 2025-02-03
 - feat(Contact): add confirmation message on 2025-02-05
+- chore(lib): remove debug logs on 2025-02-05
