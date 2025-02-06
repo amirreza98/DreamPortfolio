@@ -663,3 +663,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Contact): add confirmation message on 2025-02-05
 - chore(lib): remove debug logs on 2025-02-05
 - refactor(Game2D): separate entity logic on 2025-02-06
+- chore(lib): clean up helper functions on 2025-02-06
