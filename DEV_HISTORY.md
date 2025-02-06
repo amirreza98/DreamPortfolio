@@ -662,3 +662,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): update canvas notes on 2025-02-03
 - feat(Contact): add confirmation message on 2025-02-05
 - chore(lib): remove debug logs on 2025-02-05
+- refactor(Game2D): separate entity logic on 2025-02-06
