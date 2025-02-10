@@ -664,3 +664,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(lib): remove debug logs on 2025-02-05
 - refactor(Game2D): separate entity logic on 2025-02-06
 - chore(lib): clean up helper functions on 2025-02-06
+- chore(Hero): remove redundant CSS on 2025-02-10
