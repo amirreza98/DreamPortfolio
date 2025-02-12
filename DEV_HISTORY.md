@@ -667,3 +667,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Hero): remove redundant CSS on 2025-02-10
 - docs(App): update SnapScroller API on 2025-02-10
 - style(Hero): tweak background gradient on 2025-02-12
+- docs(BioTicker): add animation tips on 2025-02-12
