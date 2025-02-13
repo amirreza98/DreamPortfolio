@@ -669,3 +669,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): tweak background gradient on 2025-02-12
 - docs(BioTicker): add animation tips on 2025-02-12
 - chore(Game2D): update constants on 2025-02-12
+- docs(Game2D): update canvas notes on 2025-02-13
