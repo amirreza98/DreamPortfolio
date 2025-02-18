@@ -672,3 +672,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): update canvas notes on 2025-02-13
 - style(Hero): improve section spacing on 2025-02-14
 - chore(Hero): remove redundant CSS on 2025-02-17
+- feat(Game2D): add enemy AI on 2025-02-18
