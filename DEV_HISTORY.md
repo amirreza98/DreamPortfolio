@@ -674,3 +674,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Hero): remove redundant CSS on 2025-02-17
 - feat(Game2D): add enemy AI on 2025-02-18
 - chore(Game2D): refactor loop timing on 2025-02-18
+- docs(Game2D): add entity type definitions on 2025-02-18
