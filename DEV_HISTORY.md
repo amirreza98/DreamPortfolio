@@ -678,3 +678,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Projects): correct image aspect ratio on 2025-02-19
 - fix(Game2D): adjust canvas rendering on 2025-02-20
 - style(Button): improve click feedback on 2025-02-20
+- docs(Projects): add screenshot section on 2025-02-20
