@@ -676,3 +676,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Game2D): refactor loop timing on 2025-02-18
 - docs(Game2D): add entity type definitions on 2025-02-18
 - fix(Projects): correct image aspect ratio on 2025-02-19
+- fix(Game2D): adjust canvas rendering on 2025-02-20
