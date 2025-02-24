@@ -680,3 +680,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Button): improve click feedback on 2025-02-20
 - docs(Projects): add screenshot section on 2025-02-20
 - feat(Game2D): add shooting mechanic on 2025-02-24
+- chore(Contact): update event listeners on 2025-02-24
