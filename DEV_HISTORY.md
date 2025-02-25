@@ -682,3 +682,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add shooting mechanic on 2025-02-24
 - chore(Contact): update event listeners on 2025-02-24
 - style(Game2D): button hover transition on 2025-02-25
+- feat(Projects): add lazy loading images on 2025-02-25
