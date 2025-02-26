@@ -684,3 +684,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Game2D): button hover transition on 2025-02-25
 - feat(Projects): add lazy loading images on 2025-02-25
 - docs(BioTicker): add usage instructions on 2025-02-25
+- feat(BioTicker): add animation easing on 2025-02-26
