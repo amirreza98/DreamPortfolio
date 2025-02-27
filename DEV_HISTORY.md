@@ -687,3 +687,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(BioTicker): add animation easing on 2025-02-26
 - feat(Game2D): add multiple levels on 2025-02-26
 - chore(lib): remove debug logs on 2025-02-26
+- fix(App): correct SnapScroller snapping on 2025-02-27
