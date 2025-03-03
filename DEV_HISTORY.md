@@ -691,3 +691,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(App): update project metadata on 2025-02-27
 - feat(Game2D): add sound effects on 2025-02-27
 - docs(Game2D): add entity type definitions on 2025-03-03
+- refactor(Game2D): simplify input system on 2025-03-03
