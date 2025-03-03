@@ -692,3 +692,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add sound effects on 2025-02-27
 - docs(Game2D): add entity type definitions on 2025-03-03
 - refactor(Game2D): simplify input system on 2025-03-03
+- refactor(Game2D): simplify vector math on 2025-03-03
