@@ -694,3 +694,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Game2D): simplify input system on 2025-03-03
 - refactor(Game2D): simplify vector math on 2025-03-03
 - feat(Game2D): add basic player movement on 2025-03-07
+- feat(Game2D): add pause/resume feature on 2025-03-07
