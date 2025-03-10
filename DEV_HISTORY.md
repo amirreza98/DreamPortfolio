@@ -696,3 +696,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add basic player movement on 2025-03-07
 - feat(Game2D): add pause/resume feature on 2025-03-07
 - chore(Game2D): clean unused sprites on 2025-03-07
+- feat(Hero): add responsive layout on 2025-03-10
