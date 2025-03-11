@@ -698,3 +698,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Game2D): clean unused sprites on 2025-03-07
 - feat(Hero): add responsive layout on 2025-03-10
 - docs(Projects): update readme screenshots on 2025-03-11
+- refactor(Sections): modularize Game2D section on 2025-03-11
