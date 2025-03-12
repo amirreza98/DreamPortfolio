@@ -699,3 +699,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add responsive layout on 2025-03-10
 - docs(Projects): update readme screenshots on 2025-03-11
 - refactor(Sections): modularize Game2D section on 2025-03-11
+- feat(Game2D): add sound effects on 2025-03-12
