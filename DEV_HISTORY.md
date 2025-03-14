@@ -704,3 +704,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(App): update SnapScroller API on 2025-03-13
 - refactor(Sections): modularize Game2D section on 2025-03-14
 - style(Hero): tweak background gradient on 2025-03-14
+- feat(Game2D): add scoring system on 2025-03-14
