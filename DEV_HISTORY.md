@@ -703,3 +703,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Contact): update event listeners on 2025-03-12
 - docs(App): update SnapScroller API on 2025-03-13
 - refactor(Sections): modularize Game2D section on 2025-03-14
+- style(Hero): tweak background gradient on 2025-03-14
