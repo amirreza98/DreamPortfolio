@@ -705,3 +705,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - refactor(Sections): modularize Game2D section on 2025-03-14
 - style(Hero): tweak background gradient on 2025-03-14
 - feat(Game2D): add scoring system on 2025-03-14
+- feat(Hero): add smooth scroll snapping on 2025-03-18
