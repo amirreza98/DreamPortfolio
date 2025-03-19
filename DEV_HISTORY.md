@@ -709,3 +709,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add level progression on 2025-03-18
 - docs(Game2D): add canvas setup guide on 2025-03-18
 - style(Hero): tweak hero typography on 2025-03-19
+- feat(Game2D): add enemy AI on 2025-03-19
