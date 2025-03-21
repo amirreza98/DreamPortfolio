@@ -711,3 +711,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): tweak hero typography on 2025-03-19
 - feat(Game2D): add enemy AI on 2025-03-19
 - style(Button): adjust focus outline on 2025-03-21
+- docs(BioTicker): add usage instructions on 2025-03-21
