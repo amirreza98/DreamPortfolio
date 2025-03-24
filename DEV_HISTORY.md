@@ -712,3 +712,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add enemy AI on 2025-03-19
 - style(Button): adjust focus outline on 2025-03-21
 - docs(BioTicker): add usage instructions on 2025-03-21
+- style(Projects): adjust grid spacing on 2025-03-24
