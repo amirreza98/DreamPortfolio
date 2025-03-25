@@ -714,3 +714,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(BioTicker): add usage instructions on 2025-03-21
 - style(Projects): adjust grid spacing on 2025-03-24
 - chore(Game2D): update constants on 2025-03-25
+- docs(Hero): add hero section guide on 2025-03-25
