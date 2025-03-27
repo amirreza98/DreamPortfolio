@@ -717,3 +717,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Hero): add hero section guide on 2025-03-25
 - fix(Hero): correct snap offset on 2025-03-27
 - feat(Hero): add animation delay on 2025-03-27
+- docs(BioTicker): add usage instructions on 2025-03-27
