@@ -716,3 +716,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Game2D): update constants on 2025-03-25
 - docs(Hero): add hero section guide on 2025-03-25
 - fix(Hero): correct snap offset on 2025-03-27
+- feat(Hero): add animation delay on 2025-03-27
