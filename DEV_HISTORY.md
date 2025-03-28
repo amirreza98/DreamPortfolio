@@ -718,3 +718,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Hero): correct snap offset on 2025-03-27
 - feat(Hero): add animation delay on 2025-03-27
 - docs(BioTicker): add usage instructions on 2025-03-27
+- feat(Game2D): add sound effects on 2025-03-28
