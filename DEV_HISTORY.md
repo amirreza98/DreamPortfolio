@@ -720,3 +720,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(BioTicker): add usage instructions on 2025-03-27
 - feat(Game2D): add sound effects on 2025-03-28
 - docs(App): update project notes on 2025-03-31
+- feat(Hero): improve snapping animation on 2025-03-31
