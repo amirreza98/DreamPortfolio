@@ -721,3 +721,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add sound effects on 2025-03-28
 - docs(App): update project notes on 2025-03-31
 - feat(Hero): improve snapping animation on 2025-03-31
+- feat(Game2D): add pause/resume feature on 2025-03-31
