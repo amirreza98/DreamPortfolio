@@ -723,3 +723,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): improve snapping animation on 2025-03-31
 - feat(Game2D): add pause/resume feature on 2025-03-31
 - chore(Game2D): refactor loop timing on 2025-04-03
+- style(Projects): adjust grid spacing on 2025-04-08
