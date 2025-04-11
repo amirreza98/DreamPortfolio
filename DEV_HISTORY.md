@@ -727,3 +727,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Hero): add responsive layout on 2025-04-08
 - feat(Game2D): add projectiles on 2025-04-09
 - docs(Game2D): add canvas setup guide on 2025-04-11
+- fix(Game2D): prevent negative coordinates on 2025-04-11
