@@ -730,3 +730,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - fix(Game2D): prevent negative coordinates on 2025-04-11
 - feat(Game2D): add keyboard control on 2025-04-11
 - style(Hero): update colors and font sizes on 2025-04-16
+- refactor(Game2D): separate entity logic on 2025-04-16
