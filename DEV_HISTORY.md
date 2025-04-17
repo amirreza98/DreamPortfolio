@@ -732,3 +732,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): update colors and font sizes on 2025-04-16
 - refactor(Game2D): separate entity logic on 2025-04-16
 - chore(Projects): organize images folder on 2025-04-16
+- chore(lib): remove debug logs on 2025-04-17
