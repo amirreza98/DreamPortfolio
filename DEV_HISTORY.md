@@ -734,3 +734,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Projects): organize images folder on 2025-04-16
 - chore(lib): remove debug logs on 2025-04-17
 - docs(Game2D): add example entities on 2025-04-18
+- docs(Projects): update readme screenshots on 2025-04-18
