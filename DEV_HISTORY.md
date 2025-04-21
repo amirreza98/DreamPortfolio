@@ -738,3 +738,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - style(Hero): tweak hero typography on 2025-04-18
 - style(Hero): tweak background gradient on 2025-04-21
 - docs(BioTicker): add animation tips on 2025-04-21
+- docs(Hero): add hero section guide on 2025-04-21
