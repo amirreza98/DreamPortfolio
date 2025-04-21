@@ -736,3 +736,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Game2D): add example entities on 2025-04-18
 - docs(Projects): update readme screenshots on 2025-04-18
 - style(Hero): tweak hero typography on 2025-04-18
+- style(Hero): tweak background gradient on 2025-04-21
