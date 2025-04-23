@@ -740,3 +740,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(BioTicker): add animation tips on 2025-04-21
 - docs(Hero): add hero section guide on 2025-04-21
 - chore(Projects): organize images folder on 2025-04-22
+- fix(Game2D): prevent overlapping entities on 2025-04-23
