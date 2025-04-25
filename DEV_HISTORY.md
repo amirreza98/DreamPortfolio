@@ -742,3 +742,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - chore(Projects): organize images folder on 2025-04-22
 - fix(Game2D): prevent overlapping entities on 2025-04-23
 - fix(Game2D): adjust canvas rendering on 2025-04-23
+- chore(Contact): cleanup event listeners on 2025-04-25
