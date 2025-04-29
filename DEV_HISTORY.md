@@ -747,3 +747,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - docs(Projects): update readme screenshots on 2025-04-28
 - refactor(Game2D): simplify input system on 2025-04-28
 - fix(Game2D): correct collision detection on 2025-04-29
+- docs(Hero): update animation notes on 2025-04-29
