@@ -746,3 +746,4 @@ This file tracks incremental updates, refactors, and experiments over time.
 - feat(Game2D): add pause/resume feature on 2025-04-28
 - docs(Projects): update readme screenshots on 2025-04-28
 - refactor(Game2D): simplify input system on 2025-04-28
+- fix(Game2D): correct collision detection on 2025-04-29
