@@ -1,8 +1,15 @@
+import MinimalGame from "./components/MinimalGame/MinimalGame";
+import AnimatedBiograthy from "./components/AnimatedBiograthy/AnimatedBiograthy";
+
 function Game() {
   return (
     <section>
-      <h2>ℹ️ Game Me</h2>
-      <p>I am a developer passionate Game Industry 4.0, automation, and robotics.</p>
+      <div>
+        <MinimalGame /> 
+      </div>
+      <div>
+        <AnimatedBiograthy />
+      </div>  
     </section>
   );
 }

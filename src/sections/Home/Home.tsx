@@ -1,8 +1,16 @@
+import Hero from "./components/Hero";
+import Introduction from "./components/Introduction";
+
 function Home() {
   return (
     <section>
       <h2>🏠 Home</h2>
-      <p>Welcome to my portfolio! This is the landing section.</p>
+      <div>
+        <Introduction />
+      </div>
+      <div> 
+      <Hero />
+      </div>
     </section>
   );
 }
