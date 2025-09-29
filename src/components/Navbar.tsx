@@ -1,30 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-type NavbarProps = {
-  section: string;
-  setSection: (section: string) => void;
-};
-
-const Navbar: React.FC<NavbarProps> = ({ section, setSection }) => {
-  const navItems = ["home", "game", "projects", "stackExprence", "contact"];
-
+const Navbar: React.FC = () => {
   return (
-    <nav className="navbar">
-      <ul>
-        {navItems.map((item) => (
-          <li
-            key={item}
-            onClick={() => setSection(item)}
-            className={section === item ? "active" : ""}
-            style={{
-              cursor: "pointer",
-              fontWeight: section === item ? "bold" : "normal",
-            }}
-          >
-            {item.toUpperCase()}
-          </li>
-        ))}
-      </ul>
+    <nav className="fixed top-0 left-0 h-screen w-26 bg-gray-800 text-white flex flex-col items-center py-6 gap-6">
+      <Link to="/">Home</Link>
+      <Link to="/game">Game</Link>
+      <Link to="/projects">Projects</Link>
+      <Link to="/stacks">Stacks</Link>
+      <Link to="/contact">Contact</Link>
     </nav>
   );
 };

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+
 import "./App.css";
 import Navbar from "../components/Navbar";
 import Home from "../sections/Home/Home";
@@ -8,21 +9,19 @@ import StackExperience from "../sections/StackExperiences/StackExperiences";
 import Contact from "../sections/Contact/Contact";
 
 function App() {
-  const [section, setSection] = useState<string>("home");
 
-  useEffect(() => {
-    console.log("Current section:", section);
-  }, [section]);
-  
+
   return (
-    <div className="App">
-      <Navbar section={section} setSection={setSection} />
-      {section === "home" && <Home />}
-      {section === "game" && <Game />}
-      {section === "projects" && <Projects />}
-      {section === "stackExperiences" && <StackExperience />}
-      {section === "contact" && <Contact />}
-    </div>
+      <BrowserRouter>
+        <Navbar />
+        <main className="ml-26 p-6">
+          <Home/>
+          <Game/>
+          <StackExperience/>
+          <Projects/>
+          <Contact/>
+        </main>
+    </BrowserRouter>
   );
 }
 
