@@ -3,7 +3,7 @@ import AnimatedBiograthy from "./components/AnimatedBiograthy/AnimatedBiograthy"
 
 function Game() {
   return (
-    <section>
+    <section className="w-screen snap-start flex flex-row items-center h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white">
       <div>
         <MinimalGame /> 
       </div>

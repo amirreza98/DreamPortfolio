@@ -3,7 +3,7 @@ import Introduction from "./components/Introduction";
 
 function Home() {
   return (
-    <div className="flex flex-row items-center h-screen bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white">
+    <div className="w-screen snap-start flex flex-row items-center h-screen bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white">
       <div className="ml-32 ">
         <Introduction />
       </div>
