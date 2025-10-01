@@ -1,0 +1,29 @@
+.credit-container {
+  position: relative;
+  height: 300px;         /* ارتفاعی که تیتراژ داخلش حرکت می‌کنه */
+  overflow: hidden;
+  background: black;
+  color: white;
+  font-size: 18px;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.credit-roll {
+  position: absolute;
+  bottom: -100%;
+  width: 80%;
+  text-align: center;
+  animation: rollUp 1s linear forwards;
+}
+
+@keyframes rollUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-120%);
+  }
+}

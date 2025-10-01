@@ -1,5 +1,5 @@
 import MinimalGame from "./components/MinimalGame/MinimalGame";
-import AnimatedBiograthy from "./components/AnimatedBiograthy/AnimatedBiograthy";
+import AnimatedBiograthy from "./components/AnimatedBiograthy/AnimatedBiography";
 
 function Game() {
   return (
@@ -7,7 +7,7 @@ function Game() {
       <div className="w-1/2 h-1/2 bg-white/30 flex justify-center items-center border-2 border-gray-500 m-10 rounded-lg p-4">
         <MinimalGame /> 
       </div>
-      <div>
+      <div className="w-1/2 h-1/2 bg-white/30 flex justify-center items-center border-2 border-gray-500 m-10 rounded-lg p-4 overflow-hidden">
         <AnimatedBiograthy />
       </div>  
     </section>
