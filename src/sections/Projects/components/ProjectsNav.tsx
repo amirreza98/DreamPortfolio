@@ -12,7 +12,7 @@ export default function ProjectsNav() {
           {repos.map((repo, i) => {
             // dock scaling: hovered = big, neighbors = medium
             let appearance = "scale-100";
-            if (hovered === repo.id) appearance = "scale-125 translate-x-10 duration-300";
+            if (hovered === repo.id) appearance = "scale-130 translate-x-10 duration-300";
 
 
             else if (
