@@ -1,4 +1,5 @@
-import ProjectsNav from "./components/ProjectNav/ProjectsNav.jsx";  
+
+import ProjectsNav from "./components/ProjectsNav.tsx";  
 
 function Projects() {
   return (

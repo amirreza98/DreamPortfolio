@@ -12,16 +12,16 @@ function App() {
 
   return (
       <BrowserRouter>
-        <div className="h-screen w-screen  srelative z-0 overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+        <div className="h-screen w-screen z-0 overflow-y-scroll snap-y scroll-smooth snap-mandatory scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
           <Navbar  />
         <div id="page">
-          <section id="home" className="-scroll-mt-60">
+          <section id="home" className="scroll-mt-20 snap-start">
             <Home />
           </section>
           <section id="game" className="scroll-mt-20">
             <Game />
           </section>
-          <section id="projects" className="scroll-mt-20">
+          <section id="projects" className="-scroll-mt-20">
             <Projects />
           </section>
           <section id="stack" className="scroll-mt-20">
