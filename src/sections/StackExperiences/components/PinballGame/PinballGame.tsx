@@ -9,15 +9,15 @@ type Bumper = {
 };
 
 // --- Tunables ---
-const GRAVITY = 0.32;
-const FRICTION = 0.9992;
-const RESTITUTION = 0.92;
-const BALL_RADIUS = 9;
+const GRAVITY = 0.3;
+const FRICTION = 0.994;
+const RESTITUTION = 0.8;
+const BALL_RADIUS = 10;
 
-const FLIPPER_LENGTH = 120;
-const FLIPPER_THICKNESS = 14;
-const FLIPPER_ANGLE_REST = -0.18;
-const FLIPPER_ANGLE_ACTIVE = 0.62;
+const FLIPPER_LENGTH = 100;
+const FLIPPER_THICKNESS = 15;
+const FLIPPER_ANGLE_REST = 0.2;
+const FLIPPER_ANGLE_ACTIVE = -0.6;
 const FLIPPER_SPEED = 0.22;
 
 const MARGIN = 24; // inner margin from canvas edge for the playfield
@@ -155,7 +155,7 @@ export default function PinballGame() {
       const sideX = Math.random() < 0.5 ? leftX : rightX;
       const x = sideX + (Math.random() - 0.5) * jitterX * 2;
       const y = yMin + Math.random() * (yMax - yMin);
-
+ 
       // keep away from each other
       let ok = true;
       for (const b of bumps) {
@@ -218,8 +218,8 @@ export default function PinballGame() {
       b.vx -= 2 * dot * nx;
       b.vy -= 2 * dot * ny;
       // bumper kick
-      b.vx += nx * 2.2;
-      b.vy += ny * 2.2;
+      b.vx += nx * 2;
+      b.vy += ny * 2;
       bumper.activeUntil = performance.now() + 800;
       setLastHitSkill(bumper.skill);
     }
