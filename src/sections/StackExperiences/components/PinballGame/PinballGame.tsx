@@ -1,420 +1,381 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-type Bumper = {
-  x: number;
-  y: number;
+/* =========================
+   Logical playfield size
+   ========================= */
+const LOGICAL_W = 1000;
+const LOGICAL_H = 700;
+const FLOOR_Y = LOGICAL_H - 43; // هرچقدر می‌خوای بالاتر بیاد، این عددو زیاد کن
+const RAMP_TOP_Y = LOGICAL_H - 260; // جایی که شیب‌ها از آن شروع می‌شوند
+const DRAIN_GAP = 160;            // فاصلهٔ خالی وسط (دهانه‌ی درِین)
+const PLATFORM_LEN = 200;         // طول سکوهای صاف کنار فلاپر
+const DT = 1 / 60;            // گام زمانی ثابت برای کنترل نرم
+const FLIPPER_MAX_SPEED = 8;  // rad/s حداکثر سرعت چرخش فلپر
+
+/* =========================
+   Physics tunables
+   ========================= */
+const BALL_R = 10;
+const GRAVITY = 0.3;     // px / frame^2 (logical units)
+const FRICTION = 0.995;  // velocity damping per frame
+const RESTITUTION = 0.9; // bounciness on walls
+/* =========================
+   Types (Step 2)
+   ========================= */
+type Vec2 = { x: number; y: number };
+
+type Segment = { a: Vec2; b: Vec2; normal?: Vec2 };
+
+export type Ball = {
+  pos: Vec2;
+  vel: Vec2;
   r: number;
-  skill: string;
-  activeUntil: number;
 };
 
-// --- Tunables ---
-const GRAVITY = 0.3;
-const FRICTION = 0.994;
-const RESTITUTION = 0.8;
-const BALL_RADIUS = 10;
+export type SkillKey =
+  | "TypeScript" | "React" | "Node.js" | "Express" | "MongoDB"
+  | "PostgreSQL" | "Tailwind" | "Docker" | "Git" | "AWS";
 
-const FLIPPER_LENGTH = 100;
-const FLIPPER_THICKNESS = 15;
-const FLIPPER_ANGLE_REST = 0.2;
-const FLIPPER_ANGLE_ACTIVE = -0.6;
-const FLIPPER_SPEED = 0.22;
+export type Bumper = {
+  pos: Vec2;
+  r: number;
+  skill: SkillKey;
+  isLit: boolean;
+  litUntil: number; // ms timestamp
+};
 
-const MARGIN = 24; // inner margin from canvas edge for the playfield
+export type FlipperSide = "left" | "right";
 
-const SKILL_LIST = [
-  "TypeScript","React","Node.js","Express","MongoDB",
-  "PostgreSQL","Tailwind","Docker","Git","AWS"
-];
+export type Flipper = {
+  side: FlipperSide;
+  pivot: Vec2;
+  length: number;
+  thickness: number; // drawing only
+  angle: number;       // current angle (rad)
+  angleRest: number;   // rest angle
+  angleActive: number; // max active angle
+  angVel: number;      // rad/s (we'll use later)
+};
 
-// Helper: distance from a point to a segment + closest point
-function pointSegDistance(px: number, py: number, x1: number, y1: number, x2: number, y2: number) {
-  const vx = x2 - x1, vy = y2 - y1;
-  const wx = px - x1, wy = py - y1;
-  const len2 = vx*vx + vy*vy || 1;
-  let t = (wx*vx + wy*vy) / len2;
-  t = Math.max(0, Math.min(1, t));
-  const cx = x1 + t*vx, cy = y1 + t*vy;
-  const dx = px - cx, dy = py - cy;
-  const dist = Math.hypot(dx, dy);
-  return { dist, cx, cy, nx: dist ? dx/dist : 0, ny: dist ? dy/dist : 0 };
+export type Wall = Segment;
+
+type Controls = { left: boolean; right: boolean; nudge: boolean };
+
+
+// Clamp در بازه [0,1]
+function clamp01(t: number) {
+  return Math.max(0, Math.min(1, t));
 }
 
-// Resolve circle vs segment collision (reflect + push out)
-function collideBallWithSegment(ball: {x:number;y:number;vx:number;vy:number}, x1:number,y1:number,x2:number,y2:number, radius:number) {
-  const { dist, cx, cy, nx, ny } = pointSegDistance(ball.x, ball.y, x1, y1, x2, y2);
-  if (dist < radius) {
-    // push out
-    const overlap = radius - dist;
-    ball.x += nx * overlap;
-    ball.y += ny * overlap;
-    // reflect
-    const dot = ball.vx * nx + ball.vy * ny;
-    if (dot < 0) {
-      ball.vx -= 2 * dot * nx;
-      ball.vy -= 2 * dot * ny;
-      ball.vx *= RESTITUTION;
-      ball.vy *= RESTITUTION;
+// نزدیک‌ترین نقطه از سگمنت به یک نقطه + نرمال
+function closestPointAndNormal(
+  px: number, py: number,
+  x1: number, y1: number,
+  x2: number, y2: number
+) {
+  const vx = x2 - x1, vy = y2 - y1;
+  const len2 = vx*vx + vy*vy || 1e-6;
+  let t = ((px - x1)*vx + (py - y1)*vy) / len2;
+  t = clamp01(t);
+  const cx = x1 + t*vx, cy = y1 + t*vy;
+  // نرمال از سگمنت به سمت توپ
+  let nx = px - cx, ny = py - cy;
+  const dist = Math.hypot(nx, ny) || 1e-6;
+  nx /= dist; ny /= dist;
+  return { cx, cy, nx, ny, dist, t };
+}
+
+// برخورد توپ با سگمنت (فلپر/دیوار باریک)
+function collideBallWithSegment(
+  ball: Ball,
+  x1: number, y1: number,
+  x2: number, y2: number,
+  effectiveRadius: number,         // شعاع مؤثر (توپ + ضخامت فلپر/۲)
+  restitution = RESTITUTION
+) {
+  const { nx, ny, dist } = closestPointAndNormal(ball.pos.x, ball.pos.y, x1, y1, x2, y2);
+  const overlap = effectiveRadius - dist;
+  if (overlap > 0) {
+    // هل دادن توپ به بیرون
+    ball.pos.x += nx * overlap;
+    ball.pos.y += ny * overlap;
+
+    // بازتاب سرعت روی نرمال (فقط اگر به سمت داخل می‌رفت)
+    const vn = ball.vel.x * nx + ball.vel.y * ny;
+    if (vn < 0) {
+      ball.vel.x -= (1 + restitution) * vn * nx;
+      ball.vel.y -= (1 + restitution) * vn * ny;
     }
     return true;
   }
   return false;
 }
 
-// Build a polyline from control points, then we’ll collide against each segment
-function makePolyline(points: Array<[number, number]>): Array<[number, number]> {
-  return points;
+/* Skills registry (logos later) */
+export const SKILLS: SkillKey[] = [
+  "TypeScript","React","Node.js","Express","MongoDB",
+  "PostgreSQL","Tailwind","Docker","Git","AWS"
+];
+
+/* =========================
+   Helpers to build geometry
+   ========================= */
+function buildWalls(): Wall[] {
+    
+  const cx = LOGICAL_W / 2;
+
+  // سکوی صاف کنار فلاپرها
+  // (برای رسم ناحیه خاکستری پایین)
+  const leftPlatStart  = cx - DRAIN_GAP / 2 - PLATFORM_LEN; // شروع سکوی چپ
+  const leftPlatEnd    = cx - DRAIN_GAP / 2 - 50;                 // انتهای سکوی چپ (لبه‌ی درِین)
+  const rightPlatStart = cx + DRAIN_GAP / 2 + 50;                 // شروع سکوی راست (لبه‌ی درِین)
+  const rightPlatEnd   = cx + DRAIN_GAP / 2 + PLATFORM_LEN;  // انتهای سکوی راست
+
+
+  // Outer rectangle for now; ramps will be added in the next step
+  return [
+    // مرزهای بالا/طرفین
+    { a: { x: 0, y: 0 }, b: { x: LOGICAL_W, y: 0 } },                   // TOP
+    { a: { x: 0, y: 0 }, b: { x: 0, y: RAMP_TOP_Y } },                   // LEFT vertical
+    { a: { x: LOGICAL_W, y: 0 }, b: { x: LOGICAL_W, y: RAMP_TOP_Y } },   // RIGHT vertical
+
+    // شیب‌ها
+    { a: { x: 0, y: RAMP_TOP_Y }, b: { x: leftPlatStart, y: FLOOR_Y } },        // ramp left
+    { a: { x: LOGICAL_W, y: RAMP_TOP_Y }, b: { x: rightPlatEnd, y: FLOOR_Y } }, // ramp right
+
+    // سکوهای صاف کنار فلاپرها
+    { a: { x: leftPlatStart, y: FLOOR_Y }, b: { x: leftPlatEnd, y: FLOOR_Y } },   // platform left
+    { a: { x: rightPlatStart, y: FLOOR_Y }, b: { x: rightPlatEnd, y: FLOOR_Y } }, // platform right
+
+    // دیواره‌ی عمودی زیر سکوها (جلوی افتادن توپ به ناحیه خاکستری پایین را می‌گیرد)
+    { a: { x: leftPlatStart,  y: FLOOR_Y }, b: { x: leftPlatStart,  y: LOGICAL_H } },
+    { a: { x: rightPlatEnd,   y: FLOOR_Y }, b: { x: rightPlatEnd,   y: LOGICAL_H } },
+  ];
 }
 
+function buildFlippers(): Flipper[] {
+  const len = 120, thick = 16;
+  const cx = LOGICAL_W / 2;          // screen middle (x)
+  const y  = LOGICAL_H - 35;         // near bottom
+
+  return [
+    // LEFT flipper: pivot at center - length, pointing toward center
+    {
+      side: "left",
+      pivot: { x: cx - len - 60, y },
+      length: len, thickness: thick,
+      angle: 0.2,                 // ≈ 11° down-right (rest)
+      angleRest: 0.2,
+      angleActive: -0.6,          // flips up-right toward center
+      angVel: 20,
+    },
+    // RIGHT flipper: pivot at center + length, pointing toward center
+    {
+      side: "right",
+      pivot: { x: cx + len + 60, y },
+      length: len, thickness: thick,
+      angle: Math.PI - 0.2,       // ≈ 169° down-left (rest)
+      angleRest: Math.PI - 0.2,
+      angleActive: Math.PI + 0.6, // flips up-left toward center
+      angVel: 20,
+    },
+  ];
+}
+
+
+function buildBumpers(): Bumper[] {
+  // We’ll populate these when we implement bumpers & skills
+  return [];
+}
+
+/* Compute the visible endpoints of a flipper segment for drawing */
+function flipperEndpoints(f: Flipper) {
+  const x2 = f.pivot.x + Math.cos(f.angle) * f.length;
+  const y2 = f.pivot.y + Math.sin(f.angle) * f.length;
+  return { x1: f.pivot.x, y1: f.pivot.y, x2, y2 };
+}
+
+/* =========================
+   Component
+   ========================= */
 export default function PinballGame() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const animationRef = useRef<number | null>(null);
 
-  // runtime canvas size
-  const sizeRef = useRef({ w: 800, h: 1200 });
+  // --- Core game objects (Step 2: refs for mutation without re-render) ---
+  const ballRef = useRef<Ball>({
+    pos: { x: LOGICAL_W - 40, y: 40 },
+    vel: { x: -2, y: 0 },
+    r: BALL_R,
+  });
 
-  // Ball state
-  const ball = useRef({ x: 0, y: 0, vx: -3, vy: 0 });
-
-  // Flippers
-  const leftFlipper = useRef({ cx: 0, cy: 0, angle: FLIPPER_ANGLE_REST, target: FLIPPER_ANGLE_REST });
-  const rightFlipper = useRef({ cx: 0, cy: 0, angle: -FLIPPER_ANGLE_REST, target: -FLIPPER_ANGLE_REST });
-
-  // Walls (segments) + Rails (polylines of segments)
-  const sideSegments = useRef<Array<[number, number, number, number]>>([]);
-  const railSegments = useRef<Array<[number, number, number, number]>>([]);
-
-  // Bumpers
   const bumpersRef = useRef<Bumper[]>([]);
-  const [lastHitSkill, setLastHitSkill] = useState<string | null>(null);
+  const flippersRef = useRef<Flipper[]>([]);
+  const wallsRef = useRef<Wall[]>([]);
+  const controlsRef = useRef<Controls>({ left: false, right: false, nudge: false });
 
-  // ---------- Layout ----------
-  const layout = () => {
-    const c = canvasRef.current;
-    if (!c) return;
-    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-
-    c.width = w * dpr;
-    c.height = h * dpr;
-    c.style.width = `${w}px`;
-    c.style.height = `${h}px`;
-    const ctx = c.getContext("2d");
-    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    sizeRef.current = { w, h };
-
-    // Place flippers near corners (green)
-    const yFlipper = h - 90;
-    const gap = Math.min(180, w * 0.22); // distance between flipper hinges
-    leftFlipper.current.cx  = (w / 2) - (gap / 2);
-    leftFlipper.current.cy  = yFlipper;
-    rightFlipper.current.cx = (w / 2) + (gap / 2);
-    rightFlipper.current.cy = yFlipper;
-
-    // Ball spawn (top-right)
-    ball.current.x = w - (MARGIN + 60);
-    ball.current.y = MARGIN + 60;
-    ball.current.vx = -3;
-    ball.current.vy = 0;
-
-    // Side walls (purple): left/right vertical + two diagonals guiding to the drain gap
-    const ySlopeStart = h * 0.62;
-    const ySlopeEnd = yFlipper - 38;
-
-    sideSegments.current = [
-      // verticals
-      [MARGIN, MARGIN, MARGIN, h - MARGIN],
-      [w - MARGIN, MARGIN, w - MARGIN, h - MARGIN],
-      // top cap
-      [MARGIN, MARGIN, w - MARGIN, MARGIN],
-      // diagonals to bottom
-      [MARGIN, ySlopeStart, w * 0.43, ySlopeEnd],            // left slope
-      [w - MARGIN, ySlopeStart, w * 0.57, ySlopeEnd],        // right slope
-    ];
-
-
-    // Bumpers grid
-    // --- Random bottom-biased bumpers (left/right lanes) ---
-    const count = 10;              // how many bumpers total
-    const r = 18;                  // bumper radius
-    const yMin = h * 0.55;         // start lower half
-    const yMax = h * 0.82;         // not too close to flippers
-    const leftX  = w * 0.35;       // lane centers
-    const rightX = w * 0.65;
-    const jitterX = 34;            // small horizontal jitter
-    const minGap = r * 2.2;        // spacing to avoid overlaps
-
-    const bumps: Bumper[] = [];
-    let tries = 0;
-
-    while (bumps.length < count && tries < count * 50) {
-      tries++;
-
-      const sideX = Math.random() < 0.5 ? leftX : rightX;
-      const x = sideX + (Math.random() - 0.5) * jitterX * 2;
-      const y = yMin + Math.random() * (yMax - yMin);
- 
-      // keep away from each other
-      let ok = true;
-      for (const b of bumps) {
-        if (Math.hypot(x - b.x, y - b.y) < minGap) { ok = false; break; }
-      }
-      // keep away from flipper hinge area a bit
-      if (ok) {
-        const lf = leftFlipper.current, rf = rightFlipper.current;
-        if (Math.hypot(x - lf.cx, y - lf.cy) < 120 || Math.hypot(x - rf.cx, y - rf.cy) < 120) ok = false;
-      }
-
-      if (ok) {
-        const idx = bumps.length % SKILL_LIST.length;
-        bumps.push({ x, y, r, skill: SKILL_LIST[idx], activeUntil: 0 });
-      }
-    }
-
-    bumpersRef.current = bumps;
-
-  };
-
-  // ---------- Controls ----------
   useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
-        leftFlipper.current.target = FLIPPER_ANGLE_ACTIVE;
-      }
-      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
-        rightFlipper.current.target = -FLIPPER_ANGLE_ACTIVE;
-      }
+    const canvas = canvasRef.current!;
+    const ctx = canvas.getContext("2d")!;
+
+    // Build initial world
+    wallsRef.current = buildWalls();
+    flippersRef.current = buildFlippers();
+    bumpersRef.current = buildBumpers();
+
+    // Fullscreen canvas
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
-    const up = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
-        leftFlipper.current.target = FLIPPER_ANGLE_REST;
-      }
-      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
-        rightFlipper.current.target = -FLIPPER_ANGLE_REST;
-      }
-    };
-    window.addEventListener("keydown", down);
-    window.addEventListener("keyup", up);
-    return () => {
-      window.removeEventListener("keydown", down);
-      window.removeEventListener("keyup", up);
-    };
-  }, []);
-
-  // ---------- Bumpers ----------
-  const handleBumperCollision = (b: { x:number;y:number;vx:number;vy:number }, bumper: Bumper) => {
-    const dx = b.x - bumper.x;
-    const dy = b.y - bumper.y;
-    const dist = Math.hypot(dx, dy);
-    if (dist < bumper.r + BALL_RADIUS) {
-      const overlap = bumper.r + BALL_RADIUS - dist;
-      const nx = dx / (dist || 1);
-      const ny = dy / (dist || 1);
-      b.x += nx * overlap;
-      b.y += ny * overlap;
-      const dot = b.vx * nx + b.vy * ny;
-      b.vx -= 2 * dot * nx;
-      b.vy -= 2 * dot * ny;
-      // bumper kick
-      b.vx += nx * 2;
-      b.vy += ny * 2;
-      bumper.activeUntil = performance.now() + 800;
-      setLastHitSkill(bumper.skill);
-    }
-  };
-
-  // ---------- Flipper impulse & simple floor under them ----------
-  const applyFlipperImpulse = (flipper: { cx:number; cy:number; angle:number; target:number }, isLeft:boolean) => {
-    const sin = Math.sin(flipper.angle), cos = Math.cos(flipper.angle);
-
-    // quick hit zone
-    const dx = ball.current.x - flipper.cx;
-    const dy = ball.current.y - flipper.cy;
-    const dist = Math.hypot(dx, dy);
-    const movingTowardActive = isLeft ? flipper.target > flipper.angle : flipper.target < flipper.angle;
-
-    if (dist < FLIPPER_LENGTH + 26 && dy > -30 && dy < 90 && Math.abs(dx) < FLIPPER_LENGTH + 36) {
-      if (movingTowardActive) {
-        const nx = -sin * (isLeft ? 1 : -1);
-        const ny =  cos * (isLeft ? 1 : -1);
-        const strength = 8.0;
-        ball.current.vx += nx * strength;
-        ball.current.vy += ny * strength;
-      }
-    }
-
-    // local "floor" to prevent clipping
-    const floorY = flipper.cy + FLIPPER_THICKNESS;
-    if (ball.current.y > floorY && Math.abs(ball.current.x - flipper.cx) < FLIPPER_LENGTH * 0.9) {
-      ball.current.y = floorY;
-      if (ball.current.vy > 0) ball.current.vy *= -0.25;
-    }
-  };
-
-  // ---------- Loop ----------
-  const resetBall = () => {
-    const { w } = sizeRef.current;
-    ball.current.x = w - (MARGIN + 60);
-    ball.current.y = MARGIN + 60;
-    ball.current.vx = -3;
-    ball.current.vy = 0;
-  };
-
-  const loop = () => {
-    const ctx = canvasRef.current?.getContext("2d");
-    if (!ctx) return;
-    const { w, h } = sizeRef.current;
-
-    // physics
-    ball.current.vy += GRAVITY;
-    ball.current.vx *= FRICTION;
-    ball.current.vy *= FRICTION;
-    ball.current.x += ball.current.vx;
-    ball.current.y += ball.current.vy;
-
-    // collide with side segments (purple)
-    for (const [x1, y1, x2, y2] of sideSegments.current) {
-      collideBallWithSegment(ball.current, x1, y1, x2, y2, BALL_RADIUS);
-    }
-
-    // bumpers
-    const now = performance.now();
-    for (const bumper of bumpersRef.current) {
-      handleBumperCollision(ball.current, bumper);
-      if (bumper.activeUntil < now) {
-        // no-op; draw checks time
-      }
-    }
-
-    // flippers rotate toward targets and apply impulse
-    const lf = leftFlipper.current;
-    const rf = rightFlipper.current;
-    lf.angle += (lf.target - lf.angle) * FLIPPER_SPEED;
-    rf.angle += (rf.target - rf.angle) * FLIPPER_SPEED;
-    applyFlipperImpulse(lf, true);
-    applyFlipperImpulse(rf, false);
-
-    // drain: if ball passes below bottom margin, reset
-    if (ball.current.y > h + 60) resetBall();
-
-    // -------- DRAW --------
-    ctx.clearRect(0, 0, w, h);
-
-    // background
-    const grad = ctx.createLinearGradient(0, 0, 0, h);
-    grad.addColorStop(0, "#0f1c2b");
-    grad.addColorStop(0.6, "#0a1420");
-    grad.addColorStop(1, "#04080e");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
-    // playfield glass border
-    ctx.strokeStyle = "rgba(255,255,255,0.25)";
-    ctx.lineWidth = 8;
-    ctx.beginPath();
-    ctx.roundRect(MARGIN, MARGIN, w - 2*MARGIN, h - 2*MARGIN, 18);
-    ctx.stroke();
-
-    // purple walls (collidable)
-    ctx.strokeStyle = "#7C3AED";
-    ctx.lineWidth = 5;
-    ctx.lineCap = "round";
-    for (const [x1, y1, x2, y2] of sideSegments.current) {
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-    }
-
-
-    // bumpers
-    for (const bumper of bumpersRef.current) {
-      const active = now < bumper.activeUntil;
-      ctx.beginPath();
-      ctx.arc(bumper.x, bumper.y, bumper.r, 0, Math.PI * 2);
-      ctx.fillStyle = active ? "#10B981" : "#374151";
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(bumper.x, bumper.y, bumper.r * 0.55, 0, Math.PI * 2);
-      ctx.fillStyle = active ? "#34D399" : "#1F2937";
-      ctx.fill();
-
-      if (active) {
-        ctx.font = "12px ui-sans-serif, system-ui, -apple-system";
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#E5E7EB";
-        ctx.fillText(bumper.skill, bumper.x, bumper.y - bumper.r - 8);
-      }
-    }
-
-    // draw flippers (green)
-    const drawFlipper = (fl: {cx:number;cy:number;angle:number}, isLeft:boolean) => {
-      ctx.save();
-      ctx.translate(fl.cx, fl.cy);
-      ctx.rotate(fl.angle);
-      ctx.fillStyle = "#22C55E";
-      ctx.fillRect(0, -FLIPPER_THICKNESS/2, (isLeft ? 1 : -1) * FLIPPER_LENGTH, FLIPPER_THICKNESS);
-      ctx.beginPath();
-      ctx.arc(0, 0, 8, 0, Math.PI*2);
-      ctx.fillStyle = "#16A34A";
-      ctx.fill();
-      ctx.restore();
-    };
-    drawFlipper(lf, true);
-    drawFlipper(rf, false);
-
-    // ball
-    ctx.beginPath();
-    ctx.arc(ball.current.x, ball.current.y, BALL_RADIUS, 0, Math.PI * 2);
-    ctx.fillStyle = "#E5E7EB";
-    ctx.fill();
-
-    // HUD
-    if (lastHitSkill) {
-      ctx.font = "14px ui-sans-serif, system-ui, -apple-system";
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#D1D5DB";
-      ctx.fillText(`Last hit: ${lastHitSkill}`, w / 2, 28);
-    }
-
-    animationRef.current = requestAnimationFrame(loop);
-  };
-
-  // ---------- Effects ----------
-  useEffect(() => {
-    layout();
-    animationRef.current = requestAnimationFrame(loop);
-
-    const onResize = () => {
-      layout();
-    };
+    resize();
+    const onResize = () => resize();
     window.addEventListener("resize", onResize);
 
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-      window.removeEventListener("resize", onResize);
+    // Keyboard (we’ll use these in the flipper step)
+    const onKey = (e: KeyboardEvent, down: boolean) => {
+      if (e.code === "ArrowLeft" || e.code === "KeyA") controlsRef.current.left = down;
+      if (e.code === "ArrowRight" || e.code === "KeyL") controlsRef.current.right = down;
+      if (e.code === "ArrowUp") controlsRef.current.nudge = down;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const kd = (e: KeyboardEvent) => onKey(e, true);
+    const ku = (e: KeyboardEvent) => onKey(e, false);
+    window.addEventListener("keydown", kd);
+    window.addEventListener("keyup", ku);
+
+    /* =========================
+            step
+   ========================= */
+    let raf = 0;
+    const step = () => {
+      // --- Physics update (ball + temporary rectangle collisions) ---
+      const b = ballRef.current;
+      b.vel.y += GRAVITY;
+      b.vel.x *= FRICTION; b.vel.y *= FRICTION;
+      b.pos.x += b.vel.x; b.pos.y += b.vel.y;
+      
+      // Update flipper angles before collisions
+      // Update flippers toward target angle based on keys
+      for (const f of flippersRef.current) {
+        const pressed = f.side === "left" ? controlsRef.current.left : controlsRef.current.right;
+        const target = pressed ? f.angleActive : f.angleRest;
+
+        const prev = f.angle;
+        const maxDelta = FLIPPER_MAX_SPEED * DT;           // بیشترین تغییر زاویه در یک فریم
+        const want = target - prev;
+        const delta = Math.max(-maxDelta, Math.min(maxDelta, want));
+        f.angle = prev + delta;
+        f.angVel = (f.angle - prev) / DT;                  // برای ایمپالس ضربه استفاده می‌کنیم
+      }
+
+
+      // Rectangle bounds (we’ll replace with segment walls next step)
+      for (const w of wallsRef.current) {
+        collideBallWithSegment(
+          ballRef.current,
+          w.a.x, w.a.y, w.b.x, w.b.y,
+          ballRef.current.r, // شعاع مؤثر برای دیوار
+          1
+        );
+      }
+      // Flipper collisions (separate loop because we need updated angles)
+      for (const f of flippersRef.current) {
+        const { x1, y1, x2, y2 } = flipperEndpoints(f);
+        const effR = ballRef.current.r + f.thickness * 0.5; // شعاع مؤثر
+        collideBallWithSegment(ballRef.current, x1, y1, x2, y2, effR, 1.4); // کمی پرتابی‌تر
+      }
+      //-----------------------------
+      // ---------- Render ---
+      //-----------------------------
+
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // Scale logical → screen
+      ctx.save();
+      ctx.scale(W / LOGICAL_W, H / LOGICAL_H);
+
+      // Playfield outline
+      ctx.strokeStyle = "#333";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(0, 0, LOGICAL_W, FLOOR_Y);
+
+      // Walls
+      // Scale فعال است (ctx.scale(...))
+      const PLATFORM_HEIGHT = 43;
+      const cx = LOGICAL_W / 2;
+      const leftPlatStart  = cx - DRAIN_GAP / 2 - PLATFORM_LEN;
+      const leftPlatEnd    = cx - DRAIN_GAP;
+      const rightPlatStart = cx + DRAIN_GAP;
+      const rightPlatEnd   = cx + DRAIN_GAP / 2 + PLATFORM_LEN;
+
+
+      ctx.fillStyle = "#d9d9d9";
+
+      // چپ
+      ctx.beginPath();
+      ctx.moveTo(2, RAMP_TOP_Y);
+      ctx.lineTo(leftPlatStart, FLOOR_Y);
+      ctx.lineTo(leftPlatStart, LOGICAL_H);
+      ctx.lineTo(0, LOGICAL_H);
+      ctx.closePath();
+      ctx.fill();
+
+      // راست
+      ctx.beginPath();
+      ctx.moveTo(LOGICAL_W, RAMP_TOP_Y);
+      ctx.lineTo(rightPlatEnd, FLOOR_Y);
+      ctx.lineTo(rightPlatEnd, LOGICAL_H);
+      ctx.lineTo(LOGICAL_W, LOGICAL_H);
+      ctx.closePath();
+      ctx.fill();
+
+      // پایین (خاکستری)
+      ctx.fillRect(leftPlatStart,  FLOOR_Y, leftPlatEnd  - leftPlatStart,  PLATFORM_HEIGHT);
+      ctx.fillRect(rightPlatStart, FLOOR_Y, rightPlatEnd - rightPlatStart, PLATFORM_HEIGHT);
+
+      // Flippers
+      for (const f of flippersRef.current) {
+        const { x1, y1, x2, y2 } = flipperEndpoints(f);
+        ctx.lineCap = "round";
+        ctx.lineWidth = f.thickness;
+        ctx.strokeStyle = "#86efac";
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+      // Ball
+      ctx.beginPath();
+      ctx.arc(b.pos.x, b.pos.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = "#e43a2f";
+      ctx.fill();
+
+      ctx.restore();
+
+      raf = requestAnimationFrame(step);
+    };
+
+    raf = requestAnimationFrame(step);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", kd);
+      window.removeEventListener("keyup", ku);
+    };
   }, []);
 
-  // initial DPR setup
-  useEffect(() => {
-    layout();
-  }, []);
-
+  // Fullscreen canvas (independent of parent)
   return (
-    <div className="w-screen h-screen">
-      <canvas
-        ref={canvasRef}
-        className="block w-full h-full"
-        aria-label="Fullscreen Pinball"
-      />
-      <div className="absolute bottom-2 left-0 right-0 text-center text-xs text-gray-300">
-        Controls: Left/Right arrows (or A/D) to flip.
-      </div>
-    </div>
+    <canvas
+      ref={canvasRef}
+      style={{
+        inset: 1,
+        width: "99vw",
+        height: "99vh",
+        display: "block",
+        zIndex: 0,
+        background: "white",
+      }}
+    />
   );
 }
