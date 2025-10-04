@@ -19,6 +19,10 @@ const BALL_R = 10;
 const GRAVITY = 0.3;     // px / frame^2 (logical units)
 const FRICTION = 0.995;  // velocity damping per frame
 const RESTITUTION = 0.9; // bounciness on walls
+
+// Bumper parameters
+const BUMPER_R = 18;
+const BUMPER_LIGHT_MS = 370;   // چند میلی‌ثانیه روشن بماند
 /* =========================
    Types (Step 2)
    ========================= */
@@ -40,8 +44,9 @@ export type Bumper = {
   pos: Vec2;
   r: number;
   skill: SkillKey;
-  isLit: boolean;
+  isActive: boolean;
   litUntil: number; // ms timestamp
+  isLit: boolean;
 };
 
 export type FlipperSide = "left" | "right";
@@ -106,6 +111,35 @@ function collideBallWithSegment(
       ball.vel.x -= (1 + restitution) * vn * nx;
       ball.vel.y -= (1 + restitution) * vn * ny;
     }
+    return true;
+  }
+  return false;
+}
+
+function collideBallWithBumper(ball: Ball, b: Bumper, restitution = 1.0) {
+  const dx = ball.pos.x - b.pos.x;
+  const dy = ball.pos.y - b.pos.y;
+  const dist = Math.hypot(dx, dy) || 1e-6;
+  const minDist = ball.r + b.r;
+
+  if (dist < minDist) {
+    // جدا کردن
+    const nx = dx / dist, ny = dy / dist;
+    const overlap = minDist - dist;
+    ball.pos.x += nx * overlap;
+    ball.pos.y += ny * overlap;
+
+    // بازتاب سرعت روی نرمال
+    const vn = ball.vel.x * nx + ball.vel.y * ny;
+    if (vn < 0) {
+      ball.vel.x -= (1 + restitution) * vn * nx;
+      ball.vel.y -= (1 + restitution) * vn * ny;
+    }
+
+    // روشن کردن بامپر
+    b.isLit = true;
+    b.isActive = false;
+    b.litUntil = performance.now() + BUMPER_LIGHT_MS;
     return true;
   }
   return false;
@@ -183,10 +217,53 @@ function buildFlippers(): Flipper[] {
 }
 
 
+// گرید: 4 ردیف × 9 ستون
 function buildBumpers(): Bumper[] {
-  // We’ll populate these when we implement bumpers & skills
-  return [];
+  const items: Bumper[] = [];
+
+  // ماسک دقیقا همان که گفتی
+  const MASK: number[][] = [
+    [1,1,0,0,0,0,0,0,1,1], // ردیف 1 (بالا)
+    [1,1,1,0,0,0,0,1,1,1], // ردیف 2
+    [0,1,1,1,0,0,1,1,1,0], // ردیف 3
+    [0,0,1,1,0,0,1,1,0,0], // ردیف 4 (پایین)
+  ];
+
+  const ROWS = MASK.length;
+  const COLS = MASK[0].length;
+
+  // اندازه‌ی گرید: 9 ستون، 4 ردیف
+  // فاصله‌ی مساوی بین ستون‌ها و ردیف‌ها
+  const PAD_X = 40; // فاصله از کناره‌ها
+  const PAD_Y = RAMP_TOP_Y - 100; // شروع بالایی
+
+
+  // مختصات X ستون‌ها
+  const xs = Array.from({ length: COLS }, (_, c) => PAD_X + c * 100);
+
+  // مختصات Y ردیف‌ها
+  const ys = Array.from({ length: ROWS }, (_, r) => PAD_Y + r * 90);
+
+  // ساخت بامپرها طبق ماسک
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      if (!MASK[r][c]) continue;
+      items.push({
+        pos: { x: xs[c], y: ys[r] },
+        r: BUMPER_R,
+        skill: SKILLS[items.length % SKILLS.length],
+        isLit: false,
+        litUntil: 0,
+        isActive: true,
+      });
+    }
+  }
+
+  return items;
 }
+
+
+
 
 /* Compute the visible endpoints of a flipper segment for drawing */
 function flipperEndpoints(f: Flipper) {
@@ -277,6 +354,23 @@ export default function PinballGame() {
           1
         );
       }
+
+      // Bumpers collisions + خاموش/روشن
+      const now = performance.now();
+      for (const bp of bumpersRef.current) {
+        // خاموش شدن پس از زمان روشنایی
+        if (bp.isLit && now > bp.litUntil) {
+          bp.isLit = false;
+          bp.isActive = false;
+        }
+        if (!bp.isActive) (
+          // اگر غیرفعال است، بعد از مدتی دوباره فعال شود
+          bp.isActive = now > bp.litUntil + 500
+        )
+
+        collideBallWithBumper(ballRef.current, bp, 1); // کمی پران‌تر از دیوار
+      }
+
       // Flipper collisions (separate loop because we need updated angles)
       for (const f of flippersRef.current) {
         const { x1, y1, x2, y2 } = flipperEndpoints(f);
@@ -311,7 +405,7 @@ export default function PinballGame() {
 
       ctx.fillStyle = "#d9d9d9";
 
-      // چپ
+      // چپ (شیب)
       ctx.beginPath();
       ctx.moveTo(2, RAMP_TOP_Y);
       ctx.lineTo(leftPlatStart, FLOOR_Y);
@@ -320,7 +414,7 @@ export default function PinballGame() {
       ctx.closePath();
       ctx.fill();
 
-      // راست
+      // راست (شیب)
       ctx.beginPath();
       ctx.moveTo(LOGICAL_W, RAMP_TOP_Y);
       ctx.lineTo(rightPlatEnd, FLOOR_Y);
@@ -343,6 +437,24 @@ export default function PinballGame() {
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.stroke();
+      }
+
+      // Bumpers (با لوگو بعداً)
+      for (const bp of bumpersRef.current) {
+        // glow ساده وقتی روشن است
+        if (bp.isLit) {
+          ctx.beginPath();
+          ctx.arc(bp.pos.x, bp.pos.y, bp.r * 1.6, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(80,120,255,0.25)";
+          ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(bp.pos.x, bp.pos.y, bp.r, 0, Math.PI * 2);
+        ctx.fillStyle = bp.isLit ? "#5b7cff" : "#2f47b9"; // روشن/خاموش
+        ctx.fill();
+
+        // (بعداً لوگو را اینجا می‌گذاریم)
       }
       // Ball
       ctx.beginPath();
