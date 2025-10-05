@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* =========================
    Logical playfield size
@@ -297,10 +297,13 @@ export default function PinballGame() {
   const initializedRef = useRef(false);
 
   function isBallInDrain(b: Ball) {
-    const cx = LOGICAL_W / 2;
-    const inX = Math.abs(b.pos.x - cx) < DRAIN_GAP / 2;   // وسط دهانه
-    const inY = b.pos.y > FLOOR_Y + 12;                   // رد کردن لبه پایین
-    return inX && inY;
+  const margin = 13.5; // حاشیه‌ی کوچک برای اطمینان
+  return (
+    b.pos.y > LOGICAL_H + margin ||  // از پایین خارج شد
+    b.pos.y < -margin ||             // از بالا خارج شد
+    b.pos.x < -margin ||             // از چپ بیرون رفت
+    b.pos.x > LOGICAL_W + margin     // از راست بیرون رفت
+  );
   }
 
   // تشخیص در دید بودن سکشن
@@ -411,8 +414,7 @@ export default function PinballGame() {
 
       if (!drainedRef.current && isBallInDrain(ballRef.current)) {
         drainedRef.current = true;
-        sessionStorage.setItem("fromDrain", "1"); // ⬅️ فلگ برای سکشن بعد
-        window.location.hash = "#contact"; // هدایت به سکشن تماس
+          window.location.hash = "#contact?anim=drain"; // هدایت به سکشن تماس
         return;
       }
       //-----------------------------
