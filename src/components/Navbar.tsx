@@ -19,6 +19,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const sync = () => {
+      const h = (window.location.hash.replace("#", "") || "home") as SectionId;
+      if (SECTIONS.includes(h)) setActive(h);
+    };
+    window.addEventListener("hashchange", sync);
+    // برای بار اول وقتی صفحه رفرش می‌شود:
+    sync();
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+
   return (
     <nav
       className={`h-full flex flex-col items-center py-5 fixed top-0 z-20 ${

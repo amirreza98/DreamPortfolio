@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 /* =========================
    Logical playfield size
@@ -289,21 +289,52 @@ export default function PinballGame() {
   const flippersRef = useRef<Flipper[]>([]);
   const wallsRef = useRef<Wall[]>([]);
   const controlsRef = useRef<Controls>({ left: false, right: false, nudge: false });
+  const drainedRef = useRef(false);
+  // 🔎 برای تشخیص در دید بودن سکشن
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const [inView, setInView] = useState(false);
+  // برای اینکه دنیا (دیوار/فلیپر/بامپر) فقط بارِ اول ساخته شود
+  const initializedRef = useRef(false);
+
+  function isBallInDrain(b: Ball) {
+    const cx = LOGICAL_W / 2;
+    const inX = Math.abs(b.pos.x - cx) < DRAIN_GAP / 2;   // وسط دهانه
+    const inY = b.pos.y > FLOOR_Y + 12;                   // رد کردن لبه پایین
+    return inX && inY;
+  }
+
+  // تشخیص در دید بودن سکشن
+  useEffect(() => {
+    if (!rootRef.current) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.35 } // حداقل ۳۵٪ دیده شود
+    );
+    io.observe(rootRef.current);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
+    if (!inView) return; // فقط وقتی در دید است، افکت را اجرا کن
+
+    // --- Setup (Step 1) ---
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
 
-    // Build initial world
-    wallsRef.current = buildWalls();
-    flippersRef.current = buildFlippers();
-    bumpersRef.current = buildBumpers();
+    // ✅ فقط بارِ اول بساز
+    if (!initializedRef.current) {
+      wallsRef.current = buildWalls();
+      flippersRef.current = buildFlippers();
+      bumpersRef.current = buildBumpers();
+      initializedRef.current = true;
+    }
 
     // Fullscreen canvas
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
+
     resize();
     const onResize = () => resize();
     window.addEventListener("resize", onResize);
@@ -376,6 +407,13 @@ export default function PinballGame() {
         const { x1, y1, x2, y2 } = flipperEndpoints(f);
         const effR = ballRef.current.r + f.thickness * 0.5; // شعاع مؤثر
         collideBallWithSegment(ballRef.current, x1, y1, x2, y2, effR, 1.4); // کمی پرتابی‌تر
+      }
+
+      if (!drainedRef.current && isBallInDrain(ballRef.current)) {
+        drainedRef.current = true;
+        sessionStorage.setItem("fromDrain", "1"); // ⬅️ فلگ برای سکشن بعد
+        window.location.hash = "#contact"; // هدایت به سکشن تماس
+        return;
       }
       //-----------------------------
       // ---------- Render ---
@@ -474,20 +512,22 @@ export default function PinballGame() {
       window.removeEventListener("keydown", kd);
       window.removeEventListener("keyup", ku);
     };
-  }, []);
+  }, [inView]); // فقط وقتی در دید است، افکت را اجرا کن
 
   // Fullscreen canvas (independent of parent)
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        inset: 1,
-        width: "99vw",
-        height: "99vh",
-        display: "block",
-        zIndex: 0,
-        background: "white",
-      }}
-    />
+    <div ref={rootRef} className="w-screen h-screen relative">
+      <canvas
+        ref={canvasRef}
+        style={{
+          inset: 1,
+          width: "99vw",
+          height: "99vh",
+          display: "block",
+          zIndex: 0,
+          background: "white",
+        }}
+      />
+    </div>
   );
 }
