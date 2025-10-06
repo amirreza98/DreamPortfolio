@@ -7,7 +7,7 @@ function Home() {
       <div className="ml-32 ">
         <Introduction />
       </div>
-      <div className="m-10 z-10 h-11/12 w-1/3 hover:scale-110 duration-500  rounded-lg border-2 border-gray-500 p-4"> 
+      <div className="overflow-hidden m-10 z-10 h-11/12 w-1/3 rounded-lg border-2 border-gray-500 p-4"> 
       <Hero />
       </div>
     </div>

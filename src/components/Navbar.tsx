@@ -16,15 +16,14 @@ const SECTION_ICONS: Record<SectionId, React.ElementType> = {
 };
 
 export default function Navbar() {
-  const [active, setActive] = useState<SectionId>("home");
-  const [toggle, setToggle] = useState(false);
+  const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
   // Smooth scroll to section (no offset)
   function smoothScrollTo(id: SectionId) {
     const el = document.getElementById(id);
     if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   useEffect(() => {
@@ -134,19 +133,10 @@ export default function Navbar() {
 
       {/* Mobile: icon grid in a dropdown */}
       <div className="sm:hidden flex flex-1 justify-end items-start mt-4">
-        <button
-          className="ml-3 px-3 py-2 rounded-lg bg-white/10 text-white"
-          onClick={() => setToggle((t) => !t)}
-          aria-label="Toggle menu"
-        >
-          {toggle ? "Close" : "Menu"}
-        </button>
+
 
         <div
-          className={`${
-            !toggle ? "hidden" : "flex"
-          } p-4 absolute top-20 left-2 mx-4 my-2 min-w-[220px] z-30 rounded-xl bg-black/70 backdrop-blur`}
-        >
+          className="flex p-4 absolute top-20 left-2 mx-4 my-2 min-w-[220px] z-30 rounded-xl bg-black/70 backdrop-blur">
           <ul className="list-none grid grid-cols-5 gap-3">
             {SECTION_LIST.map((id) => {
               const Icon = SECTION_ICONS[id];
@@ -163,7 +153,6 @@ export default function Navbar() {
                     `}
                     onClick={(e) => {
                       e.preventDefault();
-                      setToggle(false);
                       setActive(id);
                       window.location.hash = `#${id}`;
                       setTimeout(() => smoothScrollTo(id), 0);
