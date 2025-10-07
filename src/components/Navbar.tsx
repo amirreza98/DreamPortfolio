@@ -83,7 +83,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed left-0 h-full z-20 flex flex-col items-center py-5 
+      className={`relative w-full h-full z-20 flex flex-col items-center py-5 
       ${scrolled ? "bg-black/40 backdrop-blur" : "bg-transparent"}`}
     >
       {/* Logo */}

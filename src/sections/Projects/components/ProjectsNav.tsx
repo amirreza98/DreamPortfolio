@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useGitHubRepos from "./ProjectNav/fetchAllRepos";
+import useGitHubRepos from "./ProjectNav/FetchAllRepos";
 
 export default function ProjectsNav() {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -50,7 +50,20 @@ export default function ProjectsNav() {
                 >
                   <div className="text-sm font-semibold text-white truncate">{repo.name}</div>
                   <div className="text-xs text-gray-300 line-clamp-2">
-                    {repo.description ?? "No description"}
+                    {repo.imgs?.length ? (
+                      <div className="flex gap-2 overflow-x-auto">
+                        {repo.imgs.map((img, i) => (
+                          <img
+                            key={i}
+                            src={img}
+                            alt={`${repo.name} preview ${i + 1}`}
+                            className="w-40 h-28 object-cover rounded-lg"
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-400">No preview available</p>
+                    )}
                   </div>
                 </div>
                 

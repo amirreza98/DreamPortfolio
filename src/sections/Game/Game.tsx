@@ -1,13 +1,43 @@
 import MinimalGame from "./components/MinimalGame/MinimalGame";
 import AnimatedBiograthy from "./components/AnimatedBiograthy/AnimatedBiography";
+import CoolText from "../../components/CoolText";
+import { useState } from "react";
 
 function Game() {
+  const text = "Click Back Home";
+  const [hover, setHover] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+
+
   return (
     <section className="w-screen flex flex-row items-center h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white">
-      <div className="w-1/2 h-1/2 bg-white/30 flex justify-center items-center border-2 border-gray-500 m-10 rounded-lg p-4">
+    
+      {/* return back butten */}
+      <div
+        className="relative to-0 left-0 -mr-40 z-10 h-11/12 w-48 rounded-lg border-2 border-gray-500 p-4 overflow-hidden"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onMouseMove={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          setPos({ x: e.clientX - r.left, y: e.clientY - r.top });
+        }}
+        onClick={() => { window.location.href = "#home"; }}
+      >
+        {hover && (
+          <div
+            className="absolute pointer-events-none text-xs rounded-full px-4 py-1 backdrop-blur-sm border border-gray-500"
+            style={{ left: pos.x, top: pos.y, transform: "translate(1%, 1%)" }}
+          >
+            <CoolText text={text} />
+          </div>
+        )}
+      </div>
+
+      {/* game and animated biograthy */}
+      <div className="w-1/2 h-1/2 bg-white/30 flex justify-center items-center border-2 border-gray-500 m-5 rounded-lg p-4">
         <MinimalGame /> 
       </div>
-      <div className="w-1/2 h-1/2 bg-white/30 flex justify-center items-center border-2 border-gray-500 m-10 rounded-lg p-4 overflow-hidden">
+      <div className="w-1/2 h-1/2 bg-white/30 flex justify-center items-center border-2 border-gray-500 m-5 rounded-lg p-4 overflow-hidden">
         <AnimatedBiograthy />
       </div>  
     </section>
