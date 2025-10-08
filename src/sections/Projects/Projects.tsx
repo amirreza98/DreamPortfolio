@@ -1,12 +1,10 @@
 
-import ProjectsNav from "./components/ProjectsNav.tsx";  
+import ProjectsNav from "./components/ProjectsNavigetor.tsx";  
 
 function Projects() {
   return (
-    <section className="w-screen h-screen snap-start flex ">
-      <div className="flex ">
+    <section className="w-screen h-screen items-center snap-start flex">
         <ProjectsNav />
-      </div>
     </section>
   );
 }

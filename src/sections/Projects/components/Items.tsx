@@ -1,15 +1,14 @@
-import { useState } from "react";
+ 
 import useGitHubRepos from "./FetchAllRepos";
 import SwipeStack from "./SwipeIMGs";
+import { useState } from "react";
 
-export default function ProjectsNav() {
-  const [hovered, setHovered] = useState<number | null>(null);
-  const repos = useGitHubRepos("amirreza98");
+ function Items() {
+      const [hovered, setHovered] = useState<number | null>(null);
+      const repos = useGitHubRepos("amirreza98");
 
-  return (
-    <div className="w-52 flex items-center justify-center bg-amber-950 hover:scale-105 hover:translate-x-4 transition-transform duration-300">
-      <div className="flex h-11/12 w-20 bg-gray-700 p-5 mr-12 justify-center rounded-3xl ">
-        <div className="flex flex-col justify-between rounded-2xl shadow-lg">
+   return (
+           <div className="flex flex-col justify-between my-6">
           {repos.map((repo, i) => {
             // dock scaling: hovered = big, neighbors = medium
             let appearance = "scale-100";
@@ -30,8 +29,8 @@ export default function ProjectsNav() {
                 className={`relative group transition-transform duration-300 ${appearance}`}
               >
                 {/* repo icon circle */}
-                <div className="w-28 h-18 flex relative overflow-visible justify-center">
-                  <div className="w-14 h-14 bg-gray-50/80 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-400">
+                <div className="w-28 bg-amber-100 z-40 h-18 flex relative overflow-visible justify-center">
+                  <div className="w-14 h-14 bg-gray-50/80 z-50 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-400">
                     {repo.name[0]} {/* placeholder for icon */}
                   </div>
                 </div>
@@ -65,7 +64,8 @@ export default function ProjectsNav() {
             );
           })}
         </div>
-      </div>
-    </div>
-  );
-}
+   )
+ }
+ 
+ export default Items
+ 

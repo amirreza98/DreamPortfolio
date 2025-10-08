@@ -12,7 +12,7 @@ function App() {
 
   return (
       <BrowserRouter>
-        <div className="flex flex-row h-screen w-screen overflow-x-clip overflow-y-auto snap-y scroll-smooth snap-mandatory bg-amber-400">
+        <div className="flex flex-row h-screen w-screen overflow-x-clip overflow-y-auto snap-y scroll-smooth snap-mandatory">
 
           {/* Navbar */}
           <div className="sticky h-full w-16 -mr-16 overflow-x-visible z-50 bg-cyan-800/30">
