@@ -1,13 +1,14 @@
 import { useState } from "react";
-import useGitHubRepos from "./ProjectNav/FetchAllRepos";
+import useGitHubRepos from "./FetchAllRepos";
+import SwipeStack from "./SwipeIMGs";
 
 export default function ProjectsNav() {
   const [hovered, setHovered] = useState<number | null>(null);
   const repos = useGitHubRepos("amirreza98");
 
   return (
-    <div className="w-48 flex items-center justify-center hover:scale-105 hover:translate-x-4 transition-transform duration-300">
-      <div className="flex h-11/12 w-20 bg-gray-700 p-5 mr-10 justify-center rounded-3xl ">
+    <div className="w-52 flex items-center justify-center bg-amber-950 hover:scale-105 hover:translate-x-4 transition-transform duration-300">
+      <div className="flex h-11/12 w-20 bg-gray-700 p-5 mr-12 justify-center rounded-3xl ">
         <div className="flex flex-col justify-between rounded-2xl shadow-lg">
           {repos.map((repo, i) => {
             // dock scaling: hovered = big, neighbors = medium
@@ -49,22 +50,15 @@ export default function ProjectsNav() {
                             group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100"
                 >
                   <div className="text-sm font-semibold text-white truncate">{repo.name}</div>
-                  <div className="text-xs text-gray-300 line-clamp-2">
-                    {repo.imgs?.length ? (
-                      <div className="flex gap-2 overflow-x-auto">
-                        {repo.imgs.map((img, i) => (
-                          <img
-                            key={i}
-                            src={img}
-                            alt={`${repo.name} preview ${i + 1}`}
-                            className="w-40 h-28 object-cover rounded-lg"
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-gray-400">No preview available</p>
-                    )}
-                  </div>
+
+                  {repo.preview?.length ? (
+                    <div className="mt-2">
+                      <SwipeStack images={repo.preview} name={repo.name} />
+                    </div>
+                  ) : (
+                    <p className="text-sm text-gray-400">No preview available</p>
+                  )}
+
                 </div>
                 
               </div>

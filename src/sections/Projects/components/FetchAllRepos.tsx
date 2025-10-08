@@ -7,7 +7,7 @@ type Repo = {
   description: string | null;
   language: string | null;
   stargazers_count: number;
-  imgs?: string[];
+  preview?: string[];
 };
 
 export default function useGitHubRepos(username: string) {
@@ -16,34 +16,32 @@ export default function useGitHubRepos(username: string) {
   useEffect(() => {
     async function fetchRepos() {
       try {
-        // 1️⃣ Fetch repos
-        const res = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+        const res = await fetch(`https://api.github.com/users/${username}/repos`);
         const data = await res.json();
 
-        // 2️⃣ For each repo, try to fetch the contents of /preview
         const enriched = await Promise.all(
           data.map(async (repo: any) => {
             try {
               const previewRes = await fetch(
-                `https://api.github.com/repos/${username}/${repo.name}/preview`
+                `https://api.github.com/repos/${username}/${repo.name}/contents/preview`
               );
-              if (!previewRes.ok) return { ...repo, imgs: [] };
+              if (!previewRes.ok) return { ...repo, preview: [] };
 
               const files = await previewRes.json();
-              const imgs = files
+              const preview = files
                 .filter((f: any) => f.name.match(/\.(png|jpg|jpeg|gif)$/i))
-                .map((f: any) =>
-                  f.download_url.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
-                );
+                .map((f: any) => f.download_url);
 
-              return { ...repo, imgs };
+              return { ...repo, preview };
             } catch {
-              return { ...repo, imgs: [] };
+              return { ...repo, preview: [] };
             }
           })
         );
-
-        setRepos(enriched);
+        
+        setRepos(
+          enriched.filter(r => r.preview && r.preview.length > 0)
+        );
       } catch (err) {
         console.error(err);
       }
