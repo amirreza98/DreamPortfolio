@@ -4,57 +4,77 @@ import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 type Props = {
   images: string[];
   name?: string;
-  auto?: boolean;        // enable/disable autoplay
-  intervalMs?: number;   // autoplay interval
+  auto?: boolean;
+  intervalMs?: number;     // delay BETWEEN completed sweeps
   pauseOnHover?: boolean;
+  direction?: 1 | -1 | "alt"; // constant or alternating
+  durationMs?: number;     // sweep animation duration
 };
 
 export default function SwipeStack({
   images,
   name = "repo",
   auto = true,
-  intervalMs = 800, 
+  intervalMs = 1600,       // smoother cadence than 800ms
   pauseOnHover = false,
+  direction = "alt",
+  durationMs = 420,        // ~0.42s feels snappy but smooth
 }: Props) {
   const [queue, setQueue] = useState(images);
   const [paused, setPaused] = useState(false);
 
-  // single motion value for the TOP card
+  // motion values for top card
   const x = useMotionValue(0);
-  const rotate = useTransform(x, [-220, 0, 220], [-15, 0, 15]);
+  const rotate = useTransform(x, [-260, 0, 260], [-15, 0, 15]);
   const opacity = useTransform(x, [-260, 0, 260], [0, 1, 0]);
 
-  const dirRef = useRef<1 | -1>(1); // alternate sweep direction
+  const dirRef = useRef<1 | -1>(1);
+  const alive = useRef(true);
+  const playing = useRef(false);
 
-  const rotateQueue = () => setQueue((q) => (q.length ? [...q.slice(1), q[0]] : q));
+  const rotateQueue = () => setQueue(q => (q.length ? [...q.slice(1), q[0]] : q));
 
-  const flingOut = async (dir: -1 | 1) => {
-    // animate the top card out, then rotate and reset
-    await animate(x, dir * 1, { type: "spring", stiffness: 6, damping: 240 });
+  const sweep = async (dir: -1 | 1) => {
+    if (playing.current) return; // prevent overlap
+    playing.current = true;
+    // tween is smoother/predictable than spring for autoplay
+    await animate(x, dir * 260, { duration: durationMs / 1000, ease: [0.22, 1, 0.36, 1] }); // easeOutCubic-ish
     rotateQueue();
-    x.set(0);
+    x.set(0); // reset instantly for next top card
+    playing.current = false;
   };
 
-  // autoplay
   useEffect(() => {
-    if (!auto || paused || queue.length <= 1) return;
-    const id = setInterval(() => {
-      // alternate direction each tick
-      dirRef.current = dirRef.current === 1 ? -1 : 1;
-      flingOut(dirRef.current);
-    }, intervalMs);
-    return () => clearInterval(id);
-  }, [auto, paused, queue.length, intervalMs]);
+    alive.current = true;
+    (async () => {
+      if (!auto) return;
+      while (alive.current) {
+        if (!paused && queue.length > 1) {
+          // decide direction
+          const dir =
+            direction === "alt"
+              ? (dirRef.current = dirRef.current === 1 ? -1 : 1)
+              : (direction as 1 | -1);
+          await sweep(dir);
+        }
+        // wait AFTER the sweep so interval is gap between completed sweeps
+        await new Promise(r => setTimeout(r, intervalMs));
+      }
+    })();
+    return () => {
+      alive.current = false;
+    };
+  }, [auto, paused, queue.length, intervalMs, direction, durationMs]); // rebind if knobs change
 
   return (
     <div
       className="relative h-40 w-full max-w-md"
       onMouseEnter={() => pauseOnHover && setPaused(true)}
       onMouseLeave={() => pauseOnHover && setPaused(false)}
+      style={{ willChange: "transform" }}
     >
       {queue.slice(0, 5).map((src, i) => {
         const isTop = i === 0;
-
         return (
           <motion.img
             key={src}
@@ -66,20 +86,21 @@ export default function SwipeStack({
               x: isTop ? x : 0,
               rotate: isTop ? rotate : 0,
               opacity: isTop ? opacity : 1,
+              willChange: "transform, opacity",
             }}
             initial={{ y: i * 8, scale: 1 - i * 0.03, opacity: 1 - i * 0.07 }}
-            transition={{ type: "spring", stiffness: 2, damping: 240 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             drag={isTop ? "x" : false}
-            dragElastic={1}
+            dragElastic={0.8}
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={(_, info) => {
-              const t = 120; // px
-              if (info.offset.x > t || info.velocity.x > 80) {
-                flingOut(1);
-              } else if (info.offset.x < -t || info.velocity.x < -80) {
-                flingOut(-1);
+              const t = 120;
+              if (info.offset.x > t || info.velocity.x > 800) {
+                sweep(1);
+              } else if (info.offset.x < -t || info.velocity.x < -800) {
+                sweep(-1);
               } else {
-                animate(x, 0, { type: "spring", stiffness: 3, damping: 250 });
+                animate(x, 0, { duration: 0.28, ease: [0.22, 1, 0.36, 1] });
               }
             }}
           />
