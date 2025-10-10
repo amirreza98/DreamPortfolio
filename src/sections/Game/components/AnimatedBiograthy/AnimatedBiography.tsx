@@ -1,7 +1,16 @@
 import CoolText from "../../../../components/CoolText";
+import { useEffect, useState } from "react";
 
 
 const AnimatedBiography = () => {
+  const [english, setEnglish] = useState(true);
+  const handleClick=()=>{
+    if (english){
+      return setEnglish(false)
+    }
+    return setEnglish(true);
+  };
+
   const text = `Hello, my name is AmirReza Azemati. My journey began in Iran, where I worked with Foolad Zarand and first discovered my fascination with digital twins — the powerful connection between the physical and digital worlds. That experience sparked something in me.<br/>
   Later, I moved to Germany to pursue my master's degree, facing the challenges of studying in a demanding and expensive field. Yet, the more I learned, the stronger my passion grew for building digital models that bring real-world systems to life.<br/>
   Over time, I realized that the web interface is where all these ideas truly come alive — where technology, design, and interaction meet. Today, I'm focused on developing smart, web-based digital twin experiences that connect people to the systems shaping our future.`;
@@ -12,17 +21,15 @@ const AnimatedBiography = () => {
 
 
   return (
-    <div className="flex flex-col h-full justify-between overflow-hidden">
-      <p className="text-2xl text-blue-700 py-1">English:</p>
-      <div className="flex flex-col-reverse min-h-10 max-h-28 overflow-y-hidden">
+    <div className="flex flex-col h-full justify-between overflow-hidden ">
+      <button 
+        onClick={handleClick}
+        className="flex text-xl text-amber-2000 py-1">
+        {english ? '▶Deutsch' : '▶English'}
+      </button>
+      <div className="flex flex-col-reverse min-h-10 max-h-max overflow-y-hidden">
         <div>
-          <CoolText text={text} speed={20} />
-        </div>
-      </div>
-      <p className="text-2xl text-blue-700">Deutesch:</p>
-      <div className="flex flex-col-reverse min-h-10 max-h-28 overflow-y-hidden">
-        <div>
-          <CoolText text={text_de} speed={20} />
+          <CoolText key={english ? "english" : "german"} text={english ? text : text_de} speed={100} />
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ const CoolText: React.FC<CoolTextProps> = ({ text, speed = 100 }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((i) => (i + 1 <= text.length ? i + 1 : i));
+      setIndex((i) => (i + 1) % (text.length + 1));
     }, speed);
     return () => clearInterval(interval);
   }, [text, speed]);
