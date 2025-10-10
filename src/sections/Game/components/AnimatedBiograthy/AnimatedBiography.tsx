@@ -25,7 +25,7 @@ const AnimatedBiography = () => {
       <button 
         onClick={handleClick}
         className="flex text-xl text-amber-2000 py-1">
-        {english ? '▶Deutsch' : '▶English'}
+        {english ? '▶DE' : '▶EN'}
       </button>
       <div className="flex flex-col-reverse min-h-10 max-h-max overflow-y-hidden">
         <div>
