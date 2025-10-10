@@ -10,16 +10,21 @@ const CoolText: React.FC<CoolTextProps> = ({ text, speed = 100 }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((i) => (i + 1) % (text.length + 1));
+      setIndex((i) => (i + 1 <= text.length ? i + 1 : i));
     }, speed);
     return () => clearInterval(interval);
   }, [text, speed]);
 
+  // Slice text progressively and convert <br/> to actual line breaks
+  const visibleText = text.slice(0, index).replace(/<br\s*\/?>/gi, "<br/>");
+
   return (
-    <div className="font-mono">
-      {text.slice(0, index)}
-      <span className="animate-pulse text-cyan-400">|</span>
-    </div>
+    <div
+      className="font-mono"
+      dangerouslySetInnerHTML={{
+        __html: `${visibleText}<span class='animate-pulse text-cyan-400'>|</span>`,
+      }}
+    />
   );
 };
 

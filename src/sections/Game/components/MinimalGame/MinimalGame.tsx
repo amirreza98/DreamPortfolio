@@ -10,7 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 export default function MinimalGame() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [running, setRunning] = useState(false);
-  const [slow, setSlow] = useState(false);
+  const [slow, setSlow] = useState(true);
   const [score, setScore] = useState(0);
   const [best, setBest] = useState<number>(() => Number(localStorage.getItem("dino_best") || 0));
   const [speed, setSpeed] = useState(1);
@@ -24,8 +24,8 @@ export default function MinimalGame() {
   const rafRef = useRef<number | null>(null);
 
   // Dimensions
-  const WIDTH = 800;
-  const HEIGHT = 280;
+  const WIDTH = 850;
+  const HEIGHT = 300;
   const GROUND_Y = HEIGHT - 2;
   const GRAVITY = 0.5;
   const JUMP_VY = -15;
@@ -194,12 +194,12 @@ export default function MinimalGame() {
     ctx.clearRect(0, 0, W, H);
 
     // Sky
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#E1F6FF";
     ctx.fillRect(0, 0, W, H);
 
     // Clouds
     for (const c of cloudsRef.current) {
-      ctx.fillStyle = "#e9eef6";
+      ctx.fillStyle = "#fff";
       roundRect(ctx, c.x, c.y, c.w, c.h, 10, true);
     }
 
@@ -312,7 +312,7 @@ export default function MinimalGame() {
 
   // UI
   return (
-    <div className="p-3">
+    <div>
       <div className="flex items-center justify-between gap-2 mb-2 text-sm text-black">
         <div>
           Press <kbd className="border px-1 rounded">Space</kbd> / <kbd className="border px-1 rounded">↑</kbd> to jump, <kbd className="border px-1 rounded">↓</kbd> to duck, <kbd className="border px-1 rounded">R</kbd> to restart.
@@ -320,9 +320,11 @@ export default function MinimalGame() {
         <div className="flex gap-2">
           <button
             onClick={() => (running ? pauseGame() : startGame())}
-            className="border rounded-xl px-3 py-1 bg-white"
+            className="border rounded-xl px-3 py-1 bg-blue-300"
           >{running ? "⏸️ Pause" : score > 0 ? "▶️ Restart" : "▶️ Start"}</button>
-          <button onClick={() => setSlow((s) => !s)} className="border rounded-xl px-3 py-1 bg-white">🐢 Slow</button>
+          <button onClick={() => setSlow((s) => !s)} className={`border rounded-xl px-3 py-1 ${ slow ? 'bg-amber-200 text-white' : 'bg-green-300 text-black'}`}> 
+            {slow ? 'Slow mode' : 'Fast mode'}
+          </button>
         </div>
       </div>
 
@@ -330,7 +332,7 @@ export default function MinimalGame() {
         ref={canvasRef}
         width={WIDTH}
         height={HEIGHT}
-        className="w-full bg-white rounded-2xl border shadow"
+        className="w-full rounded-2xl border shadow"
       />
 
       <div className="flex items-center justify-between gap-2 mt-2 text-sm text-black">
