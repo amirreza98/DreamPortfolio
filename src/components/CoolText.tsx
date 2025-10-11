@@ -16,7 +16,7 @@ const CoolText: React.FC<CoolTextProps> = ({ text, speed = 100 }) => {
   }, [text, speed]);
 
   // Slice text progressively and convert <br/> to actual line breaks
-  const visibleText = text.slice(0, index).replace(/<br\s*\/?>/gi, "<br/>");
+  const visibleText = text.slice(0, index).replace(/<br\s*\/?>/gi, "<div style='margin-bottom:1rem'></div>");
 
   return (
     <div
