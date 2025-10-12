@@ -27,7 +27,7 @@ function Home() {
         <Hero />
         {hover && (
           <div
-            className="absolute pointer-events-none text-xs rounded-full px-4 py-1 backdrop-blur-sm border border-gray-500"
+            className="absolute text-xs rounded-full px-4 py-1 backdrop-blur-sm border border-gray-500"
             style={{ left: pos.x, top: pos.y, transform: "translate(1%, 1%)" }}
           >
             <CoolText text={text} />

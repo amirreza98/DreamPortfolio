@@ -30,7 +30,7 @@ export default function ProjectsNav() {
           // closer to edge => more squeeze (cap at 10%)
           const intensity = 1 - nearestYEdge / (r.height / 2);
           const clamp = Math.max(0, Math.min(intensity, 1));
-          const scale = 1 - clamp * 0.1;
+          const scale = 1 - clamp * 0.13;
 
           // origin should be the nearest edge
           el.style.transformOrigin = isTop ? "center bottom" : "center top";
