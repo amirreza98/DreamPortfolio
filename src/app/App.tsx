@@ -14,7 +14,7 @@ function App() {
   return (
       <BrowserRouter>
         <BackgroundFX />
-        <div className="flex flex-row h-screen w-screen overflow-x-clip overflow-y-auto snap-y scroll-smooth snap-mandatory">
+        <div className="flex flex-row h-screen w-screen overflow-x-clip overflow-y-scroll snap-y scroll-smooth snap-mandatory">
 
           {/* Navbar */}
           <div className="sticky top-0 shrink-0 w-16 -mr-16 overflow-x-visible z-50">

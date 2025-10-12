@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
+import useLimitedScroll from "./useLimitedScroll";
 
 const SECTIONS = ["home", "game", "projects", "stack", "contact"];
 
 export default function useSectionNav(initial = "home") {
   const [active, setActive] = useState(initial);
+
+  // block scrolling
+  useLimitedScroll(20); 
 
   const scrollTo = useCallback((id: string) => {
     setActive(id);
@@ -28,6 +32,8 @@ export default function useSectionNav(initial = "home") {
     window.addEventListener("hashchange", syncByHash);
     return () => window.removeEventListener("hashchange", syncByHash);
   }, [initial]);
+
+
 
   // برای سازگاری با NavbarUI
   return { active, scrollTo};

@@ -2,10 +2,10 @@ import { House, Gamepad2, FolderGit2, BookUser, Mail } from "lucide-react";
 
 type NavbarUIProps = {
   active: string;
-  setActive: (id: string) => void;
+  scrollTo: (id: string) => void;
 };
 
-export default function NavbarUI({ active, setActive }: NavbarUIProps) {
+export default function NavbarUI({ active, scrollTo }: NavbarUIProps) {
   const icons = {
     home: House,
     game: Gamepad2,
@@ -21,7 +21,7 @@ export default function NavbarUI({ active, setActive }: NavbarUIProps) {
       {Object.entries(icons).map(([id, Icon]) => (
         <button
           key={id}
-          onClick={() => setActive(id)}
+          onClick={() => scrollTo(id)}
           className={`relative p-3 rounded-2xl transition-all duration-300 group
             ${active === id 
               ? "bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-lg scale-110" 
