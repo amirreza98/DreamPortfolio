@@ -9,13 +9,13 @@ function Home() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
   return (
-    <div className="w-screen flex flex-row items-center h-screen bg-gradient-to-b from-black via-gray-900 to-gray-800 text-white">
-      <div className="ml-32">
+    <div className="w-screen flex flex-row items-center h-screen text-white">
+      <div className="ml-32 overflow-visible">
         <Introduction />
       </div>
 
       <div
-        className="relative m-10 z-10 h-11/12 w-1/3 rounded-lg border-2 border-gray-500 p-4 overflow-hidden"
+        className="relative m-10 z-10 h-11/12 w-1/3 rounded-lg p-4"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onMouseMove={(e) => {

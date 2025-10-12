@@ -5,7 +5,7 @@ const SECTIONS = ["home", "game", "projects", "stack", "contact"];
 export default function useSectionNav(initial = "home") {
   const [active, setActive] = useState(initial);
 
-  const goTo = useCallback((id) => {
+  const scrollTo = useCallback((id: string) => {
     setActive(id);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -21,7 +21,7 @@ export default function useSectionNav(initial = "home") {
       if (SECTIONS.includes(id)) {
         setActive(id);
         const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     };
     syncByHash();
@@ -30,5 +30,5 @@ export default function useSectionNav(initial = "home") {
   }, [initial]);
 
   // برای سازگاری با NavbarUI
-  return { active, setActive: goTo, scrollTo: goTo };
+  return { active, scrollTo};
 }

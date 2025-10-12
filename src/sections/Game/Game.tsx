@@ -10,7 +10,7 @@ function Game() {
 
 
   return (
-    <section className="w-screen flex flex-row items-center h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-black text-white">
+    <section className="w-screen flex flex-row items-center h-screen text-white">
     
       {/* return back butten */}
       <div

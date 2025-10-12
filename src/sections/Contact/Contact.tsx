@@ -39,7 +39,7 @@ function Contact() {
 
   return (
     <section
-      className="w-screen h-screen snap-start flex items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white px-6"
+      className="w-screen h-screen snap-start flex items-center justify-center text-white px-6"
     >
       <div className="max-w-6xl w-full grid md:grid-cols-2 gap-8 items-center">
         {/* ستون چپ: فرم */}

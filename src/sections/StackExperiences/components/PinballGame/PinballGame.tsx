@@ -429,9 +429,15 @@ export default function PinballGame() {
       ctx.scale(W / LOGICAL_W, H / LOGICAL_H);
 
       // Playfield outline
-      ctx.strokeStyle = "#333";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(0, 0, LOGICAL_W, FLOOR_Y);
+      ctx.strokeStyle = "#8A3324";
+      ctx.lineWidth = 6;
+      // خط چپ
+      ctx.moveTo(0, 0);
+      ctx.lineTo(0, FLOOR_Y);
+      // خط راست
+      ctx.moveTo(LOGICAL_W, 0);
+      ctx.lineTo(LOGICAL_W, FLOOR_Y);
+      ctx.stroke();
 
       // Walls
       // Scale فعال است (ctx.scale(...))
@@ -443,7 +449,7 @@ export default function PinballGame() {
       const rightPlatEnd   = cx + DRAIN_GAP / 2 + PLATFORM_LEN;
 
 
-      ctx.fillStyle = "#d9d9d9";
+      ctx.fillStyle = "#8A3324";
 
       // چپ (شیب)
       ctx.beginPath();
@@ -527,7 +533,7 @@ export default function PinballGame() {
           height: "99vh",
           display: "block",
           zIndex: 0,
-          background: "white",
+          background: "",
         }}
       />
     </div>
