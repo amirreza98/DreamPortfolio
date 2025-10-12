@@ -1,106 +1,97 @@
-// hooks/useStayHere.ts
+// hooks/useLimitedScroll.ts
 import { useEffect, useRef } from "react";
 
-export default function useLimitedScroll(limit = 20) {
-  const elRef = useRef<HTMLElement | null>(null);
-  const sectionsRef = useRef<HTMLElement[]>([]);
-  const anchorRef = useRef(0);
-  const interactingRef = useRef(false);
-  const endTimer = useRef<number | null>(null);
-  const prevSnapInline = useRef<string>("");
+/**
+ * Kill native scroll (wheel/touch/keys) on the given scroll container
+ * and show a tiny visual nudge (translateY) on #page.
+ */
+export default function useLimitedScroll(nudgePx = 50, containerId = "scrollRoot") {
+  const busyRef = useRef(false);
+  const touchYRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const el = document.getElementById("page");
-    if (!el) return;
-    elRef.current = el;
-    sectionsRef.current = Array.from(el.querySelectorAll("section")) as HTMLElement[];
+    const container = document.getElementById(containerId);
+    const page = document.getElementById("page");
+    if (!container || !page) return;
 
-    // برای جلوگیری از اسکرول والد/صفحه
-    el.style.overscrollBehavior = "contain";
+    // 1) prevent native scrolling on the scroll container
+    // (نه روی body؛ چون اسکرول روی container اتفاق می‌افته)
+    container.style.overscrollBehavior = "contain";
 
-    const nearestAnchor = () => {
-      const t = el.scrollTop;
-      let best = 0, dist = Infinity;
-      for (const s of sectionsRef.current) {
-        const d = Math.abs(s.offsetTop - t);
-        if (d < dist) { dist = d; best = s.offsetTop; }
-      }
-      return best;
+    // 2) prepare transform on #page for the visual nudge
+    const style = page.style;
+    const prevTransform = style.transform;
+    const prevWillChange = style.willChange;
+    const prevTransition = style.transition;
+    style.willChange = "transform";
+
+    const nudge = (dir: 1 | -1) => {
+      if (busyRef.current) return;
+      busyRef.current = true;
+
+      // frame 1: small translate
+      style.transition = "transform 0ms";
+      style.transform = `translateY(${dir * nudgePx}px)`;
+
+      // frame 2: snap back immediately
+      requestAnimationFrame(() => {
+        style.transform = "translateY(0)";
+        requestAnimationFrame(() => { busyRef.current = false; });
+      });
     };
 
-    const disableSnap = () => {
-      prevSnapInline.current = el.style.scrollSnapType; // ذخیرهٔ inline قبلی
-      el.style.scrollSnapType = "none";                 // خاموش کردن قطعی
-    };
-    const enableSnap = () => {
-      el.style.scrollSnapType = prevSnapInline.current || ""; // برگرداندن
-    };
-
-    const beginInteraction = () => {
-      if (interactingRef.current) return;
-      interactingRef.current = true;
-      anchorRef.current = nearestAnchor();
-      disableSnap();
-    };
-
-    const clamp = () => {
-      const a = anchorRef.current;
-      if (el.scrollTop > a + limit) el.scrollTop = a + limit;
-      if (el.scrollTop < a - limit) el.scrollTop = a - limit;
-    };
-
-    const scheduleEnd = () => {
-      if (endTimer.current) window.clearTimeout(endTimer.current);
-      endTimer.current = window.setTimeout(() => {
-        // پایان تعامل: برگرد روی انکر و Snap را روشن کن
-        el.scrollTo({ top: anchorRef.current }); // فوری
-        // فریم بعدی Snap را برگردان تا گیر نیفته
-        requestAnimationFrame(() => {
-          enableSnap();
-          interactingRef.current = false;
-        });
-      }, 90); // وقتی کاربر ورودی نداد ⇒ scroll end
-    };
-
+    // Handlers
     const onWheel = (e: WheelEvent) => {
-      e.preventDefault();   // فلینگ خاموش
-      beginInteraction();
-      // حرکت کاربر انجام میشه، ما فقط محدود می‌کنیم
-      clamp();
-      scheduleEnd();
+      // فقط وقتی رو همین container هستیم رو بگیر
+      if (!container.contains(e.target as Node)) return;
+      e.preventDefault(); // kill real scroll
+      nudge(e.deltaY > 0 ? 1 : -1);
     };
 
-    let touchY = 0;
     const onTouchStart = (e: TouchEvent) => {
-      touchY = e.touches[0]?.clientY ?? 0;
-      beginInteraction();
+      if (!container.contains(e.target as Node)) return;
+      touchYRef.current = e.touches[0]?.clientY ?? null;
     };
+
     const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault();   // فلینگ خاموش
-      // اجازه بده اسکرول طبیعی رخ بده اما بلافاصله clamp کن
-      clamp();
-      scheduleEnd();
+      if (!container.contains(e.target as Node)) return;
+      e.preventDefault(); // kill real scroll/fling
+      const y0 = touchYRef.current;
+      const y = e.touches[0]?.clientY ?? y0;
+      if (y0 == null || y == null) return;
+      const dy = y - y0;
+      if (Math.abs(dy) < 2) return;
+      nudge(dy < 0 ? 1 : -1);
+      touchYRef.current = y; // successive nudges
     };
 
-    const onScroll = () => {
-      if (!interactingRef.current) return;
-      clamp();
-      scheduleEnd();
+    const onKeyDown = (e: KeyboardEvent) => {
+      // اگر فوکوس داخل container نیست، دخالت نکن
+      if (!container.contains(document.activeElement)) return;
+      const keys = new Set(["ArrowDown","ArrowUp","PageDown","PageUp","Space","Home","End"]);
+      if (!keys.has(e.code)) return;
+      e.preventDefault();
+      let dir: 1 | -1 = 1;
+      if (e.code === "ArrowUp" || e.code === "PageUp" || e.code === "Home") dir = -1;
+      if (e.code === "Space" && e.shiftKey) dir = -1;
+      nudge(dir);
     };
 
-    el.addEventListener("wheel", onWheel, { passive: false });
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchmove", onTouchMove, { passive: false });
-    el.addEventListener("scroll", onScroll, { passive: true });
+    // Listeners — روی window ثبت کن اما با contains فیلتر کن
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("keydown", onKeyDown, { passive: false });
 
     return () => {
-      el.removeEventListener("wheel", onWheel);
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
-      el.removeEventListener("scroll", onScroll);
-      if (endTimer.current) window.clearTimeout(endTimer.current);
-      el.style.scrollSnapType = "";
-      el.style.overscrollBehavior = "";
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("keydown", onKeyDown);
+      style.transform = prevTransform;
+      style.willChange = prevWillChange;
+      style.transition = prevTransition;
+      container.style.overscrollBehavior = "";
     };
-  }, [limit]);
+  }, [nudgePx, containerId]);
 }

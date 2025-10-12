@@ -7,6 +7,7 @@ import Projects from "../sections/Projects/Projects";
 import StackExperience from "../sections/StackExperiences/StackExperiences";
 import Contact from "../sections/Contact/Contact";
 import BackgroundFX from "../components/BackgroundFX";
+import HomeFakeScroll from "../components/Navbar/FakeScroll";
 
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
           {/* Main content */}
           <div id="page" className="h-screen w-screen">
               <section id="home" className="h-screen w-screen snap-start">
-                <Home />
+                <HomeFakeScroll max={200}>
+                  <Home />
+                </HomeFakeScroll>
               </section>
             <section id="projects" className="-scroll-mt-20">
               <Projects />

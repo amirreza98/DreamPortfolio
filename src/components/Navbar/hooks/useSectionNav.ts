@@ -6,8 +6,6 @@ const SECTIONS = ["home", "game", "projects", "stack", "contact"];
 export default function useSectionNav(initial = "home") {
   const [active, setActive] = useState(initial);
 
-  // block scrolling
-  useLimitedScroll(20); 
 
   const scrollTo = useCallback((id: string) => {
     setActive(id);
