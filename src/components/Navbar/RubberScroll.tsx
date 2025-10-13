@@ -1,38 +1,35 @@
 // components/RubberScroll.tsx
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { publishKick } from "../../utils/rubberBus";
+
+let RS_COUNTER = 0;
 
 export default function RubberScroll({
   children,
-  max = 200, // بیشینه‌ی جابجایی بصری (px)
+  max = 200,
+  sectionId, // اختیاری: اگر دادی، از همین استفاده می‌شود
 }: {
   children: React.ReactNode;
   max?: number;
+  sectionId?: string;
 }) {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const innerRef = useRef<HTMLDivElement | null>(null);
+  const sectionIdRef = useRef<string>("");
 
-  // حالت‌های دینامیک
-  const yRef = useRef(0);              // موقعیت خام (ممکنه > max هم بشه)
-  const vRef = useRef(0);              // سرعت
+  // --- physics refs (بدون تغییر)
+  const yRef = useRef(0);
+  const vRef = useRef(0);
   const lastTRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
   const touchYRef = useRef<number | null>(null);
+  const maxYRef = useRef(0);
 
-  // پارامترهای فنر (critical damping ≈ برگشت طبیعی بدون نوسان)
-  const M = 1;
-  const K = 90;                        // سفتی
-  const ZETA = 1.0;                    // نسبت دمپینگ (۱ → بحرانی)
-  const C = 2 * Math.sqrt(K * M) * ZETA;
+  const M = 1, K = 90, ZETA = 1.0, C = 2 * Math.sqrt(K * M) * ZETA;
+  const STOP_EPS_Y = 0.8, STOP_EPS_V = 6;
 
-  // شرط توقف (جلوگیری از «گیر کردن» نزدیک صفر)
-  const STOP_EPS_Y = 0.8;              // px
-  const STOP_EPS_V = 6;                // px/s
-
-  // Rubber-band mapping فقط برای رندر (نه فیزیک داخلی)
   function rubber(y: number, limit = max) {
-    const a = 0.55;                    // ضریب مقاومت
-    const s = Math.sign(y);
-    const x = Math.abs(y);
+    const a = 0.55, s = Math.sign(y), x = Math.abs(y);
     return s * ((limit * a * x) / (limit * a + x));
   }
 
@@ -48,22 +45,20 @@ export default function RubberScroll({
   };
 
   const tick = (t: number) => {
-    let y = yRef.current;
-    let v = vRef.current;
-
-    // کپ صحیح برای پایداری (نه 10!)
+    let y = yRef.current, v = vRef.current;
     let dt = 0;
     if (lastTRef.current != null) dt = Math.min((t - lastTRef.current) / 1000, 0.05);
     lastTRef.current = t;
 
-    // a = (-K*y - C*v) / M
     const a = (-K * y - C * v) / M;
     v += a * dt;
     y += v * dt;
 
+    if (Math.abs(y) > maxYRef.current) maxYRef.current = Math.abs(y);
+
     if (Math.abs(y) < STOP_EPS_Y && Math.abs(v) < STOP_EPS_V) {
-      y = 0;
-      v = 0;
+      maxYRef.current = 0;
+      y = 0; v = 0;
       setTransform(0);
       yRef.current = 0;
       vRef.current = 0;
@@ -74,7 +69,6 @@ export default function RubberScroll({
     yRef.current = y;
     vRef.current = v;
     setTransform(y);
-
     rafRef.current = requestAnimationFrame(tick);
   };
 
@@ -82,19 +76,31 @@ export default function RubberScroll({
     if (rafRef.current == null) rafRef.current = requestAnimationFrame(tick);
   };
 
-  // یک «هُل» وارد کن (single-bounce)
   const kick = (delta: number) => {
-    // نزدیک لبه‌ها ورودی را تضعیف کن تا حس کشسانی طبیعی شود
     const crowd = Math.min(1, Math.abs(yRef.current) / max);
-    const dampInput = 1 / (1 + 1.5 * crowd); // 1 → ~0.4
-    // اجازه می‌دهیم y خام تا 3x max برود؛ در رندر با rubber فشرده می‌شود
+    const dampInput = 1 / (1 + 1.5 * crowd);
     const RAW_LIMIT = max * 3;
     const next = Math.max(-RAW_LIMIT, Math.min(RAW_LIMIT, yRef.current + delta * dampInput));
 
     yRef.current = next;
-    vRef.current = 0; // فقط یک برگشت
+    vRef.current = 0;
     ensureTick();
+
+    // → scoped publish
+      publishKick(sectionIdRef.current, next);
+      console.log(sectionIdRef.current, next)
+    
   };
+
+  // 🔎 کشف خودکار sectionId از نزدیک‌ترین والدِ دارای id
+  useLayoutEffect(() => {
+    if (sectionId) {
+      sectionIdRef.current = sectionId;
+      return;
+    }
+    const host = wrapRef.current?.closest<HTMLElement>("[id]");
+    sectionIdRef.current = host?.id || `rubber-${++RS_COUNTER}`;
+  }, [sectionId]);
 
   useEffect(() => {
     const wrap = wrapRef.current!;
@@ -104,7 +110,7 @@ export default function RubberScroll({
     const onWheel = (e: WheelEvent) => {
       e.stopPropagation();
       e.preventDefault();
-      const dir = e.deltaY > 0 ? -1 : 1;   // پایین → محتوا بالا (منفی)
+      const dir = e.deltaY > 0 ? -1 : 1;
       kick(dir * 70);
     };
 
@@ -120,8 +126,8 @@ export default function RubberScroll({
       const y = e.touches[0]?.clientY ?? y0;
       if (y0 == null || y == null) return;
       const dy = y - y0;
-      if (Math.abs(dy) < 2) return;       // حذف نویز
-      const dir = dy < 0 ? -1 : 1;        // کشیدن به بالا → محتوا بالا
+      if (Math.abs(dy) < 2) return;
+      const dir = dy < 0 ? -1 : 1;
       kick(dir * 70);
       touchYRef.current = y;
     };

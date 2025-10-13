@@ -6,10 +6,10 @@ export default function Navbar() {
   const { active, scrollTo } = useSectionNav("home");
   return (
   <>
-    <NavbarUI 
-            active={active}
-            scrollTo={scrollTo}
-          />
+      <NavbarUI 
+              active={active}
+              scrollTo={scrollTo}
+            />
   </>
   );
 }
