@@ -1,6 +1,5 @@
 import useSectionNav from "./hooks/useSectionNav";
 import NavbarUI from "./NavbarUI";
-import FakeScroll from "./FakeScroll";
 
 /** Mount this; it wires logic (hook) to the presentational UI */
 export default function Navbar() {

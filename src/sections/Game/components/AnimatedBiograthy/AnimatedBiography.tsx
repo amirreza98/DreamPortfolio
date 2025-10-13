@@ -17,7 +17,7 @@ const AnimatedBiography = () => {
 
   const text_de = `Hallo, mein Name ist AmirReza Azemati. Meine Reise begann im Iran, wo ich bei Foolad Zarand GmbH. arbeitete und zum ersten Mal meine Faszination für digitale Zwillinge entdeckte – die kraftvolle Verbindung zwischen der physischen und der digitalen Welt. Diese Erfahrung hat in mir etwas entfacht.<br/>
   Später zog ich nach Deutschland, um meinen Masterabschluss zu machen. Es war eine Herausforderung, das Studium mit den hohen Lebenshaltungskosten zu bewältigen. Doch je mehr ich lernte, desto stärker wurde meine Leidenschaft, digitale Modelle zu entwickeln, die reale Systeme zum Leben erwecken.<br/>
-  Mit der Zeit wurde mir klar, dass die Weboberfläche der Ort ist, an dem all diese Ideen wirklich lebendig werden – dort, wo Technologie, Design und Interaktion aufeinandertreffen. Heute konzentriere ich mich darauf, intelligente, webbasierte Digital-Twin-Erlebnisse zu entwickeln, die Endnutzer mit den Systemen verbinden, die unsere Zukunft gestalten.`;
+  Mit der Zeit wurde mir klar, dass die Weboberfläche der Ort ist, an dem all diese Ideen wirklich lebendig werden - dort, wo Technologie, Design und Interaktion aufeinandertreffen. Heute konzentriere ich mich darauf, intelligente, webbasierte Digital-Twin-Erlebnisse zu entwickeln, die Endnutzer mit den Systemen verbinden, die unsere Zukunft gestalten.`;
 
 
   return (

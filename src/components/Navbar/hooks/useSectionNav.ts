@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import useLimitedScroll from "./useLimitedScroll";
+
 
 const SECTIONS = ["home", "game", "projects", "stack", "contact"];
 
