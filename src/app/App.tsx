@@ -47,9 +47,7 @@ function App() {
         </div>
 
         <div id="game" className="h-screen w-screen snap-start">
-          <RubberScroll max={400} sectionId="game">
             <Game />
-          </RubberScroll>
         </div>
       </div>
     </BrowserRouter>

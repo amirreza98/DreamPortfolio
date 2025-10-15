@@ -1,15 +1,17 @@
 import useSectionNav from "./hooks/useSectionNav";
 import NavbarUI from "./NavbarUI";
 
-/** Mount this; it wires logic (hook) to the presentational UI */
+/** Mount this; it wires logic ط(hook) to the presentational UI */
 export default function Navbar() {
-  const { active, scrollTo } = useSectionNav("home");
+  const nav = useSectionNav();
   return (
   <>
-      <NavbarUI 
-              active={active}
-              scrollTo={scrollTo}
-            />
+    <NavbarUI
+      active={nav.active}
+      onSelect={nav.scrollTo}
+      phase={nav.phase}
+      offsetY={nav.offsetY}
+    />
   </>
   );
 }

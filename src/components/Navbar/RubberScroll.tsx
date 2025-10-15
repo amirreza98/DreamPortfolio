@@ -78,18 +78,15 @@ export default function RubberScroll({
 
   const kick = (delta: number) => {
     const crowd = Math.min(1, Math.abs(yRef.current) / max);
-    const dampInput = 1 / (1 + 1.5 * crowd);
-    const RAW_LIMIT = max * 3;
+    const dampInput = 1 / (1 + 1.4 * crowd);
+    const RAW_LIMIT = max * 4;
     const next = Math.max(-RAW_LIMIT, Math.min(RAW_LIMIT, yRef.current + delta * dampInput));
 
+    // → scoped publish
+    publishKick(sectionIdRef.current, next); 
     yRef.current = next;
     vRef.current = 0;
     ensureTick();
-
-    // → scoped publish
-      publishKick(sectionIdRef.current, next);
-      console.log(sectionIdRef.current, next)
-    
   };
 
   // 🔎 کشف خودکار sectionId از نزدیک‌ترین والدِ دارای id

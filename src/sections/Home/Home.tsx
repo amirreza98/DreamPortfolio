@@ -10,7 +10,7 @@ function Home() {
 
   return (
     <div className="w-screen flex flex-row items-center h-screen text-white">
-      <div className="ml-32 overflow-visible">
+      <div className="ml-32 overflow-visible hover:cursor-none transition-all duration-200">
         <Introduction />
       </div>
 
@@ -27,7 +27,7 @@ function Home() {
         <Hero />
         {hover && (
           <div
-            className="absolute text-xs rounded-full px-4 py-1 backdrop-blur-sm border border-gray-500"
+            className="absolute text-xs rounded-full px-4 py-1 backdrop-blur-sm border border-gray-500 "
             style={{ left: pos.x, top: pos.y, transform: "translate(1%, 1%)" }}
           >
             <CoolText text={text} />

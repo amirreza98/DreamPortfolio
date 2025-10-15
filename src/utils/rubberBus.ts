@@ -1,24 +1,25 @@
 // utils/rubberBus.ts
 export const RUBBER_KICK_EVENT = "rubber:kick";
 
-// پخش: فقط سکشن آیدی و مقدار پرتاب
-export function publishKick(sectionId: string, amount: number) {
+/** پخش‌کننده‌ی مقدار جابه‌جایی */
+export function publishKick(sectionId: string, value: number) {
   window.dispatchEvent(
-    new CustomEvent(RUBBER_KICK_EVENT, { detail: { sectionId, amount } })
+    new CustomEvent(RUBBER_KICK_EVENT, { detail: { sectionId, value } })
   );
 }
 
-// گوش‌دادن: فقط همین دو تا مقدار رو تحویل بده
+/** شنونده‌ی مقدار جابه‌جایی */
 export function subscribeKick(
-  handler: (sectionId: string, amount: number) => void
+  handler: (sectionId: string, value: number) => void
 ) {
   const onKick = (e: Event) => {
-    const { sectionId, amount } = (e as CustomEvent).detail as {
+    const { sectionId, value } = (e as CustomEvent).detail as {
       sectionId: string;
-      amount: number;
+      value: number;
     };
-    handler(sectionId, amount);
+    handler(sectionId, value);
   };
+
   window.addEventListener(RUBBER_KICK_EVENT, onKick);
   return () => window.removeEventListener(RUBBER_KICK_EVENT, onKick);
 }

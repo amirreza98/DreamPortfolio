@@ -136,7 +136,7 @@ export default function Hero() {
       {/* لایه‌ی بالا: باینری شفاف + اسپات‌لایت دایره‌ای */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full [image-rendering:pixelated] cursor-crosshair"
+        className="absolute inset-0 w-full h-full [image-rendering:pixelated] cursor-none"
       />
     </div>
   );
