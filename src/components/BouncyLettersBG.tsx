@@ -4,8 +4,8 @@ export default function BouncyLettersBG({ text }: { text: string }) {
   const ref = useRef<HTMLCanvasElement | null>(null);
 
   // ثابت‌ها طبق خواسته‌ی تو
-  const FONT = "35px Inter, system-ui, Segoe UI, Roboto, Arial";
-  const LINE_GAP = 56;        // فاصله‌ی خطوط
+  const FONT = "30px Inter, system-ui, Segoe UI, Roboto, Arial";
+  const LINE_GAP = 48;        // فاصله‌ی خطوط
   const PAD = 80;              // حاشیه‌ی چپ/بالا
   const FRICTION = 0.6;
   const RADIUS = 80, R2 = RADIUS * RADIUS;
