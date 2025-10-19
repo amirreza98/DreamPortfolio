@@ -14,12 +14,12 @@ function App() {
     <BrowserRouter>
       <BackgroundFX />
       <div id="page" className="flex flex-row h-screen w-screen overflow-x-clip overflow-y-scroll snap-y scroll-smooth snap-mandatory">
-        {/* Navbar */}
-        <div className="sticky top-0 shrink-0 w-16 -mr-16 overflow-x-visible z-50">
+        {/* Navbar culmn 1*/}
+        <div className="sticky top-0 shrink-0 w-16 -mr-16 overflow-x-visible z-10">
           <Navbar />
         </div>
 
-        {/* Main content */}
+        {/* Main content culmn 2*/}
         <div className="h-screen w-screen">
           <section id="home" className="h-screen w-screen snap-start">
             <RubberScroll max={400} sectionId="home">
@@ -39,15 +39,18 @@ function App() {
             </RubberScroll>
           </section>
 
-          <section id="contact" className="h-screen w-screen snap-start">
+          <section id="contact" className="h-screen w-screen  snap-start">
             <RubberScroll max={400} sectionId="contact">
               <Contact />
             </RubberScroll>
           </section>
         </div>
 
+        {/* Main content culmn 3*/}
         <div id="game" className="h-screen w-screen snap-start">
+          <RubberScroll max={400} sectionId="game">
             <Game />
+          </RubberScroll>
         </div>
       </div>
     </BrowserRouter>

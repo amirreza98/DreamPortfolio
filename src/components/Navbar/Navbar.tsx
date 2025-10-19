@@ -9,7 +9,6 @@ export default function Navbar() {
     <NavbarUI
       active={nav.active}
       onSelect={nav.scrollTo}
-      phase={nav.phase}
       offsetY={nav.offsetY}
     />
   </>

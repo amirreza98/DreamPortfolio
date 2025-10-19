@@ -3,96 +3,106 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { subscribeKick } from "../../../utils/rubberBus";
 
 type SectionId = "home" | "projects" | "stack" | "contact" | "game";
-type NavPhase  = "idle" | "crash" | "jolt";
-
-const SECTIONS: SectionId[] = ["home", "game", "projects", "stack", "contact"];
+const SECTIONS: SectionId[] = ["home", "projects", "stack", "contact"];
 
 export default function useSectionNav(initial: SectionId = "home") {
   const [active, setActive] = useState<SectionId>(initial);
   const [offsetY, setOffsetY] = useState(0);
-  const [phase, setPhase] = useState<NavPhase>("idle");
 
   const lastValue = useRef(0);
-
-  // تایمر برای ریست کردن offsetY به صفر
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 🔹 تابع برای اسکرول نرم به سکشن جدید
+  // جلوی تریگرهای پیاپی هنگام انیمیشن اسکرول رو می‌گیرد
+  const transitioningRef = useRef(false);
+
+  const THRESHOLD = 350;     // آستانه‌ی پرش به سکشن بعد/قبل
+  const RETURN_MS = 200;     // تاخیر برای صفرکردن offsetY
+  const UNLOCK_MS = 700;     // زمان تقریبی اسکرول نرم تا آزادسازی
+
   const scrollTo = useCallback((id: SectionId) => {
-    setActive(id);
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!el) return;
+
+    transitioningRef.current = true;
+    setActive(id);
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
     window.history.replaceState(null, "", `#${id}`);
+
+    // بعد از تمام‌شدن انیمیشن اسکرول، دوباره اجازه‌ی تریگر بده
+    setTimeout(() => (transitioningRef.current = false), UNLOCK_MS);
   }, []);
 
-  //   // روی load/hashchange با هَش همگام بمان
-  // useEffect(() => {
-  //   const syncByHash = () => {
-  //     const raw = window.location.hash.replace("#", "");
-  //     const id = (raw.split("?")[0] || initial);
-  //     if (SECTIONS.includes(id as SectionId)) {
-  //       setActive(id);
-  //       const el = document.getElementById(id);
-  //       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  //     }
-  //   };
-  //   syncByHash();
-  //   window.addEventListener("hashchange", syncByHash);
-  //   return () => window.removeEventListener("hashchange", syncByHash);
-  // }, [initial]);
-
-  // 🔹 گوش دادن به ایونت‌های RubberScroll
+  // همگام‌سازی اولیه/تغییر هَش
   useEffect(() => {
-    const unsub = subscribeKick((_sectionId, value) => {
-      // اینجا هر بار که یه scroll/kick اتفاق میفته اجرا میشه
-      // value همون "next" از RubberScroll هست
-
-      const rubber = (y: number, limit = 300, a = 0.6) => {
-        const s = Math.sign(y), x = Math.abs(y);
-        return s * ((limit * a * x) / (limit * a + x));
-      };
-
-      // اگر بخوای فقط در سکشن home نوبار حرکت کنه:
-      if (active === "home") {
-        // مقدار رو یه‌کم نرم‌تر کن (اختیاری)
-        const mapped = -rubber(value, 1000, 0.6);
-
-        if (Math.abs(mapped - lastValue.current) >= 10) {
-          lastValue.current = mapped;
-          setOffsetY(mapped);
-          console.log(mapped);
-
-          // بعد از RETURN_MS میلی‌ثانیه، مقدار رو صفر کن
-          if (idleTimer.current) clearTimeout(idleTimer.current);
-          idleTimer.current = setTimeout(() => {
-            setOffsetY(0);
-          }, 200);
-        }
-
+    const syncByHash = () => {
+      const raw = window.location.hash.replace("#", "");
+      const id = (raw.split("?")[0] || initial) as SectionId;
+      if (SECTIONS.includes(id)) {
+        setActive(id);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+    };
+    syncByHash();
+    window.addEventListener("hashchange", syncByHash);
+    return () => window.removeEventListener("hashchange", syncByHash);
+  }, [initial]);
 
-      // اگر مقدار از یه حد بیشتر شد → کرش
-      if (Math.abs(offsetY) >= 350) {
-        setPhase("crash");
-        setTimeout(() => {
-          // وقتی انیمیشن تموم شد، برو سکشن بعدی
-          scrollTo("projects");
-          setPhase("idle");
+  // کمک‌تابع: همسایه‌ی قبلی/بعدی را برگردان
+  const getNeighbor = useCallback(
+    (dir: -1 | 1): SectionId | null => {
+      const idx = SECTIONS.indexOf(active);
+      const nextIdx = idx + dir;
+      if (nextIdx < 0 || nextIdx >= SECTIONS.length) return null;
+      return SECTIONS[nextIdx];
+    },
+    [active]
+  );
+
+  // گوش‌دادن به RubberScroll و پرش خودکار به قبلی/بعدی
+  useEffect(() => {
+    const rubber = (y: number, limit = 1000, a = 0.6) => {
+      const s = Math.sign(y), x = Math.abs(y);
+      return s * ((limit * a * x) / (limit * a + x));
+    };
+
+    const unsub = subscribeKick((_sectionId, value) => {
+      const mapped = -rubber(value); // همون نگاشت تو؛ مثبت=به پایین
+
+      // نرم‌سازی ساده
+      if (Math.abs(mapped - lastValue.current) < 10) return;
+      lastValue.current = mapped;
+      setOffsetY(mapped);
+
+      // ریست offsetY با تاخیر کوتاه
+      if (idleTimer.current) clearTimeout(idleTimer.current);
+      idleTimer.current = setTimeout(() => setOffsetY(0), RETURN_MS);
+
+      if (transitioningRef.current) return; // وسط اسکرول دوباره تریگر نکن
+
+      // اگر از آستانه بگذره، قبلی/بعدی رو محاسبه و اسکرول کن
+      if (mapped > THRESHOLD) {
+        const next = getNeighbor(+1);
+        if (next) {
           setOffsetY(0);
-        }, 700); // باید با مدت انیمیشن تو NavbarUI هماهنگ باشه
-      } else {
-        setPhase("jolt");
+          scrollTo(next);
+        }
+      } else if (mapped < -THRESHOLD) {
+        const prev = getNeighbor(-1);
+        if (prev) {
+          setOffsetY(0);
+          scrollTo(prev);
+        }
       }
     });
 
     return () => unsub();
-  }, [active, scrollTo]);
+  }, [getNeighbor, scrollTo]);
 
-  // ریست وقتی سکشن عوض شد
+  // هر وقت سکشن عوض شد، offsetY صفر
   useEffect(() => {
     setOffsetY(0);
-    setPhase("idle");
   }, [active]);
 
-  return { active, scrollTo, offsetY, phase };
+  return { active, scrollTo, offsetY };
 }
