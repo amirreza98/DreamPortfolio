@@ -1,5 +1,5 @@
 import CoolText from "../../../../components/CoolText";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 const AnimatedBiography = () => {

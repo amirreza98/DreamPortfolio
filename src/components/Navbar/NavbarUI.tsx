@@ -1,6 +1,7 @@
 // NavbarUI.tsx — Minimal (theme-only classes + initial/animate/exit)
 import { memo, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Variants, Transition } from "framer-motion";
 import { House, Gamepad2, FolderGit2, BookUser, Mail } from "lucide-react";
 
 type SectionId = "home" | "projects" | "stack" | "contact" | "game";
@@ -62,27 +63,29 @@ const THEME: Record<SectionId, {
 };
 
 // 1) CONTAINER 
-const CONTAINER = {
+// 1) ثابت ترنزیشن با تایپ درست
+const spring: Transition = { type: "spring", stiffness: 280, damping: 22 };
+// 2) CONTAINER با تایپ Variants (بدون as const)
+const CONTAINER: Variants = {
   initial: { opacity: 0, x: 0, y: -12, scale: 0.98 },
   animate: (c: { offset: number; axis: "x" | "y" }) => {
     const halfScreen = typeof window !== "undefined" ? window.innerWidth / 2 : 0;
-
     return {
       opacity: 1,
       x: c.axis === "x" ? halfScreen + c.offset / 1.5 : 0,
       y: c.axis === "y" ? c.offset / 1.5 : 0,
       scale: 1,
-      transition: { type: "spring", stiffness: 280, damping: 22 },
+      transition: spring, // ✅ الان Transition درست تایپ شده
     };
   },
   exit: { opacity: 0, y: 150, scale: 0.98, transition: { duration: 0.2 } },
-} as const;
+};
 
 // item micro-animations
 const ITEM = {
   initial: (i: number) => ({ opacity: 0, y: 8,  transition: { delay: i * 0.03 } }),
   animate: (i: number) => ({ opacity: 1, y: 0,  transition: { delay: i * 0.03 } }),
-  exit:    (i: number) => ({ opacity: 0, y: -8, transition: { duration: 0.15 } }),
+  exit:    (i: number) => ({ opacity: 0, y: -8, transition: { duration: 0.15, delay: i * 0.03 } }),
 } as const;
 
 function NavbarUI({ active, onSelect, offsetY = 0 }: NavbarUIProps) { // ← offsetY اضافه شد + مقدار پیش‌فرض
