@@ -29,7 +29,7 @@ export default function ProjectsNav() {
     >
       <div
         ref={innerRef}
-        className="flex w-2 relative left-12 overflow-hidden h-1/3 border-4 backdrop-blur-3xl mr-12 justify-center rounded-3xl shadow-2xl will-change-transform shadow-black"
+        className="flex w-2 relative left-12 overflow-hidden h-1/3 border-4 backdrop-blur-3xl shadow-lg shadow-white/70 hover:shadow-none mr-12 justify-center rounded-3xl will-change-transform"
         onMouseMove={(e) => {
           const el = e.currentTarget as HTMLDivElement;
           const r = el.getBoundingClientRect();
