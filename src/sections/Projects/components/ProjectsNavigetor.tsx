@@ -6,17 +6,30 @@ export default function ProjectsNav() {
 
   return (
     <div
-      className="w-52 h-5/6 flex items-center justify-center hover:scale-110 hover:translate-x-4 transition-transform duration-300"
+      className="w-52 h-5/6 flex items-center hover:scale-110 hover:translate-x-4 transition-transform"
       onMouseLeave={() => {
         const el = innerRef.current;
         if (!el) return;
         el.style.transformOrigin = "center";
         el.style.transform = "scaleY(1)";
+        el.style.width="0rem";
+        el.style.overflow="hidden";
+        el.style.height="30%";
+        el.style.transition="width 0.3s ease, overflow 0s ease, height 0.3s ease";
+      }}
+      onMouseEnter={() => {
+        const el = innerRef.current;
+        if (!el) return;
+        el.style.width="4rem";
+        el.style.overflow="visible";
+        el.style.height="100%";
+        el.style.transition="width 0.3s ease, overflow 0s ease, height 0.3s ease";
+        
       }}
     >
       <div
         ref={innerRef}
-        className="flex w-20 h-full bg-gray-700 mr-12 justify-center rounded-3xl shadow-2xl will-change-transform shadow-black"
+        className="flex w-2 relative left-12 overflow-hidden h-1/3 border-4 backdrop-blur-3xl mr-12 justify-center rounded-3xl shadow-2xl will-change-transform shadow-black"
         onMouseMove={(e) => {
           const el = e.currentTarget as HTMLDivElement;
           const r = el.getBoundingClientRect();

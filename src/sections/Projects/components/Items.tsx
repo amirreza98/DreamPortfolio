@@ -1,10 +1,11 @@
 import useRepoPreviewsOneCall from "./FetchAllRepos";
+import useRepoPreviewsOneCallLocali from "./FetchLocali";
 import SwipeStack from "./SwipeIMGs";
 import { useState } from "react";
 
 function Items() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { items, error } = useRepoPreviewsOneCall("amirreza98");
+  const { items, error } = useRepoPreviewsOneCallLocali("amirreza98");
 
   if (error) {
     return (
