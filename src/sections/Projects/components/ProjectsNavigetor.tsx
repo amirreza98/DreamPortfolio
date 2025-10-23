@@ -6,7 +6,7 @@ export default function ProjectsNav() {
 
   return (
     <div
-      className="w-52 h-5/6 flex items-center relative left-2 hover:scale-110 hover:translate-x-4 transition-transform"
+      className="w-52 h-5/6 flex items-center relative left-2 max-sm:left-0 hover:scale-110 max-sm:hover:scale-100 max-sm:hover:-translate-x-2 hover:translate-x-4 transition-transform"
       onMouseLeave={() => {
         const el = innerRef.current;
         if (!el) return;

@@ -50,8 +50,9 @@ function Items() {
           <div
             key={repo.name}
             onMouseEnter={() => setHovered(i)}
+            onTouchStart={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
-            className={`relative flex-1 w-40 ml-12 z-10 group transition-transform duration-300 items-center justify-center ${appearance}`}
+            className={`relative flex-1 w-40 ml-12 z-10 group transition-transform items-center justify-center ${appearance}`}
           >
             {/* آیکن */}
             <div className="w-28 z-40 h-full flex overflow-visible justify-center items-center">
@@ -61,15 +62,19 @@ function Items() {
             </div>
 
             {/* خط */}
-            <span className="pointer-events-none absolute left-16 top-1/2 -translate-y-1/2 h-px w-0 bg-gray-400/70 transition-all duration-700 origin-left group-hover:w-18" />
+            <span className="pointer-events-none absolute left-16 top-1/2 -translate-y-1/2 h-px w-0 bg-gray-400/70 transition-all duration-700 origin-left group-hover:w-18
+                            max-sm:group-hover:w-6
+            " />
 
             {/* کارت نمایش */}
             <div
-              className="absolute flex flex-col justify-center items-start left-20 top-1/2 -translate-y-1/2
+              className="absolute flex flex-col justify-center items-start left-20 max-sm:left-4 max-sm:bg-transparent top-1/2 -translate-y-1/2
                          ml-10 w-64 rounded-xl bg-white/10 backdrop-blur p-3 shadow-lg
-                         opacity-0 translate-x-3 scale-95 transition-all duration-300
+                         opacity-0 translate-x-3 scale-95 transition-all duration-1000
                          group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100
-                         pointer-events-none group-hover:pointer-events-auto group-hover:z-50"
+                         pointer-events-none group-hover:pointer-events-auto group-hover:z-50
+                         max-sm:group-hover:opacity-100 max-sm:group-hover:translate-x-4 max-sm:group-hover:scale-90
+                         max-sm:duration-300"
             >
               <div className="text-white/90 text-base font-semibold" style={{ textShadow: "1px 1px 1px rgba(0,0,0,0.5)" }}>
                 {repo.displayName}
