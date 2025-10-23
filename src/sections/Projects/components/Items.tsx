@@ -1,13 +1,13 @@
 import useRepoPreviewsOneCall from "./FetchAllRepos";
 import { LOCAL_META } from "./localMeta";
-import useRepoPreviewsOneCallLocali from "./FetchLocali";
+// import useRepoPreviewsOneCallLocali from "./FetchLocali";
 import SwipeStack from "./SwipeIMGs";
 import { useState } from "react";
 import { Github, Link2 } from 'lucide-react';
 
 function Items() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { items, error } = useRepoPreviewsOneCallLocali("amirreza98");
+  const { items, error } = useRepoPreviewsOneCall("amirreza98");
 
   if (error) return <div className="text-red-400 text-sm font-mono px-4 py-2">{error}</div>;
   if (!items.length) {
