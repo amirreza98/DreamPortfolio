@@ -280,8 +280,8 @@ export default function PinballGame() {
 
   // --- Core game objects (Step 2: refs for mutation without re-render) ---
   const ballRef = useRef<Ball>({
-    pos: { x: LOGICAL_W - 40, y: 40 },
-    vel: { x: -2, y: 0 },
+    pos: { x: LOGICAL_W -40 , y: 40 },
+    vel: { x: 0, y: 0 },
     r: BALL_R,
   });
 
@@ -528,9 +528,9 @@ export default function PinballGame() {
       <canvas
         ref={canvasRef}
         style={{
-          inset: 1,
-          width: "99vw",
-          height: "99vh",
+          inset:0,
+          width: "100%",
+          height: "100%",
           display: "block",
           zIndex: 0,
           background: "",
