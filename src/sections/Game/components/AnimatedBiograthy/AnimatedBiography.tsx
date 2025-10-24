@@ -21,10 +21,10 @@ const AnimatedBiography = () => {
 
 
   return (
-    <div className="flex flex-col h-full justify-between overflow-hidden ">
+    <div className="flex flex-col min-w-1/2 h-full justify-between overflow-hidden ">
       <button 
         onClick={handleClick}
-        className="flex text-xl text-amber-2000 py-1">
+        className="relative text-xl text-amber-2000 py-1">
         {english ? '▶DE' : '▶EN'}
       </button>
       <div className="flex flex-col-reverse min-h-10 max-h-max overflow-y-hidden text-justify">
