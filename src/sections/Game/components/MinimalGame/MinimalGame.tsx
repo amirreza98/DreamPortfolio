@@ -82,6 +82,114 @@ export default function MinimalGame() {
     };
   }, [running]);
 
+  // Touch / Pointer controls for mobile
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const active = new Set<number>();
+    let startT = 0;
+    let startY = 0;
+    let startX = 0;
+
+    const addOnce = (code: "Space" | "ArrowUp") => {
+      // pulse-like input (یک فریم)
+      keysRef.current.add(code);
+      // در اولین تیکِ رندر بعدی پاک شود تا فقط یک پرش انجام شود
+      requestAnimationFrame(() => keysRef.current.delete(code));
+    };
+
+    const onPointerDown = (e: PointerEvent) => {
+      // جلوگیری از اسکرول/زو‌م
+      if (e.pointerType !== "mouse") e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
+      active.add(e.pointerId);
+
+      const rect = canvas.getBoundingClientRect();
+      const y = e.clientY - rect.top;
+
+      startT = performance.now();
+      startY = e.clientY;
+      startX = e.clientX;
+
+      // اگر بازی ران نیست، با اولین تپ شروع کن
+      if (!running) startGame();
+
+      // اگر پایین صفحه تپ شد و روی زمین هستیم → داک تا وقتی نگه‌داشته
+      if (y > rect.height * 0.6 && dinoRef.current.onGround) {
+        keysRef.current.add("ArrowDown");
+      }
+
+      // دو انگشتی تپ → ری‌استارت
+      if (active.size >= 2) {
+        keysRef.current.delete("ArrowDown");
+        startGame();
+      }
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      // سوایپ رو به پایین (وقتی روی زمینه) → داک
+      const dy = e.clientY - startY;
+      if (dy > 30 && dinoRef.current.onGround) {
+        keysRef.current.add("ArrowDown");
+      }
+    };
+
+    const clearDuck = () => {
+      keysRef.current.delete("ArrowDown");
+    };
+
+    const onPointerUp = (e: PointerEvent) => {
+      canvas.releasePointerCapture(e.pointerId);
+      active.delete(e.pointerId);
+
+      const dt = performance.now() - startT;
+      const dy = e.clientY - startY;
+      const dx = e.clientX - startX;
+
+      // اگر ژست خاصی نبود، داک را آزاد کن
+      clearDuck();
+
+      // سوایپ رو به بالا → پرش
+      if (dy < -40 && Math.abs(dx) < 80) {
+        addOnce("ArrowUp");
+        return;
+      }
+
+      // تپ کوتاه → پرش
+      if (dt < 220 && Math.abs(dy) < 30 && Math.abs(dx) < 40) {
+        addOnce("Space");
+        return;
+      }
+    };
+
+    const onPointerCancel = () => {
+      active.clear();
+      clearDuck();
+    };
+
+    // غیرفعال‌سازی ژست‌های iOS Safari (پینچ/دابل‌تپ)
+    const killGesture = (e: Event) => e.preventDefault();
+
+    canvas.addEventListener("pointerdown", onPointerDown as any, { passive: false });
+    canvas.addEventListener("pointermove", onPointerMove as any, { passive: false });
+    canvas.addEventListener("pointerup", onPointerUp as any, { passive: false });
+    canvas.addEventListener("pointercancel", onPointerCancel as any);
+    canvas.addEventListener("gesturestart", killGesture as any);
+    canvas.addEventListener("gesturechange", killGesture as any);
+    canvas.addEventListener("gestureend", killGesture as any);
+
+    return () => {
+      canvas.removeEventListener("pointerdown", onPointerDown as any);
+      canvas.removeEventListener("pointermove", onPointerMove as any);
+      canvas.removeEventListener("pointerup", onPointerUp as any);
+      canvas.removeEventListener("pointercancel", onPointerCancel as any);
+      canvas.removeEventListener("gesturestart", killGesture as any);
+      canvas.removeEventListener("gesturechange", killGesture as any);
+      canvas.removeEventListener("gestureend", killGesture as any);
+    };
+  }, [running]);
+
   // Main loop
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -328,12 +436,14 @@ export default function MinimalGame() {
         </div>
       </div>
 
-      <canvas
-        ref={canvasRef}
-        width={WIDTH}
-        height={HEIGHT}
-        className="w-full rounded-2xl border shadow"
-      />
+        <canvas
+          ref={canvasRef}
+          width={WIDTH}
+          height={HEIGHT}
+          className="w-full rounded-2xl border shadow select-none"
+          style={{ touchAction: "none", WebkitUserSelect: "none", userSelect: "none" }}
+          onContextMenu={(e) => e.preventDefault()}
+        />
 
       <div className="flex items-center justify-between gap-2 mt-2 text-sm text-black">
         <div>Score: {String(score).padStart(5, "0")} • Best: {String(best).padStart(5, "0")} • Speed: {speed.toFixed(2)}x</div>

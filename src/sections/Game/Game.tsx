@@ -10,11 +10,11 @@ function Game() {
 
 
   return (
-    <section className="w-screen flex flex-row items-center h-screen text-white">
+    <section className="w-screen flex flex-row max-sm:flex-col overflow-clip items-center max-sm:items-start h-screen text-white">
     
       {/* return back butten */}
       <div
-        className="relative to-0 left-0 -mr-40 z-10 h-11/12 w-48 p-4 overflow-visible"
+        className=" absolute top-0 bg-amber-300/10 left-0 -mr-40 max-sm:mr-0  max-sm:w-30 z-10 h-11/12 w-48 p-4 overflow-visible"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onMouseMove={(e) => {
@@ -34,10 +34,10 @@ function Game() {
       </div>
 
       {/* game */}
-      <div className="w-2/3 h-1/2 bg-white/30 flex justify-center items-center border-2 border-gray-500 m-5 rounded-lg">
+      <div className="relative w-2/3 h-2/3 max-sm:top-1/2 max-sm:w-fit bg-white/30 flex justify-center items-center border-2 border-gray-500 m-5 rounded-lg">
         <MinimalGame /> 
       </div>
-      <div className="w-1/3 h-1/2 bg-white/30 flex flex-col border-2 border-gray-500 m-5 rounded-lg p-4 overflow-hidden">
+      <div className="relative w-1/3 h-2/3 max-sm:-top-1/2 max-sm:w-fit bg-white/30 flex flex-col border-2 border-gray-500 m-5 rounded-lg p-4 overflow-hidden">
         <AnimatedBiograthy />
       </div>  
     </section>
