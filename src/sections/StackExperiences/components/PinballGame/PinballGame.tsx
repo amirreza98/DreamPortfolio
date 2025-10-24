@@ -353,6 +353,67 @@ export default function PinballGame() {
     window.addEventListener("keydown", kd);
     window.addEventListener("keyup", ku);
 
+
+    // ---------- Touch / Pointer Controls ----------
+    let leftCount = 0, rightCount = 0;
+    const pointerSide = new Map<number, "left" | "right">();
+
+    const getSide = (clientX: number) => {
+      const r = canvas.getBoundingClientRect();
+      const mid = r.left + r.width / 2;
+      return clientX < mid ? "left" : "right";
+    };
+
+    // برای nudge با سوایپ رو به بالا
+    const touchStarts = new Map<number, { x: number; y: number; t: number }>();
+
+    const onPointerDown = (e: PointerEvent) => {
+      const r = canvas.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) return;
+
+      canvas.setPointerCapture?.(e.pointerId);
+      const side = getSide(e.clientX);
+      pointerSide.set(e.pointerId, side);
+
+      if (side === "left") { leftCount++; controlsRef.current.left = true; }
+      else { rightCount++; controlsRef.current.right = true; }
+
+      touchStarts.set(e.pointerId, { x: e.clientX, y: e.clientY, t: performance.now() });
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      // سوایپ سریع به بالا ⇒ nudge کوتاه
+      const st = touchStarts.get(e.pointerId);
+      if (!st) return;
+      const dy = e.clientY - st.y;
+      const dt = performance.now() - st.t;
+      if (dy < -40 && dt < 200) {
+        controlsRef.current.nudge = true;
+        setTimeout(() => (controlsRef.current.nudge = false), 120);
+        touchStarts.delete(e.pointerId); // یک‌بار مصرف
+      }
+    };
+
+    const onPointerUpOrCancel = (e: PointerEvent) => {
+      const side = pointerSide.get(e.pointerId);
+      if (side === "left") {
+        leftCount = Math.max(0, leftCount - 1);
+        if (leftCount === 0) controlsRef.current.left = false;
+      } else if (side === "right") {
+        rightCount = Math.max(0, rightCount - 1);
+        if (rightCount === 0) controlsRef.current.right = false;
+      }
+      pointerSide.delete(e.pointerId);
+      touchStarts.delete(e.pointerId);
+    };
+
+    canvas.addEventListener("pointerdown", onPointerDown);
+    canvas.addEventListener("pointermove", onPointerMove);
+    canvas.addEventListener("pointerup", onPointerUpOrCancel);
+    canvas.addEventListener("pointercancel", onPointerUpOrCancel);
+    canvas.addEventListener("pointerleave", onPointerUpOrCancel);
+
+
     /* =========================
             step
    ========================= */
@@ -534,6 +595,7 @@ export default function PinballGame() {
           display: "block",
           zIndex: 0,
           background: "",
+          touchAction: "none", // مهم: جلوی اسکرول/زوم لمسی را می‌گیرد
         }}
       />
     </div>
