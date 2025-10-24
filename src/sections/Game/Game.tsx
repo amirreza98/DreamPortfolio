@@ -22,6 +22,7 @@ function Game() {
           setPos({ x: e.clientX - r.left, y: e.clientY - r.top });
         }}
         onClick={() => { window.location.href = "#home"; }}
+        onTouchEnd={() => { window.location.href = "#home"; }}
       >
         {hover && (
           <div
