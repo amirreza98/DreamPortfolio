@@ -66,9 +66,10 @@ export default function useSectionNav(initial: SectionId = "home") {
       return s * ((limit * a * x) / (limit * a + x));
     };
 
+    
     const unsub = subscribeKick((_sectionId, value) => {
       const mapped = -rubber(value); // همون نگاشت تو؛ مثبت=به پایین
-
+      
       // نرم‌سازی ساده
       if (Math.abs(mapped - lastValue.current) < 10) return;
       lastValue.current = mapped;
@@ -79,7 +80,7 @@ export default function useSectionNav(initial: SectionId = "home") {
       idleTimer.current = setTimeout(() => setOffsetY(0), RETURN_MS);
 
       if (transitioningRef.current) return; // وسط اسکرول دوباره تریگر نکن
-
+      console.log("Mapped Y:", mapped);
       // اگر از آستانه بگذره، قبلی/بعدی رو محاسبه و اسکرول کن
       if (mapped > THRESHOLD) {
         const next = getNeighbor(+1);

@@ -20,7 +20,7 @@ export default function BouncyLettersBG({ text }: { text: string }) {
     type L = { ch:string; x:number; y:number; vx:number; vy:number; tx:number; ty:number; w:number };
     let letters: L[] = [];
 
-    let FONT_PX = 24, LINE_GAP = 36, PAD = 40, FRICTION = 0.6, RADIUS = 70, R2 = RADIUS * RADIUS, IMPULSE = 40;
+    let FONT_PX = 24, LINE_GAP = 36, PAD = 40, RADIUS = 70, R2 = RADIUS * RADIUS, IMPULSE = 40;
 
     const setResponsiveParams = () => {
       FONT_PX = Math.max(12, Math.min(36, Math.floor(w * 0.06)));
