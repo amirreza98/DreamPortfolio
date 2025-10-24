@@ -21,7 +21,7 @@ export default function useSectionNav(initial: SectionId = "home") {
       : null;
     const isCoarse = !!mq?.matches;
     const isNarrow = typeof window !== "undefined" ? window.innerWidth < 768 : false;
-    return (isCoarse || isNarrow) ? 300 : 350;
+    return (isCoarse || isNarrow) ? 250 : 350;
   };
 
   const [threshold, setThreshold] = useState<number>(computeThreshold);
