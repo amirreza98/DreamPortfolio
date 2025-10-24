@@ -28,7 +28,6 @@ export default function BouncyLettersBG({ text }: { text: string }) {
       PAD = Math.round(FONT_PX * 1.6);
       RADIUS = Math.max(40, Math.min(100, Math.round(Math.min(w, h) * 0.18)));
       R2 = RADIUS * RADIUS;
-      FRICTION = 0.65;
       IMPULSE = Math.round(30 + FONT_PX * 0.6);
     };
 
