@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, cloneElement } from "react";
+import type { ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { FaReact, FaNode, FaDocker } from "react-icons/fa";
 import { SiJavascript, SiTypescript, SiTailwindcss, SiMongodb, SiJest, SiGithub, SiExpress } from "react-icons/si";
@@ -325,21 +326,21 @@ export default function PinballGame() {
     if (iconImgsRef.current.size) return;
 
     const defs: Array<[string, ReactElement]> = [
-      ["react", <FaReact />],
-      ["node",  <FaNode />],
-      ["docker",<FaDocker />],
-      ["javascript",<SiJavascript />],
-      ["typescript",<SiTypescript />],
-      ["tailwindcss",<SiTailwindcss />],
-      ["mongodb",<SiMongodb />],
-      ["jest", <SiJest />],
-      ["SiExpress", <SiExpress />],
-      ["github", <SiGithub />],
+      ["react", <FaReact size={64} color="#ffffff" />],
+      ["node",  <FaNode size={64} color="#ffffff" />],
+      ["docker",<FaDocker size={64} color="#ffffff" />],
+      ["javascript",<SiJavascript size={64} color="#ffffff" />],
+      ["typescript",<SiTypescript size={64} color="#ffffff" />],
+      ["tailwindcss",<SiTailwindcss size={64} color="#ffffff" />],
+      ["mongodb",<SiMongodb size={64} color="#ffffff" />],
+      ["jest", <SiJest size={64} color="#ffffff" />],
+      ["express", <SiExpress size={64} color="#ffffff" />],
+      ["github", <SiGithub size={64} color="#ffffff" />],
     ];
 
     for (const [key, el] of defs) {
       // اندازه و رنگ SVG خروجی؛ می‌تونی بعداً پارامتریک کنی
-      const svg = renderToStaticMarkup(cloneElement(el, { size: 64, color: "#ffffff" }));
+      const svg = renderToStaticMarkup(cloneElement(el));
       const img = new Image();
       img.src = "data:image/svg+xml;utf8," + encodeURIComponent(svg);
       iconImgsRef.current.set(key, img);
@@ -491,7 +492,7 @@ export default function PinballGame() {
             ballRef.current,
             w.a.x, w.a.y, w.b.x, w.b.y,
             ballRef.current.r,
-            1.1
+            1.2
           )
         ) {
           // ✅ محدود کردن سرعت بعد از برخورد با دیوار
@@ -512,8 +513,13 @@ export default function PinballGame() {
         if (collideBallWithBumper(b, bp, 1.0)) {
           bp.isActive = false;
           bp.isLit = false;
-          bp.iconKey = SKILL_ICON[bp.skill] ?? "beer";
-          bp.deactivatedAt = now; // برای انیمیشن محو/ظهور اختیاری
+          bp.iconKey = SKILL_ICON[bp.skill] ?? "react";
+          bp.deactivatedAt = now;
+
+          // محدود کردن سرعت بعد از برخورد با بامپر
+          const v = clampMag(b.vel.x, b.vel.y, MAX_SPEED_AFTER_HIT);
+          b.vel.x = v.x; 
+          b.vel.y = v.y;
         }
       }
 
@@ -522,7 +528,7 @@ export default function PinballGame() {
         const { x1, y1, x2, y2 } = flipperEndpoints(f);
         const effR = ballRef.current.r + f.thickness * 0.5;
 
-        if (collideBallWithSegment(ballRef.current, x1, y1, x2, y2, effR, 1.8)) {
+        if (collideBallWithSegment(ballRef.current, x1, y1, x2, y2, effR, 2)) {
           // ✅ محدود کردن سرعت بعد از برخورد با فلپر
           const v = clampMag(ballRef.current.vel.x, ballRef.current.vel.y, MAX_SPEED_AFTER_HIT);
           ballRef.current.vel.x = v.x;
