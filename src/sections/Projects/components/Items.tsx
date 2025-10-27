@@ -3,10 +3,11 @@ import { LOCAL_META } from "./localMeta";
 import SwipeStack from "./SwipeIMGs";
 import { useEffect, useState } from "react";
 import { Github, Link2 } from "lucide-react";
+import useRepoPreviewsOneCallLocali from "./FetchLocali";
 
 function Items() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const { items, error } = useRepoPreviewsOneCall("amirreza98");
+  const { items, error } = useRepoPreviewsOneCallLocali("amirreza98");
 
   // لمس/کلیک خارج از کارت → بستن همه
   useEffect(() => {
