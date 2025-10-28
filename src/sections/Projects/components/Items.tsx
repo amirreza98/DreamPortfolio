@@ -1,6 +1,6 @@
 import useRepoPreviewsOneCall from "./FetchAllRepos";
 import { LOCAL_META } from "./localMeta";
-import SwipeStack from "./SwipeIMGs";
+import SimpleAutoScroller from "./SwipeIMGs";
 import { useEffect, useState } from "react";
 import { Github, Link2 } from "lucide-react";
 // import useRepoPreviewsOneCallLocali from "./FetchLocali";
@@ -81,7 +81,7 @@ function Items() {
             tabIndex={0}
             onFocus={() => setHovered(i)}
             onBlur={() => setHovered(null)}
-            className={`relative flex-1 w-40 ml-12 z-10 transition-transform items-center justify-center ${appearance}`}
+            className={`relative flex-1 w-40 max-sm:w-28 ml-12 max-sm:ml-0 z-10 transition-transform items-center justify-center ${appearance}`}
           >
             {/* آیکن */}
             <div className="w-28 z-40 h-full flex overflow-visible justify-center items-center">
@@ -99,80 +99,89 @@ function Items() {
 
             {/* خط اتصال */}
             <span
-              className={`pointer-events-none absolute left-16 top-1/2 -translate-y-1/2 h-px bg-gray-400/70 transition-all duration-700 origin-left
-                ${isOpen ? "w-18 max-sm:w-6" : "w-0"}`}
+              className={`pointer-events-none absolute left-16 top-1/2 -translate-y-1/2 h-px bg-gray-400/70 transition-all duration-700 -z-40 origin-left
+                ${isOpen ? "w-14 max-sm:w-8" : "w-0"}`}
             />
 
-            {/* کارت نمایش */}
+            {/* کارت و اسلایدر (نمایش وقتی باز است) */}
             <div
-              className={`absolute flex flex-col justify-center items-start left-20 top-1/2 -translate-y-1/2
-                          ml-10 w-64 rounded-xl backdrop-blur p-3 shadow-lg transition-all duration-500
+              className={`absolute flex max-sm:flex-col flex-row justify-center items-center left-20 top-16 -translate-y-1/2
+                          ml-10 w-fit h-fit transition-all duration-500
                           ${isOpen
-                            ? "opacity-100 translate-x-0 scale-100 pointer-events-auto z-50 bg-white/10"
-                            : "opacity-0 translate-x-3 scale-95 pointer-events-none bg-white/10"}
-                          max-sm:left-4 max-sm:bg-transparent`}
+                            ? "opacity-100 translate-x-0 scale-100 pointer-events-auto z-50"
+                            : "opacity-0 translate-x-3 scale-95 pointer-events-none"}
+                          max-sm:left-14 max-sm:bg-transparent`}
               // جلوگیری از بسته‌شدن با لمس داخل کارت
               onPointerDown={(e) => e.stopPropagation()}
-            >
-              <div
-                className="text-white/90 text-base font-semibold"
-                style={{ textShadow: "1px 1px 1px rgba(0,0,0,0.5)" }}
-              >
-                {repo.displayName}
-              </div>
-
-              <div className="flex flex-row space-x-2 items-center">
-                <p className="text-[0.5rem] text-white/90">Repo:</p>
-                <a
-                  href={`https://github.com/amirreza98/${repo.name}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-1 w-4 h-6 text-blue-600 hover:text-blue-400 transition-colors"
+            > 
+              {/* کارت نمایش */}
+              <div className="flex flex-col h-max max-sm:items-center  bg-white/10 rounded-xl backdrop-blur p-3 shadow-lg shadow-black/30 max-sm:w-40 max-sm:mb-2">
+                {/* Name */}
+                <div
+                  className="text-white/90 text-base font-semibold"
+                  style={{ textShadow: "1px 1px 1px rgba(0,0,0,0.5)" }}
                 >
-                  <Github size={20} />
-                </a>
-
-                <p className="text-[0.5rem] text-white/90 ml-3">Website:</p>
-                {repo.Link ? (
+                  {repo.displayName}
+                </div>
+                {/* links */}
+                <div className="flex flex-row space-x-2 items-center">
+                  <p className="text-[0.5rem] text-white/90">Repo:</p>
                   <a
-                    href={repo.Link}
+                    href={`https://github.com/amirreza98/${repo.name}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-1 w-4 h-6 text-green-600 hover:text-green-400 transition-colors"
+                    className="mt-1 w-4 h-6 text-blue-600 hover:text-blue-400 transition-colors"
                   >
-                    <Link2 size={20} />
+                    <Github size={20} />
                   </a>
-                ) : (
-                  <span className="relative flex items-center justify-center after:content-['Private'] after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:bg-black/80 after:text-white after:text-[0.5rem] after:p-1 after:rounded-md after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300">
-                    🔒
-                  </span>
+
+                  <p className="text-[0.5rem] text-white/90 ml-3">Website:</p>
+                  {repo.Link ? (
+                    <a
+                      href={repo.Link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-1 w-4 h-6 text-green-600 hover:text-green-400 transition-colors"
+                    >
+                      <Link2 size={20} />
+                    </a>
+                  ) : (
+                    <span className="relative flex items-center justify-center after:content-['Private'] after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:bg-black/80 after:text-white after:text-[0.5rem] after:p-1 after:rounded-md after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300">
+                      🔒
+                    </span>
+                  )}
+                </div>
+
+                {/* خلاصه */}
+                {repo.blurb && (
+                  <p className="text-xs text-gray-300 mt-1 line-clamp-2">
+                    {repo.blurb}
+                  </p>
+                )}
+
+                {/* تگ‌ها */}
+                {!!repo.tags?.length && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {repo.tags.map((t: string) => (
+                      <span
+                        key={t}
+                        className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 )}
               </div>
-
-              {/* خلاصه */}
-              {repo.blurb && (
-                <p className="text-xs text-gray-300 mt-1 line-clamp-2">
-                  {repo.blurb}
-                </p>
-              )}
-
-              {/* تگ‌ها */}
-              {!!repo.tags?.length && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {repo.tags.map((t: string) => (
-                    <span
-                      key={t}
-                      className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              )}
-
+              {/* خط اتصال */}
+              <span
+                className={`pointer-events-none h-px bg-gray-400/70 transition-all duration-700 origin-left
+                            max-sm:rotate-90 max-sm:origin-top max-sm:my-2
+                  ${isOpen ? "w-18 max-sm:w-6" : "w-0"}`}
+              />
               {/* اسلایدر عکس‌ها */}
-              <div className="m-2 w-44 self-center">
-                <SwipeStack images={repo.preview} name={repo.displayName} />
+              <div className="flex min-w-[320px] max-sm:min-w-40 max-sm:h-32 h-56 bg-white/20 items-center justify-center rounded-xl backdrop-blur p-3 shadow-lg shadow-black/30 self-center">
+                <SimpleAutoScroller images={repo.preview}/>
               </div>
             </div>
           </div>
