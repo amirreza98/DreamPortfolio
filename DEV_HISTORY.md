@@ -1,0 +1,367 @@
+# Development History
+
+This file tracks incremental updates, refactors, and experiments over time.
+- refactor: small internal improvement on 2024-01-01
+- chore: maintenance on 2024-01-01
+- docs: clarify implementation on 2024-01-01
+- docs: update notes on 2024-01-02
+- refactor: small internal improvement on 2024-01-02
+- docs: clarify implementation on 2024-01-04
+- refactor: simplify logic on 2024-01-04
+- refactor: small internal improvement on 2024-01-05
+- chore: minor cleanup on 2024-01-05
+- chore: minor cleanup on 2024-01-05
+- docs: update notes on 2024-01-09
+- refactor: simplify logic on 2024-01-09
+- refactor: small internal improvement on 2024-01-09
+- chore: minor cleanup on 2024-01-10
+- docs: clarify implementation on 2024-01-10
+- docs: clarify implementation on 2024-01-12
+- refactor: simplify logic on 2024-01-15
+- refactor: small internal improvement on 2024-01-16
+- refactor: small internal improvement on 2024-01-16
+- refactor: simplify logic on 2024-01-16
+- refactor: simplify logic on 2024-01-17
+- docs: update notes on 2024-01-18
+- refactor: simplify logic on 2024-01-18
+- chore: minor cleanup on 2024-01-18
+- chore: minor cleanup on 2024-01-19
+- refactor: simplify logic on 2024-01-19
+- refactor: simplify logic on 2024-01-22
+- chore: minor cleanup on 2024-01-22
+- chore: maintenance on 2024-01-24
+- refactor: simplify logic on 2024-01-25
+- docs: clarify implementation on 2024-01-25
+- chore: minor cleanup on 2024-01-25
+- refactor: simplify logic on 2024-01-26
+- refactor: small internal improvement on 2024-01-26
+- docs: update notes on 2024-01-26
+- docs: clarify implementation on 2024-01-30
+- docs: clarify implementation on 2024-01-30
+- docs: update notes on 2024-01-30
+- chore: maintenance on 2024-01-31
+- docs: clarify implementation on 2024-02-01
+- refactor: small internal improvement on 2024-02-01
+- refactor: small internal improvement on 2024-02-02
+- chore: maintenance on 2024-02-05
+- docs: clarify implementation on 2024-02-06
+- docs: clarify implementation on 2024-02-07
+- docs: clarify implementation on 2024-02-07
+- chore: maintenance on 2024-02-07
+- refactor: simplify logic on 2024-02-09
+- refactor: small internal improvement on 2024-02-13
+- refactor: simplify logic on 2024-02-13
+- refactor: small internal improvement on 2024-02-15
+- docs: clarify implementation on 2024-02-15
+- docs: clarify implementation on 2024-02-16
+- docs: clarify implementation on 2024-02-19
+- docs: update notes on 2024-02-19
+- refactor: small internal improvement on 2024-02-21
+- chore: minor cleanup on 2024-02-21
+- docs: update notes on 2024-02-21
+- docs: update notes on 2024-02-23
+- refactor: simplify logic on 2024-02-26
+- refactor: simplify logic on 2024-02-26
+- refactor: simplify logic on 2024-02-26
+- docs: clarify implementation on 2024-02-27
+- refactor: small internal improvement on 2024-02-27
+- chore: maintenance on 2024-02-27
+- docs: clarify implementation on 2024-02-28
+- docs: clarify implementation on 2024-02-28
+- refactor: small internal improvement on 2024-02-28
+- refactor: small internal improvement on 2024-02-29
+- docs: clarify implementation on 2024-02-29
+- refactor: small internal improvement on 2024-02-29
+- docs: clarify implementation on 2024-03-01
+- chore: minor cleanup on 2024-03-01
+- refactor: simplify logic on 2024-03-01
+- chore: minor cleanup on 2024-03-04
+- refactor: small internal improvement on 2024-03-04
+- chore: minor cleanup on 2024-03-05
+- docs: clarify implementation on 2024-03-06
+- docs: clarify implementation on 2024-03-07
+- docs: update notes on 2024-03-07
+- refactor: simplify logic on 2024-03-07
+- refactor: small internal improvement on 2024-03-08
+- docs: clarify implementation on 2024-03-14
+- chore: minor cleanup on 2024-03-14
+- refactor: simplify logic on 2024-03-14
+- docs: clarify implementation on 2024-03-15
+- docs: update notes on 2024-03-15
+- refactor: small internal improvement on 2024-03-15
+- chore: maintenance on 2024-03-18
+- docs: update notes on 2024-03-19
+- docs: clarify implementation on 2024-03-19
+- chore: minor cleanup on 2024-03-19
+- refactor: simplify logic on 2024-03-20
+- docs: update notes on 2024-03-20
+- docs: clarify implementation on 2024-03-21
+- refactor: simplify logic on 2024-03-21
+- refactor: small internal improvement on 2024-03-21
+- docs: update notes on 2024-03-22
+- refactor: small internal improvement on 2024-03-25
+- chore: minor cleanup on 2024-03-26
+- chore: maintenance on 2024-03-26
+- chore: minor cleanup on 2024-03-27
+- docs: update notes on 2024-03-28
+- refactor: simplify logic on 2024-03-28
+- chore: minor cleanup on 2024-03-28
+- refactor: simplify logic on 2024-04-01
+- chore: maintenance on 2024-04-01
+- docs: update notes on 2024-04-01
+- chore: maintenance on 2024-04-02
+- chore: maintenance on 2024-04-02
+- docs: clarify implementation on 2024-04-04
+- docs: update notes on 2024-04-05
+- docs: update notes on 2024-04-05
+- refactor: small internal improvement on 2024-04-05
+- docs: clarify implementation on 2024-04-08
+- refactor: small internal improvement on 2024-04-10
+- chore: maintenance on 2024-04-10
+- chore: minor cleanup on 2024-04-10
+- refactor: simplify logic on 2024-04-11
+- docs: update notes on 2024-04-11
+- docs: update notes on 2024-04-12
+- chore: minor cleanup on 2024-04-15
+- docs: clarify implementation on 2024-04-15
+- docs: clarify implementation on 2024-04-16
+- docs: clarify implementation on 2024-04-17
+- docs: update notes on 2024-04-17
+- docs: update notes on 2024-04-18
+- chore: maintenance on 2024-04-18
+- chore: minor cleanup on 2024-04-18
+- refactor: simplify logic on 2024-04-19
+- refactor: small internal improvement on 2024-04-19
+- chore: maintenance on 2024-04-19
+- refactor: simplify logic on 2024-04-22
+- refactor: small internal improvement on 2024-04-22
+- chore: minor cleanup on 2024-04-24
+- refactor: simplify logic on 2024-04-24
+- docs: update notes on 2024-04-24
+- docs: update notes on 2024-04-25
+- refactor: simplify logic on 2024-04-26
+- docs: update notes on 2024-04-26
+- chore: minor cleanup on 2024-04-29
+- chore: minor cleanup on 2024-04-29
+- refactor: simplify logic on 2024-04-30
+- docs: clarify implementation on 2024-04-30
+- refactor: simplify logic on 2024-05-01
+- refactor: simplify logic on 2024-05-02
+- refactor: simplify logic on 2024-05-03
+- chore: maintenance on 2024-05-03
+- docs: clarify implementation on 2024-05-08
+- refactor: small internal improvement on 2024-05-09
+- refactor: simplify logic on 2024-05-09
+- refactor: simplify logic on 2024-05-09
+- refactor: simplify logic on 2024-05-10
+- refactor: small internal improvement on 2024-05-10
+- docs: clarify implementation on 2024-05-13
+- refactor: simplify logic on 2024-05-13
+- docs: update notes on 2024-05-14
+- docs: update notes on 2024-05-15
+- refactor: small internal improvement on 2024-05-16
+- chore: maintenance on 2024-05-17
+- docs: clarify implementation on 2024-05-17
+- chore: minor cleanup on 2024-05-20
+- refactor: simplify logic on 2024-05-21
+- refactor: simplify logic on 2024-05-21
+- docs: clarify implementation on 2024-05-23
+- refactor: simplify logic on 2024-05-27
+- chore: minor cleanup on 2024-05-28
+- docs: clarify implementation on 2024-05-29
+- docs: clarify implementation on 2024-05-29
+- refactor: simplify logic on 2024-05-29
+- docs: update notes on 2024-06-03
+- docs: update notes on 2024-06-05
+- chore: maintenance on 2024-06-05
+- chore: minor cleanup on 2024-06-05
+- docs: update notes on 2024-06-07
+- docs: clarify implementation on 2024-06-10
+- chore: minor cleanup on 2024-06-10
+- refactor: small internal improvement on 2024-06-10
+- chore: minor cleanup on 2024-06-11
+- docs: update notes on 2024-06-11
+- docs: clarify implementation on 2024-06-11
+- chore: minor cleanup on 2024-06-13
+- docs: clarify implementation on 2024-06-13
+- docs: update notes on 2024-06-14
+- docs: clarify implementation on 2024-06-14
+- refactor: simplify logic on 2024-06-17
+- refactor: simplify logic on 2024-06-20
+- refactor: simplify logic on 2024-06-21
+- docs: clarify implementation on 2024-06-24
+- chore: maintenance on 2024-06-25
+- chore: maintenance on 2024-06-25
+- refactor: small internal improvement on 2024-06-26
+- chore: minor cleanup on 2024-06-26
+- refactor: small internal improvement on 2024-06-26
+- chore: maintenance on 2024-06-27
+- docs: clarify implementation on 2024-06-27
+- docs: update notes on 2024-06-27
+- chore: maintenance on 2024-06-28
+- chore: maintenance on 2024-06-28
+- refactor: small internal improvement on 2024-07-01
+- docs: clarify implementation on 2024-07-01
+- docs: update notes on 2024-07-02
+- refactor: simplify logic on 2024-07-03
+- docs: update notes on 2024-07-04
+- refactor: simplify logic on 2024-07-05
+- docs: update notes on 2024-07-05
+- chore: minor cleanup on 2024-07-05
+- refactor: small internal improvement on 2024-07-10
+- refactor: small internal improvement on 2024-07-11
+- docs: update notes on 2024-07-12
+- docs: update notes on 2024-07-15
+- docs: clarify implementation on 2024-07-17
+- chore: maintenance on 2024-07-17
+- docs: clarify implementation on 2024-07-18
+- chore: minor cleanup on 2024-07-18
+- docs: update notes on 2024-07-19
+- docs: update notes on 2024-07-19
+- refactor: small internal improvement on 2024-07-22
+- chore: minor cleanup on 2024-07-23
+- chore: maintenance on 2024-07-23
+- chore: maintenance on 2024-07-23
+- chore: minor cleanup on 2024-07-24
+- docs: clarify implementation on 2024-07-24
+- refactor: simplify logic on 2024-07-25
+- refactor: small internal improvement on 2024-07-30
+- docs: update notes on 2024-08-01
+- refactor: simplify logic on 2024-08-01
+- chore: minor cleanup on 2024-08-01
+- chore: minor cleanup on 2024-08-05
+- docs: update notes on 2024-08-05
+- chore: minor cleanup on 2024-08-05
+- chore: minor cleanup on 2024-08-06
+- chore: minor cleanup on 2024-08-07
+- refactor: simplify logic on 2024-08-09
+- refactor: small internal improvement on 2024-08-12
+- chore: maintenance on 2024-08-12
+- chore: minor cleanup on 2024-08-13
+- docs: update notes on 2024-08-13
+- docs: clarify implementation on 2024-08-13
+- chore: maintenance on 2024-08-15
+- docs: update notes on 2024-08-19
+- refactor: simplify logic on 2024-08-21
+- chore: maintenance on 2024-08-21
+- chore: minor cleanup on 2024-08-22
+- docs: clarify implementation on 2024-08-23
+- chore: minor cleanup on 2024-08-23
+- docs: clarify implementation on 2024-08-23
+- docs: clarify implementation on 2024-08-27
+- docs: update notes on 2024-08-28
+- docs: update notes on 2024-08-28
+- refactor: simplify logic on 2024-08-28
+- chore: maintenance on 2024-08-29
+- refactor: small internal improvement on 2024-08-29
+- chore: minor cleanup on 2024-08-29
+- refactor: small internal improvement on 2025-01-03
+- docs: clarify implementation on 2025-01-03
+- docs: clarify implementation on 2025-01-03
+- docs: clarify implementation on 2025-01-08
+- chore: maintenance on 2025-01-08
+- chore: minor cleanup on 2025-01-08
+- refactor: small internal improvement on 2025-01-09
+- refactor: simplify logic on 2025-01-09
+- refactor: simplify logic on 2025-01-09
+- chore: maintenance on 2025-01-10
+- chore: maintenance on 2025-01-14
+- chore: minor cleanup on 2025-01-14
+- chore: maintenance on 2025-01-15
+- docs: clarify implementation on 2025-01-16
+- refactor: simplify logic on 2025-01-16
+- refactor: simplify logic on 2025-01-16
+- refactor: small internal improvement on 2025-01-17
+- docs: clarify implementation on 2025-01-17
+- docs: update notes on 2025-01-20
+- docs: update notes on 2025-01-20
+- refactor: small internal improvement on 2025-01-21
+- docs: clarify implementation on 2025-01-21
+- docs: clarify implementation on 2025-01-22
+- docs: clarify implementation on 2025-01-23
+- chore: maintenance on 2025-01-23
+- docs: update notes on 2025-01-24
+- refactor: simplify logic on 2025-01-24
+- chore: maintenance on 2025-01-27
+- refactor: simplify logic on 2025-01-27
+- chore: maintenance on 2025-01-27
+- docs: clarify implementation on 2025-01-28
+- refactor: small internal improvement on 2025-01-28
+- chore: minor cleanup on 2025-01-29
+- chore: maintenance on 2025-01-29
+- docs: clarify implementation on 2025-01-30
+- docs: clarify implementation on 2025-01-31
+- refactor: small internal improvement on 2025-01-31
+- refactor: simplify logic on 2025-02-03
+- chore: minor cleanup on 2025-02-03
+- docs: clarify implementation on 2025-02-05
+- chore: maintenance on 2025-02-05
+- chore: maintenance on 2025-02-05
+- chore: minor cleanup on 2025-02-13
+- docs: clarify implementation on 2025-02-13
+- docs: update notes on 2025-02-17
+- refactor: simplify logic on 2025-02-17
+- refactor: simplify logic on 2025-02-20
+- chore: minor cleanup on 2025-02-20
+- refactor: simplify logic on 2025-02-21
+- chore: maintenance on 2025-02-21
+- refactor: small internal improvement on 2025-02-21
+- refactor: small internal improvement on 2025-02-24
+- docs: update notes on 2025-02-24
+- refactor: small internal improvement on 2025-02-24
+- docs: clarify implementation on 2025-02-25
+- chore: minor cleanup on 2025-02-26
+- refactor: small internal improvement on 2025-02-26
+- docs: clarify implementation on 2025-02-26
+- chore: maintenance on 2025-02-27
+- docs: clarify implementation on 2025-02-27
+- docs: update notes on 2025-02-28
+- docs: update notes on 2025-02-28
+- refactor: simplify logic on 2025-03-03
+- chore: maintenance on 2025-03-03
+- docs: update notes on 2025-03-04
+- refactor: small internal improvement on 2025-03-04
+- docs: update notes on 2025-03-04
+- chore: minor cleanup on 2025-03-05
+- docs: update notes on 2025-03-05
+- docs: clarify implementation on 2025-03-06
+- chore: minor cleanup on 2025-03-10
+- refactor: simplify logic on 2025-03-11
+- chore: maintenance on 2025-03-11
+- refactor: small internal improvement on 2025-03-11
+- refactor: small internal improvement on 2025-03-12
+- docs: clarify implementation on 2025-03-12
+- docs: clarify implementation on 2025-03-14
+- chore: maintenance on 2025-03-14
+- docs: update notes on 2025-03-14
+- docs: update notes on 2025-03-18
+- refactor: small internal improvement on 2025-03-18
+- docs: clarify implementation on 2025-03-19
+- chore: maintenance on 2025-03-19
+- chore: maintenance on 2025-03-19
+- refactor: small internal improvement on 2025-03-20
+- chore: minor cleanup on 2025-03-28
+- docs: update notes on 2025-03-31
+- chore: minor cleanup on 2025-04-01
+- docs: update notes on 2025-04-02
+- docs: update notes on 2025-04-02
+- docs: update notes on 2025-04-02
+- refactor: small internal improvement on 2025-04-03
+- docs: update notes on 2025-04-03
+- chore: maintenance on 2025-04-03
+- docs: update notes on 2025-04-04
+- docs: clarify implementation on 2025-04-08
+- docs: update notes on 2025-04-08
+- docs: clarify implementation on 2025-04-09
+- refactor: small internal improvement on 2025-04-09
+- docs: clarify implementation on 2025-04-14
+- chore: minor cleanup on 2025-04-18
+- docs: update notes on 2025-04-21
+- chore: minor cleanup on 2025-04-21
+- docs: update notes on 2025-04-22
+- docs: clarify implementation on 2025-04-24
+- refactor: small internal improvement on 2025-04-28
+- refactor: small internal improvement on 2025-04-28
+- refactor: small internal improvement on 2025-04-28
+- chore: minor cleanup on 2025-04-29
+- docs: clarify implementation on 2025-04-29
